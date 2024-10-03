@@ -1,30 +1,67 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <side-bar-toggle />
+  <div class="main-page flex-1">
+    <side-bar />
+    <section class="right-page bg-surface-1">
+      <div>
+        <nav-bar />
+        <button :class="{'is-active' : currentTheme === 'dark-theme' }" @click="$store.commit('setTheme', 'dark-theme')">dark</button>
+        <button :class="{'is-active' : currentTheme === 'light-theme' }" @click="$store.commit('setTheme', 'light-theme')">light</button>
+        <button :class="{'is-active' : currentTheme === 'device-theme' }" @click="$store.commit('setDeviceTheme')">Device</button>
+        <router-view/>
+      </div>
+    </section>
+  </div>
 </template>
+<script>
+
+import NavBar from '@/components/NavBar'
+import SideBarToggle from './components/SideBarToggle.vue'
+import SideBar from './components/SideBar.vue'
+import { mapState } from 'vuex'
+export default {
+  components: { NavBar, SideBarToggle, SideBar },
+  name: 'AppView',
+  computed: {
+    ...mapState({
+      currentTheme: (state) => state.currentTheme
+    })
+  },
+  created() {
+    this.$store.commit('setInitialTheme')
+    this.$store.commit('computeWindow')
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemeChange);
+    // localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser', localStorage.getItem('auth')) : ''
+    window.addEventListener('resize', this.windowSize)
+  },
+  methods: {
+    windowSize() {
+      setTimeout(()=> {
+        this.$store.commit('computeWindow')
+      }, 100)
+    },
+    handleThemeChange(e) {
+      this.$store.commit('handleThemeChange', e.matches)
+    }
+  },
+  beforeUnmount() {
+    document.removeEventListener('resize', this.windowSize);
+  }
+}
+</script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import '@/assets/styles/index.scss';
+.main-page {
+  display: flex;
 }
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.right-page {
+  flex: 1;
+  height: 100dvh;
+  overflow-y: auto;
+}
+.is-active {
+  background-color: #06d40d;
+  color: #fff;
 }
 </style>

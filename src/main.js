@@ -1,7 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
-import store from './store'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import 'process/browser';
+import { Buffer } from 'buffer';
 
-createApp(App).use(store).use(router).mount('#app')
+window.Buffer = Buffer;
+
+createApp(App).use(store).use(router).mount('#app');
