@@ -31,7 +31,7 @@ main {
   overflow-y: hidden;
 }
 
-input:not([type=checkbox],[type=radio]), select, textarea {
+input:not([type=checkbox],[type=radio]), select, textarea, .div-textarea {
   appearance: none;
   outline: 0;
   font-family: inherit;
@@ -56,9 +56,9 @@ button{
   font-size: 1rem;
   cursor: pointer;
   border-radius: 32px;
-  transition: 0.2s ease background-color;
+  transition: var(--transition-time) background-color;
   path {
-    transition: 0.2s ease;
+    transition: var(--transition-time) all;
   }
 }
 button:not(:disabled) {
@@ -122,6 +122,7 @@ button:not(:disabled) {
   justify-content: flex-end;
   div {
     background-color: var( --main-background-3);
+    transition: var(--transition-time) background-color;
     border-radius: 16px 16px 0 16px;
     max-width: 70%;
     p {
@@ -237,16 +238,17 @@ h1, h2, h3, h4, h5 {
     border-radius: 16px;
     overflow-x: auto;
     display: block;
-
-    &:has(.language-html) {
-      background-color: #4b64f1;
-    }
-    &:has(.language-css) {
-      background-color: #436762;
-    }
-    &:has(.language-javascript) {
-      background-color: #d75858;
-    }
+    background-color: var(--main-background-2);
+    transition: var(--transition-time) background-color;
+    // &:has(.language-html) {
+    //   background-color: #4b64f1;
+    // }
+    // &:has(.language-css) {
+    //   background-color: #436762;
+    // }
+    // &:has(.language-javascript) {
+    //   background-color: #d75858;
+    // }
   }
   code {
     font-family: 'Courier New', Courier, monospace;

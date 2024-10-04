@@ -1,7 +1,12 @@
 <template>
     <div class="chat-container bg-surface-2">
         <form  @submit.prevent="" action="" class="flex ai-fe">
-            <textarea @keydown.enter="submitPrompt" v-model="prompt" name="" class="me" id="" placeholder="Enter a prompt here"></textarea>
+            <div class="flex-1">
+                <textarea @keydown.enter="submitPrompt" v-model="prompt" name="" id="" placeholder="Enter a prompt here"></textarea>
+                <!-- <div class="div-textarea" role="textbox" contenteditable>
+                    <p :class="{'placeholder': !computedInput}"></p>
+                </div> -->
+            </div>
             <div class="flex gap-8">
                 <button>
                     <svg xmlns="http://www.w3.org/2000/svg" height="17" viewBox="0 0 32.932 29.782">
@@ -59,9 +64,22 @@ textarea {
     width: 100%;
     background-color: inherit;
     border: none;
-    padding:  0px 16px .5rem 12px;
+    padding:  0 16px 0 12px;
     max-height: 200px;
     font-size: 1.1rem;
+}
+.div-textarea {
+    padding:  0 16px 0 12px;
+    border: none;
+    p {
+        margin: 0;
+    }
+
+    p.placeholder {
+        &::before {
+            content: 'Enter a prompt here';
+        }
+    }
 }
 .chat-container {
     padding: 8px 8px;

@@ -3,9 +3,9 @@
         <div class="chat-wrapper flex-1">
             <div ref="chatContainer" class="chat-body">
                 <span v-if="error">{{ error }}</span>
-                <div v-for="(chat, index) in formattedResult" :key="index">
+                <!-- <div v-for="(chat, index) in formattedResult" :key="index">
                     <div v-html="formatChat(chat)"></div>
-                </div>
+                </div> -->
             </div>
             <div class="chat-footer bg-surface-1 sticky sticky-bottom">
                 <chat-input @submit-prompt="submitPrompt" />
@@ -143,7 +143,7 @@ h2 {
 
 }
 .chat-body {
-    min-height: 100dvh;
+    min-height: calc(100dvh - 162px);
     padding: 40px 0;
 }
 .jc-c {
