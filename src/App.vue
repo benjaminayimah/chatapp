@@ -4,11 +4,11 @@
     <side-bar />
     <section class="right-page bg-surface-1">
       <div class="h-100">
-        <!-- <div class="fixed sticky-top show">
+        <div class="fixed sticky-top show">
             <button :class="{'is-active' : currentTheme === 'dark-theme' }" @click="$store.commit('setTheme', 'dark-theme')">dark</button>
           <button :class="{'is-active' : currentTheme === 'light-theme' }" @click="$store.commit('setTheme', 'light-theme')">light</button>
           <button :class="{'is-active' : currentTheme === 'device-theme' }" @click="$store.commit('setDeviceTheme')">Device</button>
-        </div> -->
+        </div>
         <nav-bar />
         <router-view/>
       </div>
