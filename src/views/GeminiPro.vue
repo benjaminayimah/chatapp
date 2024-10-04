@@ -1,19 +1,14 @@
 <template>
-    <div class="flex flex-1 jc-c">
+    <div ref="chatContainer" class="flex flex-1 jc-c overflow-y-scroll">
         <div class="chat-wrapper flex-1">
-            <!-- <div>
-                <button @click.prevent="feelingLucky">Feeling lucky</button>
-                <input v-model="prompt" name="question-input" type="text" placeholder="Ask me anything...">
-                <button @click.prevent="sendPost">Ask me</button>
-            </div> -->
             <div ref="chatContainer" class="chat-body">
                 <span v-if="error">{{ error }}</span>
                 <div v-for="(chat, index) in formattedResult" :key="index">
                     <div v-html="formatChat(chat)"></div>
                 </div>
             </div>
-            <div class="chat-footer sticky sticky-bottom">
-                <chat-input />
+            <div class="chat-footer bg-surface-1 sticky sticky-bottom">
+                <chat-input @submit-prompt="submitPrompt" />
             </div>
         </div>
     </div>
@@ -29,13 +24,7 @@ export default {
     name: 'GeminiPro',
     data() {
         return {
-            prompt: '',
             chatHistory: [],
-            feelingLuckyOptions: [
-                'Who won the latest Nobel Peace Prize?',
-                'Where does pizza come from?',
-                'How do you make pizza?'
-            ],
             error: null,
         };
     },
@@ -50,19 +39,16 @@ export default {
         }
     },
     methods: {
-        feelingLucky() {
-            const randomQuestion = this.feelingLuckyOptions[Math.floor(Math.random() * this.feelingLuckyOptions.length)];
-            this.prompt = randomQuestion;
-        },
-        async sendPost() {
+        async submitPrompt(prompt) {
+            this.scrollToBottom()
             this.error = null;
-            if (!this.prompt) {
+            if (!prompt) {
                 this.error = 'Error! Please ask a question!';
                 return;
             }
             const chats = [
                 ...this.chatHistory,
-                { role: 'user', parts: [{ text: this.prompt }] },
+                { role: 'user', parts: [{ text: prompt }] },
             ];
             this.chatHistory = chats
             try {
@@ -70,7 +56,7 @@ export default {
                     method: 'POST',
                     body: JSON.stringify({
                         history: this.chatHistory,
-                        message: this.prompt
+                        message: prompt
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -91,8 +77,6 @@ export default {
                         this.updateChat(text);
                     }
                 } while (!done);
-  
-                this.prompt = '';
                 localStorage.setItem('chatHistory', JSON.stringify(this.chatHistory));
             } catch (error) {
                 console.error(error);
@@ -107,19 +91,35 @@ export default {
             } else {
                 this.chatHistory.push({ role: 'model', parts: [{ text }] });
             }
+            this.scrollToBottom()
         },
         formatChat(chat) {
-            return `<strong>${chat.role}:</strong> ${chat.formattedText}`;
+            if (chat.role === 'user') {
+                return `<div class="flex res-block ${chat.role}-response"><div>${chat.formattedText}</div></div>`;
+            } else {
+                return `<div class="flex res-block ${chat.role}-response">
+                    <div class="${chat.role}-avatar centered">
+                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28" height="28" viewBox="0 0 28 28">
+                            <defs>
+                                <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+                                <stop offset="0" stop-color="#0fa3eb"/>
+                                <stop offset="1" stop-color="#ca3de3"/>
+                                </linearGradient>
+                            </defs>
+                            <path id="Path_2599" data-name="Path 2599" d="M14,28a13.448,13.448,0,0,0-1.12-5.46A13.9,13.9,0,0,0,9.9,18.095,13.9,13.9,0,0,0,5.46,15.12,13.449,13.449,0,0,0,0,14a13.823,13.823,0,0,0,5.46-1.085A14.385,14.385,0,0,0,9.9,9.9,13.9,13.9,0,0,0,12.88,5.46,13.449,13.449,0,0,0,14,0a13.823,13.823,0,0,0,1.085,5.46A14.385,14.385,0,0,0,18.095,9.9a14.386,14.386,0,0,0,4.445,3.01A13.823,13.823,0,0,0,28,14a13.448,13.448,0,0,0-5.46,1.12,13.9,13.9,0,0,0-4.445,2.975,14.386,14.386,0,0,0-3.01,4.445A13.823,13.823,0,0,0,14,28Z" fill="url(#linear-gradient)"/>
+                        </svg>
+                    </div><div>${chat.formattedText}</div></div>`;
+            }
         },
         scrollToBottom() {
             this.$nextTick(() => {
-                const chatContainer = this.$refs.scrollableRight;
+                const chatContainer = this.$refs.chatContainer;
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             });
-        },
+        }
     },
     mounted() {
-        // this.scrollToBottom();
+        this.scrollToBottom();
         const history = JSON.parse(localStorage.getItem('chatHistory'));
         if (history) {
             this.chatHistory = history;
@@ -134,18 +134,24 @@ h2 {
     font-size: 2rem;
 }
 .chat-footer {
-
+    padding-bottom: 24px;
 }
 .chat-wrapper {
     // width: 800px;
-    max-width: 800px;
+    max-width: 832px;
+    padding: 0 16px;
 
 }
 .chat-body {
-
+    min-height: 100dvh;
+    padding: 40px 0;
 }
 .jc-c {
     // height: calc(100dvh - 216px);
 }
+.overflow-y-scroll {
+    height: calc(100% - 82px);
+}
+
 </style>
   

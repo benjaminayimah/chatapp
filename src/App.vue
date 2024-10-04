@@ -3,11 +3,13 @@
   <div class="main-page flex-1">
     <side-bar />
     <section class="right-page bg-surface-1">
-      <div>
+      <div class="h-100">
+        <!-- <div class="fixed sticky-top show">
+            <button :class="{'is-active' : currentTheme === 'dark-theme' }" @click="$store.commit('setTheme', 'dark-theme')">dark</button>
+          <button :class="{'is-active' : currentTheme === 'light-theme' }" @click="$store.commit('setTheme', 'light-theme')">light</button>
+          <button :class="{'is-active' : currentTheme === 'device-theme' }" @click="$store.commit('setDeviceTheme')">Device</button>
+        </div> -->
         <nav-bar />
-        <button :class="{'is-active' : currentTheme === 'dark-theme' }" @click="$store.commit('setTheme', 'dark-theme')">dark</button>
-        <button :class="{'is-active' : currentTheme === 'light-theme' }" @click="$store.commit('setTheme', 'light-theme')">light</button>
-        <button :class="{'is-active' : currentTheme === 'device-theme' }" @click="$store.commit('setDeviceTheme')">Device</button>
         <router-view/>
       </div>
     </section>
@@ -58,10 +60,14 @@ export default {
 .right-page {
   flex: 1;
   height: 100dvh;
-  overflow-y: auto;
+  // overflow-y: auto;
 }
 .is-active {
   background-color: #06d40d;
   color: #fff;
+}
+.show {
+  position: fixed;
+  z-index: 99;
 }
 </style>

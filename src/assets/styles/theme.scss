@@ -8,6 +8,7 @@
         --main-background-4: #d8d9dd;
         --button-press: #e4e5e8;
         --button-neutral-hover: #e4e5eb;
+        --scrollbar-color: #8f8f8f;
 
         --input-color: var(var(--main-background-primary))
     }
@@ -20,7 +21,8 @@
         --main-background-4: #3b3c3d;
         --button-press: #5c5c5e;
         --button-neutral-hover: #3b3c3e;
-        --input-color: var(var(--main-background-primary))
+        --input-color: var(var(--main-background-primary));
+        --scrollbar-color: #535353;
 
     }
     --transition-time: .3s;
