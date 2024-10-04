@@ -18,6 +18,7 @@ export default createStore({
     tiggerDeviceTheme(state) {
       state.currentTheme = 'device-theme'
       this.commit('saveCurrentTheme', 'device-theme')
+      this.commit('preSetDeviceTheme')
     },
     preSetDeviceTheme() {
       const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -25,7 +26,10 @@ export default createStore({
     },
     setInitialTheme() {
       const theme = localStorage.getItem('theme')
-      if(theme === 'device-theme') {
+      if(!theme) {
+        this.commit('tiggerDeviceTheme')
+      }
+      else if(theme === 'device-theme') {
         this.commit('preSetDeviceTheme')
       }else {
         this.commit('applyClass', theme)
