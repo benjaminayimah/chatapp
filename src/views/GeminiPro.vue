@@ -9,6 +9,11 @@
             </div>
             <div class="chat-footer bg-surface-1 sticky sticky-bottom">
                 <chat-input @submit-prompt="submitPrompt" />
+                <div class="footnote">
+                    <div>
+                        Gemini may display inaccurate info, including about people, so double-check its responses.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -133,9 +138,6 @@ export default {
 h2 {
     font-size: 2rem;
 }
-.chat-footer {
-    padding-bottom: 24px;
-}
 .chat-wrapper {
     // width: 800px;
     max-width: 832px;
@@ -143,7 +145,7 @@ h2 {
 
 }
 .chat-body {
-    min-height: calc(100dvh - 162px);
+    min-height: calc(100dvh - 179px);
     padding: 40px 0;
 }
 .jc-c {
