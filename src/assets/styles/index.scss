@@ -32,7 +32,7 @@ main {
 }
 aside {
   ul {
-    button:not(.new-chat) {
+    button:not(.new-chat), a {
         color: var(--main-font-color-primary);
         fill: var(--main-font-color-primary);
         &:hover {
@@ -63,7 +63,7 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-textarea {
   height: 100%;
 }
 
-button{
+button, .a-button{
   border-style: none;
   display: flex;
   justify-content: center;
@@ -78,7 +78,8 @@ button{
     transition: var(--transition-time) all;
   }
 }
-button:not(:disabled) {
+
+button:not(:disabled), .a-button {
   &:active {
     outline-width: .6px;
     outline-style: solid;
@@ -106,6 +107,9 @@ button.transparent-button{
   display: grid;
   place-items: center;
   border-radius: 50px;
+}
+.block {
+  display: block;
 }
 .flex {
   display: flex;
@@ -147,7 +151,7 @@ button.transparent-button{
   border: 1px solid var( --main-background-4);
 }
 .user-response {
-  padding-bottom: 40px;
+  margin-bottom: 40px;
   justify-content: flex-end;
   div {
     background-color: var( --main-background-3);
@@ -161,7 +165,7 @@ button.transparent-button{
   }
 }
 .model-response {
-  padding-bottom: 60px;
+  margin-bottom: 60px;
   p:first-child {
     margin-top: 8px !important;
   }
@@ -170,12 +174,38 @@ button.transparent-button{
   gap: 12px;
 }
 
+.text-ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wrap-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wrap-line-1 {
+  -webkit-line-clamp: 1;
+  display: block;
+  width: 100%;
+}
+
 //gap
 .gap-4 {
   gap: 4px;
 }
 .gap-8 {
   gap: 8px;
+}
+.gap-10 {
+  gap: 10px;
+}
+.gap-16 {
+  gap: 16px;
+}
+.gap-32 {
+  gap: 32px;
 }
 
 //overflow
@@ -298,7 +328,7 @@ h1, h2, h3, h4, h5 {
       flex-direction: column;
   }
   .user-response {
-    padding-bottom: 20px;
+    margin-bottom: 20px;
     align-items: flex-end;
   }
   pre {
