@@ -88,7 +88,7 @@ aside {
     aside {
         position: fixed;
         height: 100%;
-        width: calc(100vw - 40px);
+        width: 75vw;
         z-index: 99;
     }
     .expanded {
