@@ -8,7 +8,7 @@
                 </div> -->
             </div>
             <div class="flex gap-8">
-                <button data-type="button">
+                <button data-type="button" class="transparent-button">
                     <svg xmlns="http://www.w3.org/2000/svg" height="17" viewBox="0 0 32.932 29.782">
                         <path d="M-1988.072,29.782A1.93,1.93,0,0,1-1990,27.854V4.718a1.93,1.93,0,0,1,1.928-1.928h16.5V4.718h-16.493l0,0V27.851l0,0h26.985l0,0V14.493h1.928V27.854a1.93,1.93,0,0,1-1.928,1.928Zm24.5-4.684-22.211-.256v-3.2l5.567-7.151a1.213,1.213,0,0,1,.645-.25,1.391,1.391,0,0,1,.678.25l6.816,7.765h1.929l6.475-4.594h.157l-.055,7.434Zm.358-15.1V6.151h-3.85V3.85h3.85V0h2.3V3.85h3.849v2.3h-3.849V10Z" transform="translate(1990)" fill="#fff"/>
                     </svg>
@@ -102,12 +102,6 @@ form {
     }
     button.has-input {
         background-color: var(--primary-color);
-    }
-    button[data-type=button] {
-        background-color: unset;
-        &:hover {
-            background-color: var(--button-neutral-hover);
-        }
     }
     
 }

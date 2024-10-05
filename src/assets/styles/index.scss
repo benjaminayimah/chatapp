@@ -33,7 +33,6 @@ main {
 aside {
   ul {
     button:not(.new-chat) {
-        background-color: unset;
         color: var(--main-font-color-primary);
         fill: var(--main-font-color-primary);
         &:hover {
@@ -86,6 +85,12 @@ button:not(:disabled) {
     outline-color: var(--button-press-outline);
   }
 }
+button.transparent-button{
+  background-color: transparent;
+  &:active {
+    background-color: var(--button-press-bg) !important;
+  }
+}
 .desktop, .tablet {
   .transparent-button {
     &:hover {
@@ -93,11 +98,7 @@ button:not(:disabled) {
     }
   }
 }
-.transparent-button {
-  &:active {
-    background-color: var(--button-press-bg);
-  }
-}
+
 .bg-transparent {
   background-color: transparent;
 }
