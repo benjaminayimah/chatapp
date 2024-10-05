@@ -55,7 +55,7 @@ aside {
     height: 100vh;
     position: sticky;
     top: 0;
-    transition: 0.2s ease-in-out width, 0.2s ease-in-out left;
+    transition: .3s ease-in-out width, .5s ease-in-out left, .2s ease background-color,;
 }
 .desktop, .tablet {
     .expanded {
