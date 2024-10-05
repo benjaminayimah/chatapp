@@ -24,7 +24,7 @@
 <script>
 
 export default {
-    name: 'Modal',
+    name: 'ModalView',
     props: {
         zindex: Number,
         opacity: Number,
@@ -59,7 +59,7 @@ export default {
     mounted() {
         document.addEventListener('keydown', this.handleEsc);
     },
-    beforeDestroy() {
+    beforeUnmount() {
         document.removeEventListener('keydown', this.handleEsc);
     },
 }
