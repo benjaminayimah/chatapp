@@ -95,7 +95,7 @@ form {
         width: 40px;
     }
     button:disabled {
-        background-color: var(--button-press);
+        background-color: var(--button-disabled);
         path {
             stroke: #acacac;
         }

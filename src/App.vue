@@ -4,13 +4,11 @@
     <side-bar />
     <section class="right-page bg-surface-1">
       <div class="h-100">
-        <div class="fixed sticky-top show">
-            <button :class="{'is-active' : currentTheme === 'dark-theme' }" @click="$store.commit('setTheme', 'dark-theme')">dark</button>
-          <button :class="{'is-active' : currentTheme === 'light-theme' }" @click="$store.commit('setTheme', 'light-theme')">light</button>
-          <button :class="{'is-active' : currentTheme === 'device-theme' }" @click="$store.commit('setDeviceTheme')">Device</button>
-        </div>
         <nav-bar />
         <router-view/>
+        <transition name="modal-fade">
+          <settings-modal v-if="isModalOpen" />
+        </transition>
       </div>
     </section>
   </div>
@@ -20,14 +18,14 @@
 import NavBar from '@/components/NavBar'
 import SideBarToggle from './components/SideBarToggle.vue'
 import SideBar from './components/SideBar.vue'
-import { mapState } from 'vuex'
+import SettingsModal from './modals/SettingsModal.vue'
 export default {
-  components: { NavBar, SideBarToggle, SideBar },
+  components: { NavBar, SideBarToggle, SideBar, SettingsModal },
   name: 'AppView',
   computed: {
-    ...mapState({
-      currentTheme: (state) => state.currentTheme
-    })
+    isModalOpen() {
+      return this.$route.query.m === 'settings';
+    }
   },
   created() {
     this.$store.commit('setInitialTheme')
@@ -60,14 +58,13 @@ export default {
 .right-page {
   flex: 1;
   height: 100dvh;
-  // overflow-y: auto;
 }
-.is-active {
-  background-color: #06d40d;
-  color: #fff;
+
+
+.modal-fade-enter-active, .modal-fade-leave-active {
+  transition: opacity 0.2s ease;
 }
-.show {
-  position: fixed;
-  z-index: 99;
+.modal-fade-enter-from, .modal-fade-leave-to {
+  opacity: 0;
 }
 </style>

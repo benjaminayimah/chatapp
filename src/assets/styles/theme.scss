@@ -6,14 +6,25 @@
         --main-background-2: #f2f3f6;
         --main-background-3: #eaebf0;
         --main-background-4: #d8d9dd;
-
         --font-color-2: #9a9a9a;
 
-        --button-press: #e4e5e8;
+        --button-press: #b4b4b6;
+
+
+        --button-disabled: #e4e5e8;
         --button-neutral-hover: #e4e5eb;
         --scrollbar-color: #8f8f8f;
 
-        --input-color: var(var(--main-background-primary))
+        --input-color: var(var(--main-background-primary));
+
+        --main-background-inverse: #d8d9dd;
+        --main-background-inverse-hover: #ced1d7;
+
+        --modal-main-background: #ffffff;
+        --modal-font: #000000;
+        --modal-close-icon: #2b2c2d;
+
+        
     }
     .dark-theme {
         --primary-color: #1658ff;
@@ -27,8 +38,17 @@
 
         --button-press: #5c5c5e;
         --button-neutral-hover: #3b3c3e;
-        --input-color: var(var(--main-background-primary));
+        --input-color: var(--main-background-primary);
         --scrollbar-color: #535353;
+
+        --main-background-inverse: #d8d9dd;
+        --main-background-inverse-hover: #b8bac0;
+
+        --modal-main-background: #3b3c3d;
+        --modal-font: #e3e3e3;
+        --modal-close-icon: #acaeb1;
+
+
 
     }
     --transition-time: .2s ease;
@@ -53,6 +73,9 @@ body {
     color: var(--main-font-color-primary);
     transition: var(--transition-time) background-color;
 }
-#menu_toggler {
-    fill:var(--main-font-color-primary) ;
+.bg-modal-surface {
+    background-color: var(--modal-main-background);
+    color: var(--modal-font);
+    transition: var(--transition-time) background-color;
+
 }
