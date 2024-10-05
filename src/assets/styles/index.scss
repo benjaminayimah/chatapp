@@ -83,7 +83,7 @@ button:not(:disabled) {
   &:active {
     outline-width: .6px;
     outline-style: solid;
-    outline-color: var(--button-press);
+    outline-color: var(--button-press-outline);
   }
 }
 .desktop, .tablet {
@@ -95,7 +95,7 @@ button:not(:disabled) {
 }
 .transparent-button {
   &:active {
-    background-color: var(--button-press);
+    background-color: var(--button-press-bg);
   }
 }
 .bg-transparent {
@@ -131,7 +131,7 @@ button:not(:disabled) {
   align-items: flex-start;
 }
 
-#menu_toggler, #close_modal {
+#menu_toggler{
   fill:var(--main-font-color-primary) ;
 }
 #close_modal {

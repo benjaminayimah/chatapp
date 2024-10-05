@@ -8,14 +8,15 @@
         --main-background-4: #d8d9dd;
         --font-color-2: #9a9a9a;
 
-        --button-press: #b4b4b6;
+        --button-press-outline: #b4b4b6;
+        --button-press-bg: #eaebf0;
 
 
         --button-disabled: #e4e5e8;
         --button-neutral-hover: #e4e5eb;
         --scrollbar-color: #8f8f8f;
 
-        --input-color: var(var(--main-background-primary));
+        --input-color: var(--main-font-color-primary);
 
         --main-background-inverse: #d8d9dd;
         --main-background-inverse-hover: #ced1d7;
@@ -36,9 +37,13 @@
 
         --font-color-2: #c4c7c5;
 
-        --button-press: #5c5c5e;
+        --button-press-outline: #5c5c5e;
+        --button-press-bg: #3d3e3f;
+
+
+        --button-disabled: #363637;
         --button-neutral-hover: #3b3c3e;
-        --input-color: var(--main-background-primary);
+        --input-color: var(--main-font-color-primary);
         --scrollbar-color: #535353;
 
         --main-background-inverse: #d8d9dd;
