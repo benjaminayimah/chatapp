@@ -34,7 +34,7 @@
                         </li>
                     </ul>
                 </section>
-                <section id="recent" class="recent overflow-y-scroll">
+                <section id="recent" class="recent overflow-y-scroll pd-b-8">
                     <label for="recent" class="fs-09 fw-600 block">Recent chat</label>
                     <ul>
                         <li v-for="(recent, index) in recents" :key="index" class="flex">
@@ -119,7 +119,8 @@ aside {
     transition: .3s ease-in-out width, .5s ease-in-out left, .2s ease background-color,;
 }
 section {
-    padding: 0 14px;
+    padding-right: 14px;
+    padding-left: 14px;
 }
 .desktop, .tablet {
     .expanded {
@@ -153,7 +154,7 @@ section {
     }
     #recent a {
         span {
-            width: calc(var(--side-bar-full-width) - 120px);
+            width: calc(var(--side-bar-full-width) - 110px);
         }
         i {
             opacity: 0;

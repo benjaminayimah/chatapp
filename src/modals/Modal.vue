@@ -1,6 +1,6 @@
 <template>
     <div class="modal-overlay jc-c ai-c" @click.self="closeModal">
-        <div class="modal-container bg-modal-surface">
+        <div class="modal-container bg-modal-surface ov-hidden">
             <div class="modal-header">
                 <slot name="header">
                     <h3>{{ title }}</h3>
@@ -11,7 +11,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body overflow-y-scroll">
                 <slot name="body"></slot>
             </div>
             <div class="modal-footer">
@@ -78,16 +78,23 @@ export default {
 }
 
 .modal-container {
-    padding: 20px;
+    padding: 20px 0;
     border-radius: 16px;
     width: v-bind(computedWidth);
-    max-width: 90%;
+    max-width: 90vw;
+    max-height: 90dvh;
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.modal-body {
+    max-height: calc(90dvh - 56px);
+}
+.modal-body, .modal-header, .modal-footer {
+    padding: 0 20px;
 }
 
 button {
