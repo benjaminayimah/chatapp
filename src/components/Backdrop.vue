@@ -20,7 +20,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 #overlay{
-    
     position: fixed;
     top: 0;
     left: 0;

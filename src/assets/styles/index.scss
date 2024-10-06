@@ -63,6 +63,46 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-textarea {
   height: 100%;
 }
 
+.fw-500{
+  font-weight: 500;
+}
+.fw-600{
+  font-weight: 600;
+}
+.fw-700{
+  font-weight: 700;
+}
+.fs-07 {
+  font-size: 0.7rem;
+}
+.fs-08 {
+  font-size: 0.8rem;
+}
+.fs-09 {
+  font-size: 0.9rem;
+}
+.fs-1rem {
+  font-size: 1rem;
+}
+.fs-102rem {
+  font-size: 1.2rem;
+}
+.fs-108rem{
+  font-size: 1.8rem;
+}
+.fs-2rem {
+  font-size: 2rem;
+}
+.fs-3rem {
+  font-size: 3rem;
+}
+.fs-4rem {
+  font-size: 4rem;
+}
+.fs-5rem {
+  font-size: clamp(2rem, 1vw + 3rem, 5rem);
+}
+
 button, .a-button{
   border-style: none;
   display: flex;
@@ -86,7 +126,7 @@ button:not(:disabled), .a-button {
     outline-color: var(--button-press-outline);
   }
 }
-button.transparent-button{
+button.transparent-button, .a-button{
   background-color: transparent;
   &:active {
     background-color: var(--button-press-bg) !important;
