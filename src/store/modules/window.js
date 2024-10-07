@@ -7,6 +7,9 @@ export default {
         toggleSideBar(state) {
             state.menu = !state.menu
         },
+        closeSideBar(state) {
+            state.menu = false
+        },
         computeWindow(state) {
             const windowWidth = window.innerWidth
             const appWidth = 1344

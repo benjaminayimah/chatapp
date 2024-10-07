@@ -1,4 +1,7 @@
 <template>
+    <transition name="modal-fade">
+        <backdrop @click="$store.commit('closeSideBar')" v-if="device === 'mobile' && menu" :opacity=".4" :zindex="98" />
+    </transition>
     <aside class="flex bg-surface-2 ov-hidden" :class="menu ? 'expanded' : 'collapsed'">
         <div class="flex-1 flex flex-column aside-wrapper jc-sb">
             <div class="flex gap-16 flex-column">
@@ -73,13 +76,15 @@
 
 <script>
 import { mapState } from 'vuex';
+import Backdrop from './Backdrop.vue';
 export default {
+    components: { Backdrop },
     name: 'SideBar',
     computed: {
         ...mapState({
             menu: (state) => state.DeviceWindow.menu,
             device: (state) => state.DeviceWindow.device
-        }),
+        })
     },
     data() {
         return {
