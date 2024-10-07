@@ -1,5 +1,5 @@
 <template>
-    <div ref="chatContainer" class="flex flex-1 jc-c overflow-y-scroll">
+    <div ref="chatContainer" class="flex chat-body-wrapper flex-1 jc-c overflow-y-scroll">
         <div class="chat-wrapper flex-1">
             <div ref="chatContainer" class="chat-body">
                 <span v-if="error">{{ error }}</span>
@@ -7,7 +7,11 @@
                     <div v-html="formatChat(chat)"></div>
                 </div>
             </div>
-            <div class="chat-footer bg-surface-1 sticky sticky-bottom">
+        </div>
+    </div>
+    <div class="flex jc-c">
+        <div class="chat-wrapper flex-1">
+            <div class="chat-footer bg-surface-1">
                 <chat-input @submit-prompt="submitPrompt" />
                 <div class="footnote">
                     <div>
@@ -145,14 +149,14 @@ h2 {
 
 }
 .chat-body {
-    min-height: calc(100dvh - 179px);
+    // min-height: calc(100dvh - 179px);
     padding: 40px 0;
 }
 .jc-c {
     // height: calc(100dvh - 216px);
 }
 .overflow-y-scroll {
-    height: calc(100% - 82px);
+    // height: calc(100% - 82px);
 }
 
 </style>

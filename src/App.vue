@@ -3,7 +3,7 @@
   <div class="main-page flex-1">
     <side-bar />
     <section class="right-page bg-surface-1">
-      <div class="h-100">
+      <div class="h-100 flex flex-column">
         <nav-bar />
         <router-view/>
         <transition name="modal-fade">
