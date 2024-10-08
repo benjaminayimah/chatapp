@@ -1,5 +1,5 @@
 <template>
-    <nav class="sticky sticky-top bg-surface-1">
+    <nav class="bg-surface-1">
     </nav>
 </template>
 <script>

@@ -6,12 +6,12 @@
       <div class="h-100 flex flex-column">
         <nav-bar />
         <router-view/>
-        <transition name="modal-fade">
-          <settings-modal v-if="isModalOpen" />
-        </transition>
       </div>
     </section>
   </div>
+  <transition name="modal-fade">
+    <settings-modal v-if="isModalOpen" />
+  </transition>
 </template>
 <script>
 
