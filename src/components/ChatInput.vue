@@ -73,6 +73,7 @@ export default {
                     if (this.uploadedImageUrl) {
                         this.uploadedImageUrl = ''
                         this.clrOldfile('imageUploadInput')
+                        localStorage.removeItem('image')
                     }
                 }
             }
