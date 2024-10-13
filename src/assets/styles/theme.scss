@@ -1,0 +1,94 @@
+:root {
+    .light-theme {
+        --primary-color: #1151F4;
+        --main-background-primary: #ffffff;
+        --main-font-color-primary: #1f1f1f;
+        --main-background-2: #f2f3f6;
+        --main-background-3: #eaebf0;
+        --main-background-4: #d8d9dd;
+        --font-color-2: #606063;
+        --font-color-3: #838383;
+
+
+        --button-press-outline: #c5c5ca;
+        --button-press-bg: #dfe0e6;
+
+
+        --button-disabled: #e4e5e8;
+        // --button-neutral-hover: #e4e5eb;
+        --scrollbar-color: #8f8f8f;
+
+        --input-color: var(--main-font-color-primary);
+
+        --main-background-inverse: #d8d9dd;
+        --main-background-inverse-hover: #ced1d7;
+
+        --modal-main-background: #ffffff;
+        --modal-font: #000000;
+        --modal-close-icon: #2b2c2d;
+        --modal-close-button-hover: #eaebf0;
+
+        
+    }
+    .dark-theme {
+        --primary-color: #1658ff;
+        --main-background-primary: #131314;
+        --main-font-color-primary: #e8e8e8;
+        --main-background-2: #1e1f20;
+        --main-background-3: #2e2f30;
+        --main-background-4: #3b3c3d;
+
+        --font-color-2: #c4c7c5;
+        --font-color-3: #838383;
+
+
+        --button-press-outline: #5c5c5e;
+        --button-press-bg: #4c4d4e;
+
+
+        --button-disabled: #363637;
+        // --button-neutral-hover: #3b3c3e;
+        --input-color: var(--main-font-color-primary);
+        --scrollbar-color: #535353;
+
+        --main-background-inverse: #d8d9dd;
+        --main-background-inverse-hover: #b8bac0;
+
+        --modal-main-background: #3b3c3d;
+        --modal-font: #e3e3e3;
+        --modal-close-icon: #acaeb1;
+        --modal-close-button-hover: #464748;
+
+
+
+
+
+    }
+    --transition-time: .2s ease;
+}
+// @media (prefers-color-scheme: dark) {
+//     body {
+//         background-color: black !important;
+//         color: white !important;
+//     }
+// }
+body {
+    background-color: var(--main-background-primary);
+    color: var(--main-font-color-primary);
+}
+.bg-surface-1 {
+    background-color: var(--main-background-primary);
+    color: var(--main-font-color-primary);
+    transition: var(--transition-time) background-color;
+}
+.bg-surface-2 {
+    background-color: var(--main-background-2);
+    color: var(--main-font-color-primary);
+    transition: var(--transition-time) background-color;
+}
+.bg-modal-surface {
+    background-color: var(--modal-main-background);
+    color: var(--modal-font);
+    transition: var(--transition-time) background-color;
+
+}
