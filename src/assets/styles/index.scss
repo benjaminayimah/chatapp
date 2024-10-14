@@ -217,15 +217,17 @@ button.transparent-button:not(.preview-close), .a-button{
 .user-response {
   margin-bottom: 24px;
   justify-content: flex-end;
-  div {
-    background-color: var( --main-background-3);
+  .res-wrapper {
     transition: var(--transition-time) background-color;
     border-radius: 16px 0 16px 16px;
     max-width: 70%;
-    p {
-      margin: 0;
-      padding: 10px 14px;
-    }
+    margin: 0;
+  }
+}
+.has-chat {
+  .res-wrapper {
+    padding: 10px 14px;
+    background-color: var( --main-background-3);
   }
 }
 .model-response {
@@ -266,9 +268,14 @@ button.transparent-button:not(.preview-close), .a-button{
   height: 40px;
   width: 40px;
   cursor: pointer;
+  svg {
+    height: 17px;
+    width: 17px;
+  }
   path {
     fill: var(--main-font-color-primary);
   }
+
 }
 
 
@@ -363,12 +370,15 @@ h4 {
   font-size: 1rem;
 }
 
+#chat_info_container {
+  bottom: 110%;
+  width: calc(100% - 32px);
+}
 .scroll-bottom {
   height: 32px;
   width: 32px;
   background-color: var(--main-background-primary);
   box-shadow: 0 0 1px 1px var(--main-background-4);
-  bottom: 20px;
   transition: var(--transition-time) all;
   path {
     fill: var(--modal-close-icon);

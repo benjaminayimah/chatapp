@@ -12,13 +12,10 @@
         </div>
     </div>
     <div class="flex jc-c">
-        <div class="chat-wrapper flex-1">
-            <div v-if="showScrollButton" class="centered relative">
-                <button @click="doScroll" class="scroll-bottom absolute">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14.677" viewBox="0 0 13 14.677">
-                        <path d="M14.943,11.5a.885.885,0,0,1,.007,1.246l-4.11,4.123H21.686a.88.88,0,0,1,0,1.76H10.841l4.116,4.123A.891.891,0,0,1,14.95,24a.877.877,0,0,1-1.239-.007L8.133,18.372h0a.988.988,0,0,1-.183-.278.84.84,0,0,1-.068-.339.882.882,0,0,1,.251-.616l5.579-5.619A.862.862,0,0,1,14.943,11.5Z" transform="translate(-11.252 22.559) rotate(-90)" fill="#fff"/>
-                    </svg>
-                </button>
+        <div class="chat-wrapper flex-1 relative">
+            <div id="chat_info_container" class="centered absolute gap-8">
+                <scroll-bottom-buttton v-if="showScrollButton" @do-scroll="doScroll" />
+                <alert-box v-if="showAlert" />
             </div>
             <div class="chat-footer bg-surface-1">
                 <chat-input @submit-prompt="submitPrompt" />
@@ -43,16 +40,19 @@ import DOMPurify from 'dompurify';
 import ChatInput from '@/components/ChatInput.vue';
 import ImagePreviewModal from '@/modals/ImagePreviewModal.vue';
 import ResponseRow from '@/components/ResponseRow.vue';
+import ScrollBottomButtton from '@/components/ScrollBottomButtton.vue';
+import AlertBox from '@/components/AlertBox.vue';
   
 export default {
-    components: { ChatInput, ImagePreviewModal, ResponseRow },
+    components: { ChatInput, ImagePreviewModal, ResponseRow, ScrollBottomButtton, AlertBox },
     name: 'GeminiPro',
     data() {
         return {
             chatHistory: [],
             error: null,
             imagePreview: null,
-            showScrollButton: false
+            showScrollButton: false,
+            showAlert: false
         };
     },
     computed: {
@@ -69,8 +69,8 @@ export default {
         async submitPrompt(e) {
             const prompt = e.prompt
             const image = e.image
-            // const file = image ? e.file[0] : ''
-            // console.log(file)
+            const file = e.file
+
             this.error = null;
 
             if (!prompt && !image) {
@@ -98,14 +98,14 @@ export default {
                         history: this.chatHistory,
                         prompt: prompt,
                         image: image ? image.split('/').pop() : '',
-                        ext: image ? image.split('.').pop() : '',
+                        fileType: file ? file.type: '',
                     }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 };
                 const response = await fetch('http://localhost:8001/submit-prompt', options);
-                const reader = response.body.getReader();
+                const reader = response.body.getReader()
                 let text = '';
                 const decoder = new TextDecoder();
   
@@ -122,8 +122,7 @@ export default {
                 } while (!done);
                 localStorage.setItem('chatHistory', JSON.stringify(this.chatHistory));
             } catch (error) {
-                console.error(error);
-                this.error = 'Something went wrong!';
+                this.error = 'Something went wrong: ' + error;
             }
         },
         cacheImage(image, index) {
@@ -140,7 +139,6 @@ export default {
                 images.forEach(e => {
                     this.selectDiv(e.image, e.index)
                 })
-
             })
         },
         selectDiv(image, index) {
@@ -173,8 +171,6 @@ export default {
             const modelChatIndex = this.chatHistory[lastIndex]
             if (modelChatIndex.role ===  'model') {
                 this.chatHistory[lastIndex].parts[0].text = text
-            } else {
-                this.chatHistory.push({ role: 'model', parts: [{ text }] });
             }
         },
         scrollToBottom() {
@@ -227,7 +223,7 @@ export default {
     beforeUnmount() {
         const chatContainer = this.$refs.chatContainer;
         chatContainer.removeEventListener('scroll', this.handleScrollPosition);
-    },
+    }
 };
 </script>
 
