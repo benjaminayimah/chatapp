@@ -2,7 +2,6 @@
     <div ref="chatContainer" class="flex chat-body-wrapper flex-1 jc-c overflow-y-scroll">
         <div class="chat-wrapper flex-1">
             <div ref="chatContainer" class="chat-body">
-                <span v-if="error">{{ error }}</span>
                 <response-row v-for="(chat, index) in formattedResult" 
                     :key="index"
                     :chat="chat"
