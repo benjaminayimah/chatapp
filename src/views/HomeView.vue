@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Tooltip :text="'This is a tooltip!'" :position="'top'">
-      <button>Hover me!</button>
+      <!-- <button>Hover me!</button> -->
     </Tooltip>
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Get answers. Find inspiration. Be more productive."/>
