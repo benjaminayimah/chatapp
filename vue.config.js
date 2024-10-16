@@ -19,4 +19,12 @@ module.exports = defineConfig({
       }),
     ],
   },
+  pwa: {
+    name: 'MyChat App',
+    shortName: 'Chat app',
+    themeColor: '#0f0f10',
+    msTileColor: '#ffffff',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black'
+  }
 });
