@@ -72,6 +72,9 @@ export default {
                         this.clrOldfile('imageUploadInput')
                         localStorage.removeItem('image')
                     }
+                    this.$nextTick(() => {
+                        this.adjustHeight()
+                    })
                 }
             }
         },
