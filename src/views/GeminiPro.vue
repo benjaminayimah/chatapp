@@ -7,6 +7,11 @@
                     :key="index"
                     :chat="chat"
                     :index="index"
+                    :newIndex="newIndex"
+                    :resEnded="resEnded"
+                    :error="error"
+                    :processing="processing"
+                    @preview-image="previewImage"
                 />
             </div>
         </div>
@@ -52,8 +57,11 @@ export default {
             error: null,
             imagePreview: null,
             showScrollButton: false,
-            showAlert: false
-        };
+            showAlert: false,
+            resEnded: false,
+            newIndex: null,
+            processing: null
+        }
     },
     computed: {
         formattedResult() {
@@ -61,12 +69,13 @@ export default {
                 return {
                     ...chat,
                     formattedText: DOMPurify.sanitize(marked(chat.parts[0].text))
-                };
-            });
+                }
+            })
         }
     },
     methods: {
         async submitPrompt(e) {
+            this.resEnded = false
             const prompt = e.prompt
             const image = e.image
             const file = e.file
@@ -80,17 +89,19 @@ export default {
             const chats = [
                 ...this.chatHistory,
                 { role: 'user', parts: [{ text: prompt }] },
-                { role: 'model', parts: [{ text: 'Thinking...'}] },
+                { role: 'model', parts: [{ text: ''}] },
             ];
             this.chatHistory = chats
             const index = this.chatHistory.length -1
+            this.newIndex = index
+
+            this.insertLoader(index)
 
             if (image) {
                 this.cacheImage(image, index - 1)
-                this.fetchCurrentImage(image, index -1)
+                // this.fetchCurrentImage(image, index -1)
             }
             this.scrollToBottom()
-
             try {
                 const options = {
                     method: 'POST',
@@ -104,26 +115,45 @@ export default {
                         'Content-Type': 'application/json'
                     }
                 };
-                const response = await fetch('http://localhost:8001/submit-prompt', options);
-                const reader = response.body.getReader()
-                let text = '';
-                const decoder = new TextDecoder();
-  
-                let done = false;
-  
-                do {
-                    const { value, done: doneReading } = await reader.read();
-                    done = doneReading;
-                    if (value) {
-                        text += decoder.decode(value, { stream: true });
-                        this.updateChat(text);
-                        this.scrollToBottom()
-                    }
-                } while (!done);
-                localStorage.setItem('chatHistory', JSON.stringify(this.chatHistory));
+                const res = await fetch('http://localhost:8001/submit-prompt', options);
+                this.removeLoader()
+                
+                if (res.status === 200) {
+                    const reader = res.body.getReader()
+                    let text = '';
+                    const decoder = new TextDecoder();
+    
+                    let done = false;
+                    do {
+                        const { value, done: doneReading } = await reader.read();
+                        done = doneReading;
+                        if (value) {
+                            text += decoder.decode(value, { stream: true });
+                            this.updateChat(text);
+                            this.scrollToBottom()
+                        }
+                    } while (!done);
+                    localStorage.setItem('chatHistory', JSON.stringify(this.chatHistory))
+                    this.resEnded = true
+                }else {
+                    this.showError(index, res.statusText)
+                    this.removeLoader()
+                }
             } catch (error) {
-                this.error = 'Something went wrong: ' + error;
+                this.showError(index, error)
+                this.removeLoader()
             }
+        },
+        insertLoader(index) {
+            const status = { active: true, index: index }
+            this.processing = status
+        },
+        removeLoader() {
+            this.processing = null
+        },
+        showError(index, error) {
+            const newError = { message: error, index: index }
+            this.error = newError
         },
         cacheImage(image, index) {
             let images = JSON.parse(localStorage.getItem('imageHistory'))
@@ -132,33 +162,6 @@ export default {
                 images.push(newHistory)
                 localStorage.setItem('imageHistory', JSON.stringify(images))
             }
-        },
-        fetchImages() {
-            const images = JSON.parse(localStorage.getItem('imageHistory'));
-            this.$nextTick(() => {
-                images.forEach(e => {
-                    this.selectDiv(e.image, e.index)
-                })
-            })
-        },
-        selectDiv(image, index) {
-            const imageDiv = document.querySelector(`#prompt_${index}`)
-            if (imageDiv) {
-                const img = document.createElement('img');
-                img.src = image
-                img.alt = `Prompt image ${index}`;
-                img.height = 200;
-                img.loading = 'lazy';
-                img.addEventListener('click', () => {
-                    this.previewImage(image)
-                });
-                imageDiv.appendChild(img);
-            }
-        },
-        fetchCurrentImage(image, index) {
-            this.$nextTick(() => {
-                this.selectDiv(image, index)
-            })
         },
         previewImage(url) {
             this.imagePreview = url
@@ -208,7 +211,6 @@ export default {
         }
     },
     mounted() {
-        this.fetchImages()
         const history = JSON.parse(localStorage.getItem('chatHistory'));
         if (history) {
             this.chatHistory = history;

@@ -15,12 +15,10 @@
             </div>
         </div>
         <form @submit.prevent="" action="" class="flex ai-fe">
-            <div class="flex-1">
-                <textarea @keydown.enter="submitPrompt" v-model="prompt" ref="textArea" name="prompt" id="prompt" placeholder="Enter a prompt here"></textarea>
-                <!-- <div class="div-textarea" role="textbox" contenteditable>
-                    <p :class="{'placeholder': !computedInput}"></p>
-                </div> -->
-            </div>
+            <textarea class="flex" rows="1" @input="adjustHeight" @keydown.enter="submitPrompt" v-model="prompt" ref="textArea" name="prompt" id="prompt_input" placeholder="Enter a prompt here"></textarea>
+            <!-- <div class="div-textarea" role="textbox" contenteditable>
+                <p :class="{'placeholder': !computedInput}"></p>
+            </div> -->
             <div class="flex gap-8">
                 <input class="hide" @change="uploadImage" name="image" id="imageUploadInput" type="file" ref="img"> 
                 <button @click.prevent="uploadClick('imageUploadInput')" data-type="button" class="transparent-button">
@@ -148,7 +146,14 @@ export default {
         },
         clrOldfile(id) {
             document.querySelector(`#${id}`).value = null
+        },
+        adjustHeight() {
+            this.$refs.textArea.style.height = '40px'
+            this.$refs.textArea.style.height = this.$refs.textArea.scrollHeight + 'px'
         }
+    },
+    mounted() {
+        this.adjustHeight()
     }
 
 }
@@ -161,9 +166,10 @@ textarea {
     width: 100%;
     background-color: inherit;
     border: none;
-    padding:  0 16px 0 12px;
+    padding:  8px 16px 8px 12px;
     max-height: 200px;
     font-size: 1.1rem;
+    line-height: 24px;
 }
 .div-textarea {
     padding:  0 16px 0 12px;
@@ -216,7 +222,7 @@ form {
     
 }
 .image-preview  {
-    padding: 12px;
+    padding: 10px 12px;
 }
 .mobile {
     button.image-uploader-idle {

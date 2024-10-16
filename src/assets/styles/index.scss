@@ -13,6 +13,9 @@
 html {
   overflow: hidden;
 }
+img {
+  display: block;
+}
 
 body{
   display: flex;
@@ -54,6 +57,9 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-textarea {
   font-family: inherit;
   // font-size: 1rem;
   color: var(--input-color);
+}
+textarea::placeholder {
+  color: var(--inpute-placeholder);
 }
 
 .fixed {
@@ -139,7 +145,7 @@ button:not(:disabled, .preview-close), .a-button {
     outline-color: var(--button-press-outline);
   }
 }
-button.transparent-button:not(.preview-close), .a-button{
+button.transparent-button:not(.preview-close, :disabled), .a-button{
   background-color: transparent;
   &:active {
     background-color: var(--button-press-bg) !important;
@@ -148,10 +154,13 @@ button.transparent-button:not(.preview-close), .a-button{
 
 
 .desktop, .tablet {
-  .transparent-button {
+  .transparent-button:not(:disabled) {
     &:hover {
       background-color: var(--main-background-3);
     }
+  }
+  .chat-loader {
+    margin: 15px 40px;
   }
 }
 
@@ -214,12 +223,19 @@ button.transparent-button:not(.preview-close), .a-button{
   border-radius: 50px;
   border: 1px solid var( --main-background-4);
 }
+.response-container:has(img) {
+  .res-wrapper {
+    border-radius: 16px 4px 16px 16px;
+  }
+}
+
+
 .user-response {
   margin-bottom: 24px;
   justify-content: flex-end;
   .res-wrapper {
     transition: var(--transition-time) background-color;
-    border-radius: 16px 0 16px 16px;
+    border-radius: 16px;
     max-width: 70%;
     margin: 0;
   }
@@ -228,6 +244,18 @@ button.transparent-button:not(.preview-close), .a-button{
   .res-wrapper {
     padding: 10px 14px;
     background-color: var( --main-background-3);
+  }
+  
+}
+.response-container.has-chat {
+  img {
+    border-bottom-right-radius: 4px;
+  }
+}
+
+.response-container {
+  img {
+    border-radius: 12px;
   }
 }
 .model-response {
@@ -254,10 +282,8 @@ button.transparent-button:not(.preview-close), .a-button{
 }
 .prompt-image-container {
   img {
-    border-radius: 12px;
     cursor: pointer;
     object-fit: contain;
-    width: 100%;
   }
 }
 .res-footer {
@@ -268,10 +294,6 @@ button.transparent-button:not(.preview-close), .a-button{
   height: 40px;
   width: 40px;
   cursor: pointer;
-  svg {
-    height: 17px;
-    width: 17px;
-  }
   path {
     fill: var(--main-font-color-primary);
   }
@@ -459,8 +481,23 @@ h4 {
     border-radius: 6px;
   }
 
-
+.tablet {
+  // var(--side-bar-mini-width)
+  pre {
+    max-width: calc(90vw - (32px + var(--side-bar-mini-width)));
+  }
+  ul, ol {
+    pre {
+      max-width: calc(90vw - (132px + var(--side-bar-mini-width)));
+    }
+  }
+}
 .mobile {
+  .prompt-image-container {
+    img {
+      width: 100%;
+    }
+  }
   .res-block {
       gap: 4px;
       flex-direction: column;
@@ -470,7 +507,15 @@ h4 {
     align-items: flex-end;
   }
   pre {
-    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+  }
+  ul, ol {
+    pre {
+      max-width: calc(100vw - 100px);
+    }
+  }
+  .chat-loader {
+    margin: 18px 43px;
   }
 }
 
@@ -479,4 +524,33 @@ h4 {
 }
 .modal-fade-enter-from, .modal-fade-leave-to {
   opacity: 0;
+}
+
+
+.chat-loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: relative;
+  color: var(--button-press-bg);
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
+  25% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 2px;
+  }
+  50% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 2px,  -38px 0 0 -2px;
+  }
+  75% {
+    box-shadow: 14px 0 0 2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
+  100% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
 }

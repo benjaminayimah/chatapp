@@ -119,7 +119,6 @@ app.post('/submit-prompt', async (req, res) => {
         res.end(); // End the response
         
     } catch (error) {
-        console.error('Error processing prompt and image:', error);
         res.status(500).json('An error occurred during content generation: ', error);
         res.end();
     }
