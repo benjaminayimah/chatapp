@@ -80,7 +80,7 @@ export default {
             const image = e.image
             const file = e.file
 
-            this.error = null;
+            this.error = null
 
             if (!prompt && !image) {
                 this.error = 'Error! Please ask a question!';

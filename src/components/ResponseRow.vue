@@ -21,7 +21,7 @@
                 </svg>
             </div>
             <div class="flex flex-column gap-24">
-                <p v-if="error && error.index === index"><strong>Something went wrong! </strong>{{ error.message }}</p>
+                <p v-if="(error && error.index === index)"><strong>Something went wrong! </strong>{{ error.message }}</p>
                 <div v-if="processing && processing.index === index" class="chat-loader"></div>
                 <div v-html="formatChat(chat)" :id="`res_wrapper_${index}`" class="res-wrapper"></div>
                 <div v-if="!computedCurrentPrompt && chat.parts[0].text" :id="`response_footer_${index}`" class="flex gap-4 res-footer">
