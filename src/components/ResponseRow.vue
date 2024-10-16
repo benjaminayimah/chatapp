@@ -24,7 +24,7 @@
                 <p v-if="error && error.index === index"><strong>Something went wrong! </strong>{{ error.message }}</p>
                 <div v-if="processing && processing.index === index" class="chat-loader"></div>
                 <div v-html="formatChat(chat)" :id="`res_wrapper_${index}`" class="res-wrapper"></div>
-                <div v-if="!computedCurrentPrompt" :id="`response_footer_${index}`" class="flex gap-4 res-footer">
+                <div v-if="!computedCurrentPrompt && chat.parts[0].text" :id="`response_footer_${index}`" class="flex gap-4 res-footer">
                     <button @click="playAudio" :id="`res_audio_btn_${index}`" class="transparent-button res-footer-btn" aria-label="Read aloud">
                         <svg v-if="!isReading" xmlns="http://www.w3.org/2000/svg" height="16.495" viewBox="0 0 16.91 16.495">
                             <path d="M9.6,4.558a.43.43,0,0,0-.72-.317l-3,2.747a.86.86,0,0,1-.581.226H3.579a.86.86,0,0,0-.86.86v5.157a.86.86,0,0,0,.86.86H5.3a.859.859,0,0,1,.581.226l3,2.747a.43.43,0,0,0,.72-.317ZM7.714,2.974a2.149,2.149,0,0,1,3.6,1.584V16.747a2.149,2.149,0,0,1-3.6,1.584L4.963,15.81H3.579A2.579,2.579,0,0,1,1,13.231V8.074A2.579,2.579,0,0,1,3.579,5.5H4.963ZM15.6,5.8a.859.859,0,0,1,1.165.345,9.469,9.469,0,0,1,.051,8.915.86.86,0,1,1-1.52-.8,7.75,7.75,0,0,0-.042-7.292A.86.86,0,0,1,15.6,5.8ZM12.721,7.129a.859.859,0,0,1,1.2.171,5.589,5.589,0,0,1,.205,6.413.86.86,0,1,1-1.438-.943,3.87,3.87,0,0,0-.142-4.438A.86.86,0,0,1,12.721,7.129Z" transform="translate(-1 -2.405)" fill-rule="evenodd"/>

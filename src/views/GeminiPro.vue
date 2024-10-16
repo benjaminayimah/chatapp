@@ -115,7 +115,7 @@ export default {
                         'Content-Type': 'application/json'
                     }
                 };
-                const res = await fetch('http://localhost:8001/submit-prompt', options);
+                const res = await fetch('http://localhost:8001/submit-prompt1', options);
                 this.removeLoader()
                 
                 if (res.status === 200) {
