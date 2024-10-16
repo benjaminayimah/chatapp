@@ -505,6 +505,9 @@ h4 {
   .user-response {
     margin-bottom: 16px;
     align-items: flex-end;
+    .res-wrapper {
+      max-width: 80%;
+    }
   }
   pre {
     max-width: calc(100vw - 32px);

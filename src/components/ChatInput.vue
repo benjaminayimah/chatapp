@@ -124,7 +124,6 @@ export default {
             return size > 800000 ? false : true
         },
         async deleteImage(image) {
-            // Extract the filename from the image URL
             this.deleting = true
             const filename = image.split('/').pop();
 
