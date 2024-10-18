@@ -10,6 +10,7 @@
                     :resEnded="resEnded"
                     :error="error"
                     :processing="processing"
+                    :id="$route.params.id"
                     @preview-image="previewImage"
                 />
             </div>
@@ -21,11 +22,11 @@
                 <scroll-bottom-buttton v-if="showScrollButton" @do-scroll="doScroll" />
                 <alert-box v-if="showAlert" />
             </div>
-            <div class="chat-footer bg-surface-1">
+            <div class="bg-surface-1">
                 <chat-input @submit-prompt="submitPrompt" />
                 <div class="footnote">
                     <div>
-                        Gemini may display inaccurate info, including about people, so double-check its responses.
+                        Andromeda may display inaccurate info, including about people, so double-check its responses.
                     </div>
                 </div>
             </div>
@@ -49,7 +50,7 @@ import AlertBox from '@/components/AlertBox.vue';
   
 export default {
     components: { ChatInput, ImagePreviewModal, ResponseRow, ScrollBottomButtton, AlertBox },
-    name: 'GeminiPro',
+    name: 'ChatView',
     data() {
         return {
             chatHistory: [],
@@ -70,6 +71,11 @@ export default {
                     formattedText: DOMPurify.sanitize(marked(chat.parts[0].text))
                 }
             })
+        }
+    },
+    watch: {
+        '$route.params.id'(newValue) {
+            this.fetchHistory(newValue);
         }
     },
     methods: {
@@ -132,7 +138,7 @@ export default {
                             this.scrollToBottom()
                         }
                     } while (!done);
-                    localStorage.setItem('chatHistory', JSON.stringify(this.chatHistory))
+                    localStorage.setItem(this.$route.params.id, JSON.stringify(this.chatHistory))
                     this.resEnded = true
                 }else {
                     this.showError(index, res.statusText)
@@ -155,11 +161,11 @@ export default {
             this.error = newError
         },
         cacheImage(image, index) {
-            let images = JSON.parse(localStorage.getItem('imageHistory'))
+            let images = JSON.parse(localStorage.getItem(this.$route.params.id + '_images'))
             const newHistory = { image: image, index: index}
             if (images) {
                 images.push(newHistory)
-                localStorage.setItem('imageHistory', JSON.stringify(images))
+                localStorage.setItem(this.$route.params.id + '_images', JSON.stringify(images))
             }
         },
         previewImage(url) {
@@ -207,23 +213,35 @@ export default {
             } else {
                 this.showScrollButton = false;
             }
+        },
+        fetchHistory(param) {
+            this.chatHistory = []
+            this.images = []
+            const history = JSON.parse(localStorage.getItem(param))
+            
+            if (history) {
+                this.chatHistory = history;
+
+                this.scrollToBottom()
+
+                this.$nextTick(() => {
+                    const chatContainer = this.$refs.chatContainer;
+                    chatContainer.addEventListener('scroll', this.handleScrollPosition);
+                });
+            }
+        },
+        prelims() {
+            const imageHistory = JSON.parse(localStorage.getItem(this.$route.params.id + '_images'))
+            !imageHistory ? localStorage.setItem(this.$route.params.id + '_images', JSON.stringify([])) : ''
         }
     },
     mounted() {
-        const history = JSON.parse(localStorage.getItem('chatHistory'));
-        if (history) {
-            this.chatHistory = history;
-        }
-        this.scrollToBottom()
-
-        this.$nextTick(() => {
-            const chatContainer = this.$refs.chatContainer;
-            chatContainer.addEventListener('scroll', this.handleScrollPosition);
-        });
+        this.fetchHistory(this.$route.params.id)
+        this.prelims()
     },
     beforeUnmount() {
         const chatContainer = this.$refs.chatContainer;
-        chatContainer.removeEventListener('scroll', this.handleScrollPosition);
+        chatContainer.removeEventListener('scroll', this.handleScrollPosition)
     }
 };
 </script>
@@ -235,7 +253,6 @@ h2 {
 .chat-wrapper {
     max-width: 832px;
     padding: 0 16px;
-
 }
 .chat-body {
     padding: 40px 0;

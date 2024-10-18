@@ -39,7 +39,6 @@ export default {
     }
   },
   created() {
-    this.prelims()
     this.$store.commit('setInitialTheme')
     this.$store.commit('computeWindow')
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemeChange);
@@ -47,10 +46,6 @@ export default {
     window.addEventListener('resize', this.windowSize)
   },
   methods: {
-    prelims() {
-      const imageHistory = JSON.parse(localStorage.getItem('imageHistory'))
-      !imageHistory ? localStorage.setItem('imageHistory', JSON.stringify([])) : ''
-    },
     windowSize() {
       setTimeout(()=> {
         this.$store.commit('computeWindow')

@@ -1,11 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import GeminiPro from '@/views/GeminiPro.vue'
+import ChatView from '@/views/ChatView.vue'
+import NewChat from '@/views/NewChat.vue'
+
+
 
 
 const routes = [
-  { path: '/', name: 'home', component: HomeView},
-  { path: '/gemini-pro', name: 'GeminiPro', component: GeminiPro}
+  { path: '/', name: 'Home', component: HomeView},
+  { path: '/chat/:id', name: 'ChatView', component: ChatView },
+  { path: '/new-chat', name: 'NewChat', component: NewChat }
+
 
 
 ]

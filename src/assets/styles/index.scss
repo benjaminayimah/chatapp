@@ -36,11 +36,15 @@ main {
 aside {
   ul {
     button:not(.new-chat), a {
-        color: var(--main-font-color-primary);
-        fill: var(--main-font-color-primary);
-        &:hover {
-            background-color: var(--main-background-3);
-        }
+      color: var(--main-font-color-primary);
+      fill: var(--main-font-color-primary);
+      &:hover {
+          background-color: var(--main-background-3);
+      }
+    }
+    a.router-link-exact-active {
+      background-color: var(--sidebar-active);
+      font-weight: 600;
     }
     .new-chat {
       background-color: var(--main-background-inverse);
@@ -107,6 +111,9 @@ textarea::placeholder {
 }
 .fs-2rem {
   font-size: 2rem;
+}
+.fs-205rem {
+  font-size: 2.5rem;
 }
 .fs-3rem {
   font-size: 3rem;
@@ -289,6 +296,13 @@ button.transparent-button:not(.preview-close, :disabled), .a-button{
 .res-footer {
   margin-left: -8px;
   padding: 8px 0;
+
+  .cluster-button-wrapper {
+    padding: 0 2px;
+    border-radius: 24px;
+    transition: var(--transition-time) all;
+    height: 42px;
+  }
 }
 .res-footer-btn {
   height: 40px;
@@ -331,6 +345,9 @@ button.transparent-button:not(.preview-close, :disabled), .a-button{
 }
 .gap-16 {
   gap: 16px;
+}
+.gap-24 {
+  gap: 24px;
 }
 .gap-32 {
   gap: 32px;
@@ -449,6 +466,11 @@ h4 {
       padding: 12px 0;
     }
   }
+
+  .text-center {
+    text-align: center;
+  }
+
   // ul {
   //   list-style-type: disc;
   //   margin-left: 20px;

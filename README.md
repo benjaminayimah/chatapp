@@ -1,4 +1,4 @@
-# gemini-app
+# Andromeda
 
 ## Project setup
 ```

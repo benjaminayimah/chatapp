@@ -20,8 +20,8 @@ module.exports = defineConfig({
     ],
   },
   pwa: {
-    name: 'MyChat App',
-    shortName: 'Chat app',
+    name: 'Andromeda',
+    shortName: 'Andromeda',
     themeColor: '#0f0f10',
     msTileColor: '#ffffff',
     appleMobileWebAppCapable: 'yes',

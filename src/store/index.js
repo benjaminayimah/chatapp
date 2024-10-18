@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import DeviceWindow from './modules/window'
+import playback from './modules/playback'
 
 export default createStore({
   state: {
@@ -48,11 +49,12 @@ export default createStore({
     },
     saveCurrentTheme(state, payload) {
       localStorage.setItem('theme', payload)
-    }
+    },
   },
   actions: {
   },
   modules: {
-    DeviceWindow
+    DeviceWindow,
+    playback
   }
 })
