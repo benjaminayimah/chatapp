@@ -19,7 +19,7 @@
     <div class="flex jc-c">
         <div class="chat-wrapper flex-1 relative">
             <div id="chat_info_container" class="centered absolute gap-8">
-                <scroll-bottom-buttton v-if="showScrollButton" @do-scroll="doScroll" />
+                <scroll-bottom-buttton v-if="showScrollButton" @do-scroll="doScroll('smooth')" />
                 <alert-box v-if="showAlert" />
             </div>
             <div class="bg-surface-1">
@@ -189,18 +189,19 @@ export default {
                 if (resDiv) {
                     const rect = resDiv.getBoundingClientRect();
                     if (rect.top >= (window.innerHeight / 4)) {
-                        this.doScroll()
+                        this.doScroll('smooth')
                     } 
-                } else {
-                    this.doScroll()
-                }
+                } 
+                // else {
+                //     this.doScroll()
+                // }
             });
         },
-        doScroll() {
+        doScroll(behavior) {
             const chatContainer = this.$refs.chatContainer;
             chatContainer.scrollTo({
                 top: chatContainer.scrollHeight,
-                behavior: 'smooth'
+                behavior: behavior
             });
         },
         handleScrollPosition() {
@@ -222,9 +223,9 @@ export default {
             if (history) {
                 this.chatHistory = history;
 
-                this.scrollToBottom()
 
                 this.$nextTick(() => {
+                    this.doScroll('auto')
                     const chatContainer = this.$refs.chatContainer;
                     chatContainer.addEventListener('scroll', this.handleScrollPosition);
                 });
