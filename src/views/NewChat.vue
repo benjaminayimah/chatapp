@@ -4,7 +4,6 @@
             <div class="w-100 flex flex-column gap-32">
                 <div>
                     <div class="fs-205rem fw-600 text-center hello">{{ typedText }}</div>
-                    <div :class="{'show-sub': showSub }" class="fs-2rem text-center sub-hello">How can I help you today?</div>
                 </div>
                 <chat-input />
             </div>
@@ -22,7 +21,6 @@ export default {
             textToType: "Hello, welcome to Andromeda!",
             typedText: "",
             typingSpeed: 30, // Speed of typing (in milliseconds)
-            showSub: false
         }
     },
     methods: {
@@ -35,7 +33,6 @@ export default {
                     index++;
                 } else {
                     clearInterval(typeInterval)
-                    this.showSub = true
                 }
             }, this.typingSpeed);
         },
@@ -55,17 +52,5 @@ export default {
   background: linear-gradient(90deg, #ef2d2d, #4848ff); /* Red to blue gradient */
   -webkit-background-clip: text; /* Makes the background clip to the text */
   color: transparent; /* Make the text color transparent to show the gradient */
-}
-.sub-hello {
-    color: #6d717e;
-    line-height: 44px;
-    overflow: hidden;
-    transition: 1s all;
-    height: 0;
-    opacity: 0;
-}
-.show-sub {
-    height: 44px;
-    opacity: 1;
 }
 </style>
