@@ -72,7 +72,7 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-textarea {
   color: var(--input-color);
 }
 textarea::placeholder {
-  color: var(--inpute-placeholder);
+  color: var(--input-placeholder);
 }
 
 .fixed {
@@ -132,6 +132,14 @@ textarea::placeholder {
 }
 .fs-5rem {
   font-size: clamp(2rem, 1vw + 3rem, 5rem);
+}
+.button-outline {
+  background-color: transparent;
+  color: var(--input-placeholder);
+  border: 1px solid var(--main-background-3);
+  &:hover {
+    background-color: var(--main-background-2);
+  }
 }
 
 button, .a-button{
@@ -243,6 +251,9 @@ aside {
 }
 .flex-1 {
   flex: 1;
+}
+.flex-wrap {
+  flex-wrap: wrap;
 }
 .flex-column {
   flex-direction: column;
