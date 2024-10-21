@@ -19,8 +19,8 @@
             <div class="flex gap-8">
                 <input class="hide" @change="uploadImage" name="image" id="imageUploadInput" type="file" ref="img"> 
                 <button @click.prevent="uploadClick('imageUploadInput')" data-type="button" class="transparent-button">
-                    <svg height="17" viewBox="0 0 32.932 29.782">
-                        <path d="M-1988.072,29.782A1.93,1.93,0,0,1-1990,27.854V4.718a1.93,1.93,0,0,1,1.928-1.928h16.5V4.718h-16.493l0,0V27.851l0,0h26.985l0,0V14.493h1.928V27.854a1.93,1.93,0,0,1-1.928,1.928Zm24.5-4.684-22.211-.256v-3.2l5.567-7.151a1.213,1.213,0,0,1,.645-.25,1.391,1.391,0,0,1,.678.25l6.816,7.765h1.929l6.475-4.594h.157l-.055,7.434Zm.358-15.1V6.151h-3.85V3.85h3.85V0h2.3V3.85h3.849v2.3h-3.849V10Z" transform="translate(1990)" fill="#fff"/>
+                    <svg  height="18" viewBox="0 0 32.507 31.493">
+                        <path d="M-1986,31.493a4,4,0,0,1-4-4v-22a4,4,0,0,1,4-4h15v3h-15a1,1,0,0,0-1,1v22a1,1,0,0,0,1,1h23a1,1,0,0,0,1-1v-14h3v14a4,4,0,0,1-4,4Zm19.564-5.766-16.817-.194a1.857,1.857,0,0,1-.859-.251,1.184,1.184,0,0,1-.393-.666V22.644l5-6.427a1.092,1.092,0,0,1,.58-.224,1.252,1.252,0,0,1,.609.224l6.125,6.979h1.733l5.819-4.128h.141l-.039,5.162a1.669,1.669,0,0,1-.468,1.183,2.31,2.31,0,0,1-1.289.318C-1966.38,25.73-1966.436,25.727-1966.436,25.727ZM-1963.992,10V6.5h-3.5v-3h3.5V0h3V3.5h3.5v3h-3.5V10Z" transform="translate(1990)" fill="#fff"/>
                     </svg>
                 </button>
                 <button @click.prevent="submitPrompt" :class="{'has-input': computedInput }" type="submit" :disabled="!computedInput || uploading">
@@ -54,7 +54,7 @@ export default {
             uploading: false,
             uploadedImageUrl: '',
             deleting: false,
-            file: ''
+            fileType: ''
         }
     },
     methods: {
@@ -62,12 +62,11 @@ export default {
             if (!e.shiftKey) {
                 e.preventDefault();
                 if(this.computedInput) {
-                    this.$emit('submit-prompt', { prompt: this.prompt, image: this.uploadedImageUrl, file: this.file})
+                    this.$emit('submit-prompt', { prompt: this.prompt, image: this.uploadedImageUrl, fileType: this.fileType})
                     this.prompt = ''
                     if (this.uploadedImageUrl) {
                         this.uploadedImageUrl = ''
                         this.clrOldfile('imageUploadInput')
-                        localStorage.removeItem('image')
                     }
                     this.$nextTick(() => {
                         this.adjustHeight()
@@ -100,9 +99,9 @@ export default {
                             if (data.imageUrl) {
                                 this.uploading = false
                                 this.uploadedImageUrl = data.imageUrl
-                                localStorage.setItem('image', data.imageUrl)
-                                this.file = file
-
+                                // localStorage.setItem('image', data.imageUrl)
+                                
+                                this.fileType = file.type
                                 this.$nextTick(() => {
                                     this.$refs.textArea.focus();
                                 });
@@ -132,7 +131,6 @@ export default {
                 const data = await response.json()
                 if (response.status === 200) {
                     this.uploadedImageUrl = ''
-                    localStorage.removeItem('image')
                     this.deleting = false
                     this.clrOldfile('imageUploadInput')
                 } else {

@@ -11,6 +11,7 @@
                     :error="error"
                     :processing="processing"
                     :id="$route.params.id"
+                    :images="images"
                     @preview-image="previewImage"
                 />
             </div>
@@ -26,7 +27,7 @@
                 <chat-input @submit-prompt="submitPrompt" />
                 <div class="footnote">
                     <div>
-                        Andromeda may display inaccurate info, including about people, so double-check its responses.
+                        Xirion may display inaccurate info, including about people, so double-check its responses.
                     </div>
                 </div>
             </div>
@@ -54,6 +55,7 @@ export default {
     data() {
         return {
             chatHistory: [],
+            images: [],
             error: null,
             imagePreview: null,
             showScrollButton: false,
@@ -80,17 +82,20 @@ export default {
     },
     methods: {
         async submitPrompt(e) {
+
             this.resEnded = false
             const prompt = e.prompt
             const image = e.image
-            const file = e.file
+            const fileType = e.fileType
 
             this.error = null
+            
 
             if (!prompt && !image) {
                 this.error = 'Error! Please ask a question!';
                 return;
             }
+            
             const chats = [
                 ...this.chatHistory,
                 { role: 'user', parts: [{ text: prompt }] },
@@ -100,12 +105,12 @@ export default {
             const index = this.chatHistory.length -1
             this.newIndex = index
 
-            this.insertLoader(index)
-
             if (image) {
                 this.cacheImage(image, index - 1)
-                // this.fetchCurrentImage(image, index -1)
             }
+
+            this.insertLoader(index)
+
             this.scrollToBottom()
             try {
                 const options = {
@@ -114,7 +119,7 @@ export default {
                         history: this.chatHistory,
                         prompt: prompt,
                         image: image ? image.split('/').pop() : '',
-                        fileType: file ? file.type: '',
+                        fileType: fileType ? fileType: '',
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -140,6 +145,7 @@ export default {
                     } while (!done);
                     localStorage.setItem(this.$route.params.id, JSON.stringify(this.chatHistory))
                     this.resEnded = true
+                    this.getNewChat() ? this.getNewChatTitle(e.id) : ''
                 }else {
                     this.showError(index, res.statusText)
                     this.removeLoader()
@@ -166,6 +172,7 @@ export default {
             if (images) {
                 images.push(newHistory)
                 localStorage.setItem(this.$route.params.id + '_images', JSON.stringify(images))
+                this.images = images
             }
         },
         previewImage(url) {
@@ -218,11 +225,16 @@ export default {
         fetchHistory(param) {
             this.chatHistory = []
             this.images = []
+
             const history = JSON.parse(localStorage.getItem(param))
-            
+
+            const images = JSON.parse(localStorage.getItem(param + '_images'))
+  
+            images ? this.images = images : ''
+
+        
             if (history) {
                 this.chatHistory = history;
-
 
                 this.$nextTick(() => {
                     this.doScroll('auto')
@@ -231,14 +243,64 @@ export default {
                 });
             }
         },
-        prelims() {
-            const imageHistory = JSON.parse(localStorage.getItem(this.$route.params.id + '_images'))
-            !imageHistory ? localStorage.setItem(this.$route.params.id + '_images', JSON.stringify([])) : ''
+        handleNewChat(e) {
+            this.chatHistory = []
+            this.images = []
+
+
+            this.$nextTick(() => {
+                this.submitPrompt(e)
+            })
+        },
+        getNewChat() {
+            return JSON.parse(localStorage.getItem('newChat'))
+        },
+        async getNewChatTitle(id) {
+            const prompt = 'Just give one short sentence title to the conversation above, without any leading commentary. It should just be about five to six words maximum.'
+
+            const chats = [
+                ...this.chatHistory,
+                { role: 'user', parts: [{ text: prompt }] },
+            ];
+            try {
+                const options = {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        history: chats,
+                        prompt: prompt,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                const res = await fetch('http://localhost:8001/get-recent-title', options);
+                
+                if (res.status === 200) {
+                    const data = await res.json();
+
+                    const newRecent = { id: id, title: data }
+                    let recents = JSON.parse(localStorage.getItem('recents'))
+
+                    if (recents) {
+                        recents.push(newRecent)
+                        localStorage.setItem('recents', JSON.stringify(recents))
+                        this.$store.commit('addToRecents', newRecent)
+                    }
+                    localStorage.removeItem('newChat')
+                }
+            } catch (error) {
+                console.error(error)
+            }
+
         }
     },
     mounted() {
-        this.fetchHistory(this.$route.params.id)
-        this.prelims()
+        const chatType = this.getNewChat()
+        if(chatType && (chatType.prompt || chatType.image) && chatType.id === this.$route.params.id) {
+            this.handleNewChat(chatType)
+        }else {
+            this.fetchHistory(this.$route.params.id)
+        }
     },
     beforeUnmount() {
         const chatContainer = this.$refs.chatContainer;

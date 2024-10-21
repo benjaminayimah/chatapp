@@ -32,7 +32,7 @@ export default {
     components: { Modal },
     computed: {
         ...mapState({
-            currentTheme: (state) => state.currentTheme
+            currentTheme: (state) => state.theme.currentTheme
         }),
     }
 }

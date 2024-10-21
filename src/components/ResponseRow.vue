@@ -77,7 +77,8 @@ export default {
         resEnded: Boolean,
         error: Object,
         processing: Object,
-        id: String
+        id: String,
+        images: Array
     },
     computed: {
         ...mapState({
@@ -101,12 +102,10 @@ export default {
         computedStatus() {
             return this.computedIsSpeaking ? true : false
         }
-
     },
     data() {
         return {
             isCopying: false,
-            images: JSON.parse(localStorage.getItem(this.id + '_images')),
             utterance: null,
         }
     },
@@ -145,6 +144,8 @@ export default {
                 
                 if ('speechSynthesis' in window) {
                     this.utterance = new SpeechSynthesisUtterance(text);
+                    // this.utterance.voice = window.speechSynthesis.getVoices()[0]; // Select a voice
+                    this.utterance.rate = 0.9; // 0.1 to 10, default is 1
                     this.utterance.onend = () => {
                         this.stopSpeech()
                     }

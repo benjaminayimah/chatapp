@@ -123,6 +123,22 @@ app.post('/submit-prompt', async (req, res) => {
         res.end();
     }
 });
+app.post('/get-recent-title', async (req, res) => {
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const prompt = req.body.prompt;
+        const history = req.body.history;
+        
+        const chat = model.startChat({
+            history: history,
+            generationConfig: {
+                maxOutputTokens: 40
+            }
+        });    
+        const result = await chat.sendMessage(prompt);
+        const response = result.response.text()
+
+        return res.status(200).json(response)
+});
 
 
 

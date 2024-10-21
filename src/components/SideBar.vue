@@ -20,7 +20,7 @@
                 <section>
                     <ul>
                         <li class="flex" @mouseup="device === 'mobile' ? $store.commit('closeSideBar') : ''">
-                            <router-link to="/" class="gap-10 a-button">
+                            <router-link to="/" class="gap-10 flex ai-c">
                                 <svg width="20" height="17" viewBox="0 0 26 26">
                                     <path d="M21.667,24A2.336,2.336,0,0,0,24,21.667V17.333A2.336,2.336,0,0,0,21.667,15h-2.89a2.336,2.336,0,0,0-2.333,2.333v4.334A2.336,2.336,0,0,0,18.777,24h2.89M7.223,24a2.336,2.336,0,0,0,2.333-2.333V20.223a2.336,2.336,0,0,0-2.333-2.334H4.333A2.336,2.336,0,0,0,2,20.223v1.444A2.336,2.336,0,0,0,4.333,24h2.89m0-13A2.336,2.336,0,0,0,9.556,8.667V4.333A2.336,2.336,0,0,0,7.223,2H4.333A2.336,2.336,0,0,0,2,4.333V8.667A2.336,2.336,0,0,0,4.333,11h2.89M21.667,8.111A2.336,2.336,0,0,0,24,5.777V4.333A2.336,2.336,0,0,0,21.667,2h-2.89a2.336,2.336,0,0,0-2.333,2.333V5.777a2.336,2.336,0,0,0,2.333,2.334h2.89m0,17.889h-2.89a4.333,4.333,0,0,1-4.333-4.333V17.333A4.333,4.333,0,0,1,18.777,13h2.89A4.333,4.333,0,0,1,26,17.333v4.334A4.333,4.333,0,0,1,21.667,26ZM7.223,26H4.333A4.333,4.333,0,0,1,0,21.667V20.223a4.334,4.334,0,0,1,4.333-4.334h2.89a4.334,4.334,0,0,1,4.333,4.334v1.444A4.333,4.333,0,0,1,7.223,26Zm0-13H4.333A4.333,4.333,0,0,1,0,8.667V4.333A4.333,4.333,0,0,1,4.333,0h2.89a4.333,4.333,0,0,1,4.333,4.333V8.667A4.333,4.333,0,0,1,7.223,13Zm14.444-2.888h-2.89a4.334,4.334,0,0,1-4.333-4.334V4.333A4.333,4.333,0,0,1,18.777,0h2.89A4.333,4.333,0,0,1,26,4.333V5.777A4.334,4.334,0,0,1,21.667,10.111Z"/>
                                 </svg>
@@ -32,21 +32,11 @@
                 <section id="recent" class="recent overflow-y-scroll pd-b-8">
                     <div class="fs-09 fw-600 label">Recent chat</div>
                     <ul>
-                        <li v-for="(recent, index) in recents" :key="index" class="flex" @mouseup="device === 'mobile' ? $store.commit('closeSideBar') : ''">
-                            <router-link :to="{ name: 'ChatView', params: { id: recent.id }}" class="a-button">
-                                <div class="gap-10 flex ai-c">
-                                    <svg width="20" height="14" viewBox="0 0 30 30">
-                                        <path d="M6,3H30a3.009,3.009,0,0,1,3,3V33l-6-6H6a3.009,3.009,0,0,1-3-3V6A3.009,3.009,0,0,1,6,3ZM6,24H27l3,3V6H6Z" transform="translate(-3 -3)"/>
-                                    </svg>
-                                    <span class="wrap-text wrap-line-1 fs-09">{{ recent.title }}</span>
-                                </div>
-                                <i @click.prevent="" class="flex jc-c ai-c">
-                                    <svg height="14" viewBox="0 0 2 10">
-                                        <path id="Path_2601" data-name="Path 2601" d="M-1990,9a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,9Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,5Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,1Z" transform="translate(1990)"/>
-                                    </svg>
-                                </i>
-                            </router-link>
-                        </li>
+                        <recent-chat-list v-for="(recent, index) in recents" 
+                            :key="index"
+                            :recent="recent"
+                            :device="device"
+                        />
                     </ul>
                 </section>
             </div>
@@ -69,36 +59,19 @@
 <script>
 import { mapState } from 'vuex';
 import Backdrop from './Backdrop.vue';
+import RecentChatList from './RecentChatList.vue';
 export default {
-    components: { Backdrop },
+    components: { Backdrop, RecentChatList },
     name: 'SideBar',
     computed: {
         ...mapState({
             menu: (state) => state.DeviceWindow.menu,
-            device: (state) => state.DeviceWindow.device
+            device: (state) => state.DeviceWindow.device,
+            recents: (state) => state.recents
         })
     },
     data() {
         return {
-            recents: [
-                { id: '318af7449d8029d6', title: 'iPhone Camera Placement Evolution'},
-                { id: '938az90kd5932901', title: 'Spyware and Privacy Concerns'}
-
-                // 'Airbag Warning Signs',
-                // 'Spyware and Privacy Concerns',
-                // 'Friendly Greeting Exchange',
-                // 'iPhone Camera Placement Evolution',
-                // 'Coriolis Effect at Equator',
-                // '20% Reduction Calculation',
-                // 'Percentage Increase Calculation',
-                // 'Australian Open Surface Change',
-                // 'Ghana Olympic Medal History',
-                // 'Grammar Check Confirmation',
-                // 'Electoral College vs Popular Vote',
-                // 'Coriolis Effect at Equator',
-                // 'Phrase Correction Request',
-                // 'São Tomé Minister Update'
-            ]
         }
     },
     methods: {
@@ -113,135 +86,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 aside {
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    transition: .3s ease-in-out width, .5s ease-in-out left, .2s ease background-color,;
+  transition: .3s ease-in-out width, .5s ease-in-out left, .2s ease background-color,;
 }
+
 section {
     padding-right: 14px;
     padding-left: 14px;
 }
-.desktop, .tablet {
-    .expanded {
-        width: var(--side-bar-full-width);
-        ul {
-            button, a {
-                flex: 1;
-                justify-content: unset;
-                padding: 0 10px;
-            }
-            .new-chat {
-                width: 122px;
-                transition: var(--transition-time) width;
-            }
-        }
-    }
-    .collapsed{
-        width: var(--side-bar-mini-width);
-        ul {
-            button, a {
-                width: 40px;
-                span {
-                    display: none;
-                }
-            }
-        }
 
-        .recent {
-            display: none;
-        }
-    }
-    #recent a {
-        span {
-            width: calc(var(--side-bar-full-width) - 110px);
-        }
-        i {
-            opacity: 0;
-        }
-    }
-}
 
-.mobile {
-    aside {
-        position: fixed;
-        height: 100%;
-        width: 75vw;
-        z-index: 99;
-    }
-    .expanded {
-       left: 0;
-    }
-    .collapsed{
-       left: calc(-100vw - 40px);
-       width: var(--side-bar-mini-width);
-    }
-    button, a {
-        flex: 1;
-        justify-content: unset;
-        padding: 0 10px;
-    }
-    #recent a {
-        span {
-            width: calc(75vw - 110px);
-        }
-        i {
-            opacity: 1;
-        }
-    }
-}
 .aside-wrapper {
     padding: 100px 0 24px 0;
     gap: 12px;
 }
-ul {
-    svg {
-        flex-shrink: 0;
-    }
-    button, a {
-        height: 40px;
-        span {
-            display: block;
-            padding-right: 5px;
-            animation: fadeInSlide .3s;
-        }
-    }
-}
+
 .label {
     padding: 0 10px 8px 10px;
     color: var(--font-color-3);
 }
-@keyframes fadeInSlide {
-  from { opacity: 0; transform: translateX(-10px);}
-  to { opacity: 1; transform: translateX(0)}
-}
-
-#recent {
-    max-height: calc(100dvh - 308px);
-    animation: fadeIn 1s;
-    a {
-        justify-content: space-between;
-        &:hover i {
-            opacity: 1;
-        }
-        i {
-            height: 32px;
-            width: 32px;
-            cursor: default;
-            border-radius: 40px;
-            translate: 6px;
-            &:hover {
-                background-color: var(--main-background-4);
-            }
-        }
+.expanded {
+      left: 0;
     }
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0;}
-    100% { opacity: 1;}
-}
-
+    .collapsed{
+      left: calc(-100vw - 40px);
+      width: var(--side-bar-mini-width);
+    }
 </style>

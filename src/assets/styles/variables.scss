@@ -1,4 +1,8 @@
 :root {
     --side-bar-full-width: 290px;
-    --side-bar-mini-width: 68px
+    --side-bar-mini-width: 68px;
+    --hello-text-height: 55px;
+    .mobile {
+        --hello-text-height: 33px;
+    }
 }

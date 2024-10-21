@@ -1,4 +1,4 @@
-# Andromeda
+# Xirion
 
 ## Project setup
 ```

@@ -15,13 +15,18 @@ module.exports = defineConfig({
     plugins: [
       new webpack.ProvidePlugin({
         process: 'process/browser',
-        Buffer: ['buffer', 'Buffer'],
+        Buffer: ['buffer', 'Buffer']
+      }),
+      new webpack.DefinePlugin({
+        __VUE_OPTIONS_API__: JSON.stringify(true), // or false
+        __VUE_PROD_DEVTOOLS__: JSON.stringify(false), // or true based on your needs
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: JSON.stringify(false), // Add this line to remove the warning
       }),
     ],
   },
   pwa: {
-    name: 'Andromeda',
-    shortName: 'Andromeda',
+    name: 'Xirion',
+    shortName: 'Xirion',
     themeColor: '#0f0f10',
     msTileColor: '#ffffff',
     appleMobileWebAppCapable: 'yes',

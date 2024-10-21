@@ -37,7 +37,9 @@ aside {
   ul {
     button:not(.new-chat), a {
       color: var(--main-font-color-primary);
-      fill: var(--main-font-color-primary);
+      path {
+        fill: var(--main-font-color-primary);
+      }
       &:hover {
           background-color: var(--main-background-3);
       }
@@ -45,6 +47,13 @@ aside {
     a.router-link-exact-active {
       background-color: var(--sidebar-active);
       font-weight: 600;
+      i {
+        background-color: var(--sidebar-active);
+        &:hover {
+          background-color: var(--sidebar-active-button) !important;
+    
+        }
+      }
     }
     .new-chat {
       background-color: var(--main-background-inverse);
@@ -133,13 +142,16 @@ button, .a-button{
   white-space: nowrap;
   font-family: inherit;
   font-size: 1rem;
-  cursor: pointer;
   border-radius: 32px;
   transition: var(--transition-time) background-color;
   path {
     transition: var(--transition-time) all;
   }
 }
+button:not(:disabled), .a-button{
+  cursor: pointer;
+}
+
 
 button:not(:disabled), .a-button {
   &:active {
@@ -147,7 +159,7 @@ button:not(:disabled), .a-button {
     outline-style: solid;
   }
 }
-button:not(:disabled, .preview-close), .a-button {
+button:not(:disabled, .preview-close), .a-button{
   &:active {
     outline-color: var(--button-press-outline);
   }
@@ -159,17 +171,62 @@ button.transparent-button:not(.preview-close, :disabled), .a-button{
   }
 }
 
-
-.desktop, .tablet {
-  .transparent-button:not(:disabled) {
-    &:hover {
-      background-color: var(--main-background-3);
+aside {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  ul {
+      svg {
+          flex-shrink: 0;
+      }
+      button, a {
+          height: 40px;
+          border-radius: 32px;
+          transition: var(--transition-time) background-color;
+          white-space: nowrap;
+          span {
+              display: block;
+              padding-right: 5px;
+              animation: fadeInSlide .3s;
+          }
+      }
+  }
+  #recent {
+    max-height: calc(100dvh - 308px);
+    animation: fadeIn 1s;
+    a {
+        justify-content: space-between;
+        &:hover i {
+            opacity: 1;
+        }
+        i {
+            height: 32px;
+            width: 32px;
+            cursor: default;
+            border-radius: 40px;
+            translate: 6px;
+            &:hover {
+                background-color: var(--main-background-4);
+            }
+        }
     }
   }
-  .chat-loader {
-    margin: 15px 40px;
+  @keyframes fadeInSlide {
+    from { opacity: 0; transform: translateX(-10px);}
+    to { opacity: 1; transform: translateX(0)}
+  }
+  
+  
+  
+  @keyframes fadeIn {
+      0% { opacity: 0;}
+      100% { opacity: 1;}
   }
 }
+
+
+
+
 
 .bg-transparent {
   background-color: transparent;
@@ -374,9 +431,7 @@ button.transparent-button:not(.preview-close, :disabled), .a-button{
   overflow: hidden;
 }
 
-table {
-  width: 100%;
-}
+
 ul, ol, p {
   line-height: 1.75rem;
 }
@@ -438,9 +493,6 @@ h4 {
 }
 
 
-#app {
-    // text-align: center;
-}
   
   nav {
     padding: 30px;
@@ -475,33 +527,96 @@ h4 {
   //   list-style-type: disc;
   //   margin-left: 20px;
   // }
-  pre {
-    padding: 12px;
-    border-radius: 16px;
-    overflow-x: auto;
-    display: block;
+pre {
+  padding: 12px;
+  border-radius: 16px;
+  overflow-x: auto;
+  display: block;
+  background-color: var(--main-background-2);
+  transition: var(--transition-time) background-color;
+  // &:has(.language-html) {
+  //   background-color: #4b64f1;
+  // }
+  // &:has(.language-css) {
+  //   background-color: #436762;
+  // }
+  // &:has(.language-javascript) {
+  //   background-color: #d75858;
+  // }
+
+  code {
+    background-color: transparent;
+  }
+}
+code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--main-background-2);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+table {
+  width: 100%;
+  thead {
     background-color: var(--main-background-2);
     transition: var(--transition-time) background-color;
-    // &:has(.language-html) {
-    //   background-color: #4b64f1;
-    // }
-    // &:has(.language-css) {
-    //   background-color: #436762;
-    // }
-    // &:has(.language-javascript) {
-    //   background-color: #d75858;
-    // }
+  }
+  th, td {
+    padding: 4px 16px;
+    text-align: left;
+  }
+}
 
-    code {
-      background-color: transparent;
+
+.desktop, .tablet {
+  .transparent-button:not(:disabled, [data-type=modal]) {
+    &:hover {
+      background-color: var(--main-background-3);
     }
   }
-  code {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: var(--main-background-2);
-    padding: 2px 6px;
-    border-radius: 6px;
+  .chat-loader {
+    margin: 15px 40px;
   }
+  .expanded {
+    width: var(--side-bar-full-width);
+    ul {
+        button, a {
+            flex: 1;
+            justify-content: unset;
+            padding: 0 10px;
+        }
+        .new-chat {
+            width: 122px;
+            transition: var(--transition-time) width;
+        }
+    }
+  }
+  .collapsed{
+      width: var(--side-bar-mini-width);
+      ul {
+          button, a {
+              width: 40px;
+              justify-content: center;
+
+              span {
+                  display: none;
+              }
+          }
+      }
+
+      .recent {
+          display: none;
+      }
+  }
+  #recent a {
+      span {
+          width: calc(var(--side-bar-full-width) - 110px);
+      }
+      i {
+          opacity: 0;
+      }
+  }
+}
+
 
 .tablet {
   // var(--side-bar-mini-width)
@@ -545,6 +660,31 @@ h4 {
   .chat-loader {
     margin: 18px 43px;
   }
+  //main nav aside
+  aside {
+    position: fixed;
+    height: 100%;
+    width: 75vw;
+    z-index: 99;
+
+    
+    button, a {
+        flex: 1;
+        justify-content: unset;
+        padding: 0 10px;
+    }
+    #recent a {
+        span {
+            width: calc(75vw - 110px);
+        }
+        i {
+            opacity: 1;
+        }
+    }
+    
+  }
+  
+
 }
 
 .modal-fade-enter-active, .modal-fade-leave-active {
