@@ -1,6 +1,7 @@
 export default {
     state: {
       dropdownDiv: { active: false, right: '', left: '', top: '', bottom: ''},
+      language: { name: 'English (US)', key: 'eng'},
     },
     mutations: {
         setDropdown(state, id) {

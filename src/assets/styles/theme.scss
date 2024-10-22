@@ -28,6 +28,8 @@
         --main-background-inverse-hover: #ced1d7;
 
         --modal-main-background: #ffffff;
+        --modal-main-background-2: #ffffff ;
+
         --modal-font: #000000;
         --modal-close-icon: #2b2c2d;
         --modal-close-button-hover: #eaebf0;
@@ -37,6 +39,9 @@
 
 
         --box-shadow-1: rgba(0, 0, 0, 0.1) 0px 0px 3px 1px;
+
+
+        
 
 
         
@@ -66,10 +71,13 @@
         --input-color: var(--main-font-color-primary);
         --scrollbar-color: #535353;
 
-        --main-background-inverse: #d8d9dd;
-        --main-background-inverse-hover: #b8bac0;
+        --main-background-inverse: #b8bac0;
+        --main-background-inverse-hover: #a7a9b2;
 
         --modal-main-background: #2e2f30;
+        --modal-main-background-2: #3b3c3d ;
+
+
         --modal-font: #e3e3e3;
         --modal-close-icon: #acaeb1;
         --modal-close-button-hover: #3b3c3d;
@@ -84,9 +92,10 @@
 
 
 
-
     }
     --transition-time: .2s ease;
+    --danger: #f22121;
+    --danger-hover: #d71e1e;
 }
 // @media (prefers-color-scheme: dark) {
 //     body {

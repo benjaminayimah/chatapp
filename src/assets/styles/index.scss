@@ -33,13 +33,13 @@ main {
   height: 100%;
   overflow-y: hidden;
 }
+.bg-transition {
+  transition: var(--transition-time) background-color;
+}
 aside {
   ul {
     button:not(.new-chat), a {
       color: var(--main-font-color-primary);
-      path {
-        fill: var(--main-font-color-primary);
-      }
       &:hover {
           background-color: var(--main-background-3);
       }
@@ -60,8 +60,16 @@ aside {
       &:hover {
         background-color: var(--main-background-inverse-hover);
       }
+      &:active {
+       background-color: var(--main-background-inverse);
+      }
     }
   }
+}
+
+path:not(.invert-fill-color) {
+  fill: var(--main-font-color-primary);
+  transition: var(--transition-time) all;
 }
 
 input:not([type=checkbox],[type=radio]), select, textarea, .div-textarea {
@@ -73,6 +81,14 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-textarea {
 }
 textarea::placeholder {
   color: var(--input-placeholder);
+}
+
+hr {
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  margin: 0;
+  transition: var(--transition-time) border;
 }
 
 .fixed {
@@ -133,14 +149,7 @@ textarea::placeholder {
 .fs-5rem {
   font-size: clamp(2rem, 1vw + 3rem, 5rem);
 }
-.button-outline {
-  background-color: transparent;
-  color: var(--input-placeholder);
-  border: 1px solid var(--main-background-3);
-  &:hover {
-    background-color: var(--main-background-2);
-  }
-}
+
 
 button, .a-button{
   border-style: none;
@@ -151,16 +160,9 @@ button, .a-button{
   font-size: 1rem;
   border-radius: 32px;
   transition: var(--transition-time) background-color;
-  path {
-    transition: var(--transition-time) all;
-  }
 }
 button:not(:disabled), .a-button{
   cursor: pointer;
-}
-
-button[data-type=navigation] {
-
 }
 
 
@@ -181,6 +183,28 @@ button.transparent-button:not(.preview-close, :disabled), .a-button{
     background-color: var(--button-press-bg) !important;
   }
 }
+.button-danger {
+  background-color: var(--danger);
+  color: #fff;
+  &:hover {
+    background-color: var(--danger-hover);
+  }
+}
+
+.button-outline {
+  background-color: transparent;
+  border: 1px solid var(--main-background-3);
+  transition: var(--transition-time) border;
+  &:hover {
+    background-color: var(--main-background-2);
+  }
+  &:active {
+    background-color: var(--main-background-3);
+  }
+}
+
+
+
 
 aside {
   height: 100vh;
@@ -193,7 +217,6 @@ aside {
       button, a {
           height: 40px;
           border-radius: 32px;
-          transition: var(--transition-time) background-color;
           white-space: nowrap;
           span {
               display: block;
@@ -314,7 +337,6 @@ aside {
   margin-bottom: 24px;
   justify-content: flex-end;
   .res-wrapper {
-    transition: var(--transition-time) background-color;
     border-radius: 16px;
     max-width: 70%;
     margin: 0;
@@ -387,10 +409,6 @@ aside {
   height: 40px;
   width: 40px;
   cursor: pointer;
-  path {
-    fill: var(--main-font-color-primary);
-  }
-
 }
 
 
@@ -421,6 +439,9 @@ aside {
 }
 .gap-10 {
   gap: 10px;
+}
+.gap-14 {
+  gap: 14px;
 }
 .gap-16 {
   gap: 16px;
@@ -496,9 +517,6 @@ h4 {
   background-color: var(--main-background-primary);
   box-shadow: 0 0 1px 1px var(--main-background-4);
   transition: var(--transition-time) all;
-  path {
-    fill: var(--modal-close-icon);
-  }
 }
 
 //sticky

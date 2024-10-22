@@ -6,6 +6,7 @@ import dropdown from './modules/dropdown'
 
 export default createStore({
   state: {
+    token: localStorage.getItem('auth') || null,
     recents: JSON.parse(localStorage.getItem('recents')) || []
   },
   mutations: {
@@ -37,6 +38,11 @@ export default createStore({
     }
   },
   actions: {
+  },
+  getters: {
+    auth(state) {
+      return state.token !== null
+    },
   },
   modules: {
     DeviceWindow,

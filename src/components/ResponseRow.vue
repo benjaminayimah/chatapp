@@ -5,7 +5,7 @@
                 <img v-if="computedImage" :src="computedImage.image" @click="$emit('preview-image', computedImage.image)" alt="Uploaded image" height="200" loading="lazy">
             </div>
             <div class="flex w-100 res-block" :class="`${chat.role}-response`">
-                <div class="res-wrapper">{{ chat.parts[0].text }}</div>
+                <div class="res-wrapper bg-transition">{{ chat.parts[0].text }}</div>
             </div>
         </div>
         <div v-else :id="`model_res_container_${index}`" class="flex res-block" :class="`${chat.role}-response`">

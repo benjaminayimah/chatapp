@@ -77,11 +77,13 @@ export default {
 }
 
 .modal-container {
-    padding: 16px 0;
+    padding: 12px 0;
     border-radius: 16px;
     width: v-bind(computedWidth);
     max-width: 90vw;
     max-height: 90dvh;
+    min-height: 50dvh;
+
 }
 
 .modal-header {
@@ -99,6 +101,7 @@ button {
     height: 36px;
     width: 36px;
     cursor: pointer;
+    margin-right: -6px;
 }
 
 .desktop, .tablet {

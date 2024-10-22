@@ -55,8 +55,5 @@ a {
         width: 17px;
     }
 }
-path {
-    fill: var(--main-font-color-primary);
-}
 
 </style>
