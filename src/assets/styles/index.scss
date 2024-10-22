@@ -145,7 +145,6 @@ textarea::placeholder {
 button, .a-button{
   border-style: none;
   display: flex;
-  justify-content: center;
   align-items: center;
   white-space: nowrap;
   font-family: inherit;
@@ -158,6 +157,10 @@ button, .a-button{
 }
 button:not(:disabled), .a-button{
   cursor: pointer;
+}
+
+button[data-type=navigation] {
+
 }
 
 
@@ -232,7 +235,9 @@ aside {
   }
 }
 
-
+.br-50 {
+  border-radius: 50%;
+}
 
 
 
@@ -334,6 +339,12 @@ aside {
   }
 }
 .model-response {
+  a {
+    text-decoration: underline;
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
   margin-bottom: 32px;
   p:first-child {
     margin-block-start: 8px;
@@ -733,3 +744,5 @@ table {
     box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
   }
 }
+
+

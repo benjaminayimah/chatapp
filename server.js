@@ -119,8 +119,7 @@ app.post('/submit-prompt', async (req, res) => {
         res.end(); // End the response
         
     } catch (error) {
-        res.status(500).json('An error occurred during content generation: ', error);
-        res.end();
+        return res.status(500).json('An error occurred during content generation: ', error);
     }
 });
 app.post('/get-recent-title', async (req, res) => {

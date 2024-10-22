@@ -2,6 +2,13 @@
     <div ref="chatContainer" class="flex chat-body-wrapper flex-1 jc-c overflow-y-scroll">
         <div class="chat-wrapper flex-1">
             <div ref="chatContainer" class="chat-body">
+                <!-- <div v-if="!formattedResult.length" class="skeleton-loader flex">
+                    <div class="avatar br-50 animate-pulse"></div>
+                    <div class="res flex flex-column gap-8">
+                        <div class="res-1 animate-pulse"></div>
+                        <div class="res-2 animate-pulse"></div>
+                    </div>
+                </div> -->
                 <response-row v-for="(chat, index) in formattedResult" 
                     :key="index"
                     :chat="chat"
@@ -48,6 +55,7 @@ import ImagePreviewModal from '@/modals/ImagePreviewModal.vue';
 import ResponseRow from '@/components/ResponseRow.vue';
 import ScrollBottomButtton from '@/components/ScrollBottomButtton.vue';
 import AlertBox from '@/components/AlertBox.vue';
+import { mapState } from 'vuex';
   
 export default {
     components: { ChatInput, ImagePreviewModal, ResponseRow, ScrollBottomButtton, AlertBox },
@@ -66,6 +74,9 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            device: (state) => state.DeviceWindow.device
+        }),
         formattedResult() {
             return this.chatHistory.map(chat => {
                 return {
@@ -198,10 +209,7 @@ export default {
                     if (rect.top >= (window.innerHeight / 4)) {
                         this.doScroll('smooth')
                     } 
-                } 
-                // else {
-                //     this.doScroll()
-                // }
+                }
             });
         },
         doScroll(behavior) {
@@ -238,10 +246,9 @@ export default {
 
                 this.$nextTick(() => {
                     this.doScroll('auto')
-                    const chatContainer = this.$refs.chatContainer;
-                    chatContainer.addEventListener('scroll', this.handleScrollPosition);
                 });
             }
+            this.dismissMenu()
         },
         handleNewChat(e) {
             this.chatHistory = []
@@ -292,6 +299,9 @@ export default {
                 console.error(error)
             }
 
+        },
+        dismissMenu() {
+            this.device === 'mobile' ? this.$store.commit('closeSideBar') : ''
         }
     },
     mounted() {
@@ -301,6 +311,10 @@ export default {
         }else {
             this.fetchHistory(this.$route.params.id)
         }
+        const chatContainer = this.$refs.chatContainer;
+        chatContainer.addEventListener('scroll', this.handleScrollPosition);
+        this.dismissMenu()
+
     },
     beforeUnmount() {
         const chatContainer = this.$refs.chatContainer;
@@ -320,5 +334,44 @@ h2 {
 .chat-body {
     padding: 40px 0;
 }
+
+
+
+
+.skeleton-loader {
+    gap: 12px;
+    opacity: 0.4;
+    .avatar {
+        height: 38px;
+        width: 38px;
+        background-color: #26272b;
+    }
+    .res {
+        width: 100%;
+        div {
+            border-radius: 16px;
+            background-color: #26272b;
+        }
+    }
+    .res-1 {
+        height: 38px;
+        width: 60%;
+    }
+    .res-2 {
+        height: 60px;
+        width: 95%;
+
+    }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: .5 }
+}
+
+
 </style>
   

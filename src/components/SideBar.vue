@@ -7,7 +7,7 @@
             <div class="flex gap-16 flex-column">
                 <section>
                     <ul>
-                        <li>
+                        <li @mouseup="device === 'mobile' ? $store.commit('closeSideBar') : ''">
                             <button @click="newChat" class="gap-8 new-chat">
                                 <svg width="20" height="14" viewBox="0 0 14 14">
                                     <path d="M21.5,15.5h-6v6h-2v-6h-6v-2h6v-6h2v6h6Z" transform="translate(-7.5 -7.5)"/>
@@ -29,7 +29,7 @@
                         </li>
                     </ul>
                 </section>
-                <section id="recent" class="recent overflow-y-scroll pd-b-8">
+                <section v-if="recents && recents.length" id="recent" class="recent overflow-y-scroll pd-b-8">
                     <div class="fs-09 fw-600 label">Recent chat</div>
                     <ul>
                         <recent-chat-list v-for="(recent, index) in recents" 
@@ -76,7 +76,7 @@ export default {
     },
     methods: {
         openModal() {
-            this.$router.push({ query: { m: 'settings' } });
+            this.$router.push({ query: { m: 'settings', page: 'general' } });
         },
         newChat() {
             this.$router.push({ name: 'NewChat' })

@@ -30,12 +30,12 @@ export default {
       return this.$route.query.m;
     },
     modalContent() {
-        switch (this.modalType) {
-            case 'settings':
-            return 'SettingsModal';
-            default:
-            return 'DefaultContent';
-        }
+      switch (this.modalType) {
+          case 'settings':
+          return 'SettingsModal';
+          default:
+          return 'DefaultContent';
+      }
     }
   },
   created() {
