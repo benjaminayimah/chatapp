@@ -113,7 +113,7 @@ ul {
         flex-direction: row;
         position: sticky;
         top: 500px;
-        padding: 20px;
+        padding: 10px 20px;
     }
     .gap-32 {
         gap: 0;
