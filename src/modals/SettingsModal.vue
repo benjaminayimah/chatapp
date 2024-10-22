@@ -6,7 +6,7 @@
         <template #body>
             <div class="flex gap-32" id="modal_body">
                 <div class="modal-body-left">
-                    <ul class="flex flex-column">
+                    <ul class="flex flex-column overflow-x-scroll scroll-hidden">
                         <li>
                             <a @click.prevent="handleRoute('general')" href="#" class="w-100 gap-8 flex ai-c bg-transition" :class="{'active-nav' : $route.query.page === 'general' ||  $route.query.page == null}">
                                 <svg width="20" height="18" viewBox="0 0 25.511 25.511">
@@ -83,35 +83,58 @@ export default {
 }
 .modal-body-left {
     width: 170px;
+    padding-left: 20px;
 }
 .modal-body-right {
-    padding: 16px 0 32px 0;
+    padding: 16px 20px 32px 0;
 }
 ul {
     padding: 20px 0;
     margin-left: -10px;
     a {
         height: 38px;
-        padding: 0 10px;
+        padding: 0 12px;
         border-radius: 40px;
     }
     
 }
-a.active-nav {
-    background-color: var(--main-background-4);
+.desktop,.tablet {
+    a.active-nav {
+        background-color: var(--main-background-4);
+    }
 }
+
 .mobile {
     #modal_body {
         flex-direction: column;
     }
-    ul.flex-column {
+    ul {
+        margin-left: 0;
         flex-direction: row;
+        position: sticky;
+        top: 500px;
+        padding: 20px;
     }
     .gap-32 {
         gap: 0;
     }
     .modal-body-right {
-        padding: 8px 0;
+        padding: 8px 20px 8px 20px;
+    }
+    .modal-body-left {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    a.active-nav {
+        background-color: var(--main-background-secondary);
+        color: var(--main-background-primary);
+        path {
+            fill: var(--main-background-primary);
+        }
+        &:active {
+            background-color: var(--main-background-secondary-hover);
+        }
     }
 }
 </style>
