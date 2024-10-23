@@ -29,8 +29,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="modal-body-right flex-1">
-                    <div class="flex flex-column gap-14">
+                <div class="modal-body-right flex-1 overflow-y-scroll">
+                    <div class="flex flex-column gap-14 content-right-wrapper">
                         <component v-if="isModalOpen" :is="modalContent"></component>
                     </div>
                 </div>
@@ -82,29 +82,39 @@ export default {
     font-size: .95rem;
 }
 .modal-body-left {
-    width: 170px;
+    width: 180px;
     padding-left: 20px;
 }
 .modal-body-right {
-    padding: 16px 20px 32px 0;
+    padding-right: 20px;
+    max-height: calc(90dvh - 55px);
+}
+.content-right-wrapper {
+    padding: 16px 0 32px 0;
 }
 ul {
     padding: 20px 0;
     margin-left: -10px;
     a {
         height: 38px;
-        padding: 0 12px;
+        padding: 0 18px 0 12px;
         border-radius: 40px;
+        &:hover {
+            background-color: var(--light-surface-hover);
+        }
     }
     
 }
 .desktop,.tablet {
     a.active-nav {
-        background-color: var(--main-background-4);
+        background-color: var(--light-surface-active);
     }
 }
 
 .mobile {
+    .modal-body-right {
+        max-height: calc(90dvh - 109px);
+    }
     #modal_body {
         flex-direction: column;
     }
@@ -113,13 +123,16 @@ ul {
         flex-direction: row;
         position: sticky;
         top: 500px;
-        padding: 10px 20px;
+        padding: 8px 20px;
     }
     .gap-32 {
         gap: 0;
     }
     .modal-body-right {
-        padding: 8px 20px 8px 20px;
+        padding-left: 20px;
+    }
+    .content-right-wrapper {
+        padding: 8px 0 40px 0;
     }
     .modal-body-left {
         width: 100%;

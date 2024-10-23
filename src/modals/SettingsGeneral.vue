@@ -31,7 +31,7 @@
             </button>
         </div>
     </div>
-    <teleport to="body">
+    <teleport to="main">
         <backdrop @click="handleDropdown('theme_toggler', null)" v-if="dropdownToggle" :opacity="0" :zindex="501" />
         <div v-if="dropdownType === 'theme'" class="dropdown bg-transition" :style="{ top: dropdown.top + 40 + 'px', left: dropdown.left + 'px'}">
             <ul>
@@ -103,13 +103,19 @@ button {
 button.button-outline {
     font-size: 0.95rem;
     color: var(--main-font-color-primary);
-    border-color: var(--button-press-outline);
+    border-color: var(--light-surface-border);
     &:hover {
-        background-color: var(--main-background-4);
+        background-color: var(--light-surface-active);
     }
 }
 hr {
-    border-top: 1px solid var(--main-background-4);
+    border-top: 1px solid var(--light-surface-border);
+}
+.mobile {
+    .dropdown {
+        right: 0 !important;
+        left: unset !important;
+    }
 }
 
 

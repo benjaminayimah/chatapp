@@ -51,8 +51,8 @@ a {
         background-color: var(--modal-close-button-hover);
     }
     svg {
-        height: 17px;
-        width: 17px;
+        height: 16px;
+        width: 16px;
     }
 }
 

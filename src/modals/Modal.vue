@@ -11,7 +11,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="overflow-y-scroll">
+            <div class="modal-body">
                 <slot name="body"></slot>
             </div>
             <div class="modal-footer">
@@ -83,16 +83,13 @@ export default {
     max-width: 90vw;
     max-height: 90dvh;
     min-height: 50dvh;
-
 }
 
 .modal-header {
     justify-content: space-between;
     align-items: center;
 }
-.modal-body {
-    max-height: calc(90dvh - 56px);
-}
+
 .modal-header, .modal-footer {
     padding: 0 20px;
 }
