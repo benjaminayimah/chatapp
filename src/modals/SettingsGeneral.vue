@@ -113,7 +113,7 @@ hr {
 }
 .mobile {
     .dropdown {
-        right: 0 !important;
+        right: 40px !important;
         left: unset !important;
     }
 }
