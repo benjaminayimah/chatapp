@@ -25,7 +25,7 @@ nav {
 }
 button {
     height: 40px;
-    padding: 14px;
+    padding: 16px;
     font-weight: 600;
 }
 
