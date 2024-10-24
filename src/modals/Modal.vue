@@ -3,7 +3,7 @@
         <div class="modal-container bg-modal-surface ov-hidden">
             <div class="modal-header flex">
                 <slot name="header">
-                    <h3>{{ title }}</h3>
+                    <h4>{{ title }}</h4>
                 </slot>
                 <button @click="closeModal" class="transparent-button jc-c" data-type="modal">
                     <svg height="14" viewBox="0 0 13.587 13.587">
@@ -32,12 +32,7 @@ export default {
         title: {
             type: String,
             default: 'Modal'
-        },
-        modalType: {
-            type: String,
-            default: ''
-        }
-        
+        } 
     },
     computed: {
         computedZindex() {

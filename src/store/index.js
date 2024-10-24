@@ -7,7 +7,8 @@ import dropdown from './modules/dropdown'
 export default createStore({
   state: {
     token: localStorage.getItem('auth') || null,
-    recents: JSON.parse(localStorage.getItem('recents')) || []
+    recents: JSON.parse(localStorage.getItem('recents')) || [],
+    deleteModal: null
   },
   mutations: {
     saveCurrentTheme(state, payload) {
@@ -15,6 +16,12 @@ export default createStore({
     },
     addToRecents(state, payload) {
       state.recents.push(payload)
+    },
+    setDeleteModal(state, payload) {
+      state.deleteModal = payload
+    },
+    closeDeleteModal(state) {
+      state.deleteModal = null
     },
     deleteChat(state, payload) {
       let recents = JSON.parse(localStorage.getItem('recents'))
@@ -26,6 +33,9 @@ export default createStore({
       localStorage.setItem('recents', JSON.stringify(recents));
       localStorage.removeItem(payload + '_images')
       localStorage.removeItem(payload)
+    },
+    deleteAllChats(state) {
+      //
     },
     renameChat(state, payload) {
       let recents = JSON.parse(localStorage.getItem('recents'))

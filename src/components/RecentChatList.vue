@@ -43,23 +43,15 @@ export default {
         }
     },
     methods: {
-        // handleDropdown(id) {
-        //     if (!this.dropdownToggle) {
-        //         this.dropdownToggle = true
-        //         this.$store.commit('setDropdown', id)
-        //     } else {
-        //         this.dropdownToggle = false
-        //         this.$store.commit('reSetDropdown')
-        //     }
-        // },
         async deleteChat() {
-            const routeId = this.$route.params.id
-            const thisId = this.recent.id
+            const body = `
+                <div>You are about to delete <strong>${this.recent.title}</strong> from your chat history.</div>
+                <div>
+                    <span class="fs-095">This will also delete related activities like prompts, responses, and feedback from your app.</span>
+                </div>
+            `
+            this.$store.commit('setDeleteModal', { id: this.recent.id, title: 'Delete chat?', type: 'recent-chat', body: body })
             this.handleDropdown(`recent_${this.recent.id}`)
-            await this.$store.commit('deleteChat', thisId)
-            if (routeId == thisId) {
-                this.$router.push({ name: 'NewChat' })
-            }
         },
         closeDropdown() {
             this.dropdownToggle = false

@@ -12,6 +12,8 @@
   <transition name="modal-fade">
     <component v-if="isModalOpen" :is="modalContent"></component>
   </transition>
+  <component v-if="isDeleteOpen" :is="deleteContent"></component>
+
 </template>
 <script>
 
@@ -19,10 +21,18 @@ import NavBar from '@/components/NavBar'
 import SideBarToggle from './components/SideBarToggle.vue'
 import SideBar from './components/SideBar.vue'
 import SettingsModal from './modals/SettingsModal.vue'
+import DeleteModal from './modals/DeleteModal.vue'
+import { mapState } from 'vuex';
 export default {
-  components: { NavBar, SideBarToggle, SideBar, SettingsModal },
+  components: { NavBar, SideBarToggle, SideBar, SettingsModal, DeleteModal },
   name: 'AppView',
   computed: {
+    ...mapState({
+      deleteState: (state) => state.deleteModal
+    }),
+    isDeleteOpen() {
+      return !!this.deleteState;
+    },
     isModalOpen() {
       return !!this.$route.query.m;
     },
@@ -31,11 +41,14 @@ export default {
     },
     modalContent() {
       switch (this.modalType) {
-          case 'settings':
+        case 'settings':
           return 'SettingsModal';
-          default:
+        default:
           return 'DefaultContent';
       }
+    },
+    deleteContent() {
+      return this.isDeleteOpen ? 'DeleteModal' : ''
     }
   },
   created() {

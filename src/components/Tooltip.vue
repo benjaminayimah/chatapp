@@ -67,7 +67,6 @@
             left = triggerRect.right + 8;
             break;
         }
-  
         this.tooltipStyle = {
           top: `${top + window.scrollY}px`,
           left: `${left + window.scrollX}px`

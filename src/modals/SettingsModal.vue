@@ -1,8 +1,6 @@
 <template>
-    <Modal :opacity=".5" :zindex="500" :width="700">
-        <template #header>
-            <h3>Settings</h3>
-        </template>
+    <Modal :opacity=".5" :zindex="500" :width="700" :title="'Settings'">
+        <template #header></template>
         <template #body>
             <div class="flex gap-32" id="modal_body">
                 <div class="modal-body-left">

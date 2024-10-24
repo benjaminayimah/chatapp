@@ -125,6 +125,9 @@ hr {
 .fs-09 {
   font-size: 0.9rem;
 }
+.fs-095 {
+  font-size: 0.95rem;
+}
 .fs-1rem {
   font-size: 1rem;
 }
@@ -172,7 +175,7 @@ button:not(:disabled), .a-button {
     outline-style: solid;
   }
 }
-button:not(:disabled, .preview-close), .a-button{
+button:not(:disabled, .preview-close, .button-danger), .a-button{
   &:active {
     outline-color: var(--button-press-outline);
   }
@@ -188,6 +191,10 @@ button.transparent-button:not(.preview-close, :disabled), .a-button{
   color: #fff;
   &:hover {
     background-color: var(--danger-hover);
+  }
+  &:active {
+    background-color: var(--danger);
+    outline-color: var(--danger-hover);
   }
 }
 
@@ -291,6 +298,12 @@ aside {
 }
 .jc-sb {
   justify-content: space-between;
+}
+.jc-fe {
+  justify-content: flex-end;
+}
+.jc-fs {
+  justify-content: flex-start;
 }
 .ai-c {
   align-items: center;
@@ -495,17 +508,21 @@ h1, h2, h3, h4, h5 {
   margin: 8px 0;
 }
 h1 {
-  font-size: 2.25rem;
+  font-size: 2rem;
 }
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
 }
 h4 {
+  font-size: 1.2rem;
+}
+h5 {
   font-size: 1rem;
 }
+
 
 #chat_info_container {
   bottom: 110%;
@@ -603,6 +620,12 @@ table {
   th, td {
     padding: 4px 16px;
     text-align: left;
+  }
+}
+
+.delete-modal-body {
+  span {
+      color: var(--main-font-color-2);
   }
 }
 
