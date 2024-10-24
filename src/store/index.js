@@ -34,7 +34,7 @@ export default createStore({
       localStorage.removeItem(payload + '_images')
       localStorage.removeItem(payload)
     },
-    deleteAllChats(state) {
+    deleteAllChats() {
       //
     },
     renameChat(state, payload) {
