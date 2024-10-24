@@ -6,7 +6,7 @@ import dropdown from './modules/dropdown'
 
 export default createStore({
   state: {
-    token: localStorage.getItem('auth') || null,
+    token: localStorage.getItem('auth') || 'null',
     recents: JSON.parse(localStorage.getItem('recents')) || [],
     deleteModal: null
   },

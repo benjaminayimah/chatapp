@@ -198,7 +198,7 @@ button.transparent-button:not(.preview-close, :disabled), .a-button{
   }
 }
 
-.button-outline {
+button.button-outline {
   background-color: transparent;
   border: 1px solid var(--main-background-3);
   transition: var(--transition-time) border;
@@ -207,6 +207,17 @@ button.transparent-button:not(.preview-close, :disabled), .a-button{
   }
   &:active {
     background-color: var(--main-background-3);
+  }
+}
+
+button.button-primary {
+  background-color: var(--black);
+  color: var(--main-background-primary);
+  &:hover {
+    background-color: var(--black-hover);
+  }
+  &:active {
+    background-color: var(--black);
   }
 }
 
@@ -551,34 +562,23 @@ h5 {
 
 
   
-  nav {
-    padding: 30px;
   
-    a {
-      font-weight: bold;
-      color: #2c3e50;
-  
-      &.router-link-exact-active {
-        color: #42b983;
-      }
-    }
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+.footnote {
+  text-align: center;
+  color: var(--font-color-2);
+  div {
+    font-size: .75rem;
+    padding: 12px 0;
   }
-  h1 {
-    font-size: 2em;
-    margin-bottom: 0.5em;
-  }
-  .footnote {
-    text-align: center;
-    color: var(--font-color-2);
-    div {
-      font-size: .75rem;
-      padding: 12px 0;
-    }
-  }
+}
 
-  .text-center {
-    text-align: center;
-  }
+.text-center {
+  text-align: center;
+}
 
   // ul {
   //   list-style-type: disc;
@@ -693,6 +693,17 @@ table {
   }
 }
 .mobile {
+  nav {
+    padding: 0 20px 0 70px;
+    .top-bar-wrapper {
+      height: 70px;
+    }
+    button {
+      height: 40px;
+      padding: 12px;
+    }
+
+  }
   .fs-205rem {
     font-size: 1.5rem;
   }

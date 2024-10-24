@@ -70,6 +70,9 @@ export default {
             recents: (state) => state.recents
         })
     },
+    props: {
+
+    },
     data() {
         return {
         }

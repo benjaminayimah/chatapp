@@ -5,7 +5,7 @@
                 <div v-if="uploading" class="img-overlay centered absolute">
                     <spinner :size="28" :color="'#fff'" />
                 </div>
-                <button v-if="!uploading" @click="deleteImage(uploadedImageUrl)" class="image-uploader absolute" :class="!(uploading || deleting) ? 'image-uploader-idle' : 'image-uploader-processing'">
+                <button v-if="!uploading" @click="deleteImage(uploadedImageUrl)" class="image-uploader absolute jc-c" :class="!(uploading || deleting) ? 'image-uploader-idle' : 'image-uploader-processing'">
                     <spinner v-if="deleting" :size="18" :color="'#fff'" />
                     <svg v-else  height="12" viewBox="0 0 13.587 13.587">
                         <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#ffffff"/>

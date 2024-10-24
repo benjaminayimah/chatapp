@@ -2,7 +2,7 @@
     <div class="flex jc-sb ai-c">
         <div>Theme</div>
         <div class="flex flex-wrap gap-4">
-            <button id="theme_toggler" @click="handleDropdown('theme_toggler', 'theme')" class="button-outline gap-4 bg-transition">
+            <button id="theme_toggler" @click="handleDropdown('theme_toggler', 'theme')" class="button-outline gap-4">
                 {{ computedTheme.name }}
                 <svg height="5.714" viewBox="0 0 10 5.714">
                     <path d="M1.533,10a.714.714,0,0,1-.505-1.219L4.809,5,1.028,1.22A.714.714,0,0,1,2.038.21L6.324,4.5a.714.714,0,0,1,0,1.01L2.038,9.791A.712.712,0,0,1,1.533,10Z" transform="translate(10.001 -0.819) rotate(90)"/>
@@ -14,7 +14,7 @@
     <div class="flex jc-sb ai-c">
         <div>Language</div>
         <div class="flex flex-wrap gap-4">
-            <button id="language_toggler" @click="handleDropdown('language_toggler', 'language')" class="button-outline gap-4 bg-transition">
+            <button id="language_toggler" @click="handleDropdown('language_toggler', 'language')" class="button-outline gap-4">
                 {{ language.name }}
                 <svg height="5.714" viewBox="0 0 10 5.714">
                     <path d="M1.533,10a.714.714,0,0,1-.505-1.219L4.809,5,1.028,1.22A.714.714,0,0,1,2.038.21L6.324,4.5a.714.714,0,0,1,0,1.01L2.038,9.791A.712.712,0,0,1,1.533,10Z" transform="translate(10.001 -0.819) rotate(90)"/>

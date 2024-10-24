@@ -4,11 +4,17 @@
         --main-background-primary: #ffffff;
         --main-font-color-primary: #1f1f1f;
         --main-font-color-2: #7b7d7f;
+        
 
         --main-background-2: #f2f3f6;
         --main-background-3: #eaebf0;
         --main-background-4: #d8d9dd;
         // --main-background-5: #d8d9dd;
+
+        --black: #0f0f10;
+        --black-hover: #2f3032;
+
+
 
         --font-color-2: #606063;
         --font-color-3: #838383;
@@ -45,8 +51,8 @@
 
         --box-shadow-1: rgba(0, 0, 0, 0.1) 0px 0px 3px 1px;
 
-        --light-surface-hover: #f4f5f6;
-        --light-surface-active: #edeff4;
+        --light-surface-hover: #f9fafb;
+        --light-surface-active: var(--main-background-2);
 
         --light-surface-border: var(--main-background-3);
 
@@ -60,6 +66,7 @@
     }
     .dark-theme {
         --primary-color: #1658ff;
+        --primary-color-hover: #124cdf;
         --main-background-primary: #0f0f10;
         --main-font-color-primary: #e8e8e8;
         --main-font-color-2: #9b9da1;
@@ -72,8 +79,15 @@
         --font-color-3: #838383;
 
 
+        --black: #e8e8e8;
+        --black-hover: #c6cacf;
+
+
+
         --button-press-outline: #5c5c5e;
         --button-press-bg: #4c4d4e;
+
+
 
         --input-placeholder: #b2b5b9;
 

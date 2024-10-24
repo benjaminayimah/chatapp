@@ -1,32 +1,35 @@
 <template>
-  <side-bar-toggle />
+  <side-bar-toggle v-if="auth" />
   <div class="main-page flex-1">
-    <side-bar />
+    <side-bar v-if="auth" />
     <section class="right-page bg-surface-1">
       <div class="h-100 flex flex-column">
-        <nav-bar />
+        <top-bar :auth="auth" />
         <router-view/>
       </div>
     </section>
   </div>
   <transition name="modal-fade">
-    <component v-if="isModalOpen" :is="modalContent"></component>
+    <component v-if="isModalOpen && auth" :is="modalContent"></component>
   </transition>
-  <component v-if="isDeleteOpen" :is="deleteContent"></component>
+  <transition name="modal-fade">
+    <component v-if="isDeleteOpen && auth" :is="deleteContent"></component>
+  </transition>
 
 </template>
 <script>
 
-import NavBar from '@/components/NavBar'
+import TopBar from '@/components/TopBar'
 import SideBarToggle from './components/SideBarToggle.vue'
 import SideBar from './components/SideBar.vue'
 import SettingsModal from './modals/SettingsModal.vue'
 import DeleteModal from './modals/DeleteModal.vue'
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 export default {
-  components: { NavBar, SideBarToggle, SideBar, SettingsModal, DeleteModal },
+  components: { TopBar, SideBarToggle, SideBar, SettingsModal, DeleteModal },
   name: 'AppView',
   computed: {
+    ...mapGetters(['auth']),
     ...mapState({
       deleteState: (state) => state.deleteModal
     }),

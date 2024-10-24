@@ -1,15 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import store from '@/store'
+
+import Home from '../views/HomeView.vue'
 import ChatView from '@/views/ChatView.vue'
 import NewChat from '@/views/NewChat.vue'
 
-
+// Guards
+const AuthGuard = (to, from, next) => {
+  // Perform your checks here
+  if (store.getters.auth) {
+    // If the condition is met, allow the route transition
+    next();
+  } else {
+    next({
+      name: 'Home'
+    });
+  }
+};
 
 
 const routes = [
-  { path: '/', name: 'Home', component: HomeView},
-  { path: '/chat/:id', name: 'ChatView', component: ChatView },
-  { path: '/new-chat', name: 'NewChat', component: NewChat }
+  { path: '/', name: 'Home', component: Home},
+  { path: '/chat/:id', name: 'ChatView', component: ChatView, beforeEnter: AuthGuard},
+  { path: '/new-chat', name: 'NewChat', component: NewChat, beforeEnter: AuthGuard }
 
 
 
