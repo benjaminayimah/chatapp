@@ -12,7 +12,7 @@
                 <div class="flex gap-8 jc-c flex-wrap">
                     <button class="button-outline gap-4">
                         <svg height="20" viewBox="0 0 24 24" fill="none" class="icon-md" style="color: rgb(108, 113, 255);"><path class="invert-fill-color" fill-rule="evenodd" clip-rule="evenodd" d="M3 6C3 4.34315 4.34315 3 6 3H18C19.6569 3 21 4.34315 21 6V18C21 19.6569 19.6569 21 18 21H6C4.34315 21 3 19.6569 3 18V6ZM6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V6C19 5.44772 18.5523 5 18 5H6ZM7.29289 9.29289C7.68342 8.90237 8.31658 8.90237 8.70711 9.29289L10.7071 11.2929C11.0976 11.6834 11.0976 12.3166 10.7071 12.7071L8.70711 14.7071C8.31658 15.0976 7.68342 15.0976 7.29289 14.7071C6.90237 14.3166 6.90237 13.6834 7.29289 13.2929L8.58579 12L7.29289 10.7071C6.90237 10.3166 6.90237 9.68342 7.29289 9.29289ZM12 14C12 13.4477 12.4477 13 13 13H16C16.5523 13 17 13.4477 17 14C17 14.5523 16.5523 15 16 15H13C12.4477 15 12 14.5523 12 14Z" fill="currentColor"></path></svg>
-                        Help me write
+                        Help me farm
                     </button>
                     <button class="button-outline gap-4">
                         <svg height="20" viewBox="0 0 24 24" fill="none" class="icon-md" style="color: rgb(108, 113, 255);"><path class="invert-fill-color" fill-rule="evenodd" clip-rule="evenodd" d="M3 6C3 4.34315 4.34315 3 6 3H18C19.6569 3 21 4.34315 21 6V18C21 19.6569 19.6569 21 18 21H6C4.34315 21 3 19.6569 3 18V6ZM6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V6C19 5.44772 18.5523 5 18 5H6ZM7.29289 9.29289C7.68342 8.90237 8.31658 8.90237 8.70711 9.29289L10.7071 11.2929C11.0976 11.6834 11.0976 12.3166 10.7071 12.7071L8.70711 14.7071C8.31658 15.0976 7.68342 15.0976 7.29289 14.7071C6.90237 14.3166 6.90237 13.6834 7.29289 13.2929L8.58579 12L7.29289 10.7071C6.90237 10.3166 6.90237 9.68342 7.29289 9.29289ZM12 14C12 13.4477 12.4477 13 13 13H16C16.5523 13 17 13.4477 17 14C17 14.5523 16.5523 15 16 15H13C12.4477 15 12 14.5523 12 14Z" fill="currentColor"></path></svg>
@@ -37,9 +37,11 @@
 
 <script>
 import ChatInput from '@/components/ChatInput.vue'
+import randomIdGenMixin from '@/mixins/randomIdGenMixin';
 export default {
-    components: { ChatInput },
     name: 'NewChat',
+    components: { ChatInput },
+    mixins: [randomIdGenMixin],
     data() {
         return {
             textToType: "Hello, welcome to Xirion!",
@@ -85,20 +87,10 @@ export default {
             localStorage.setItem('newChat', JSON.stringify(newChat))
 
             this.$router.push({ name: 'ChatView', params: { id: id }})
-        },
-        generateUniqueId(length) {
-            const characters = '0123456789abcdef';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += characters[Math.floor(Math.random() * characters.length)];
-            }
-            return result;
-        },
+        }
     },
     mounted() {
-        this.blinkCursor();
-        const recents = JSON.parse(localStorage.getItem('recents'))
-        !recents ? localStorage.setItem('recents', JSON.stringify([])) : ''
+        this.blinkCursor()
     }
 }
 </script>
@@ -124,4 +116,15 @@ button.button-outline {
     font-size: .95rem;
     color: var(--input-placeholder);
 }
+.mobile {
+    .gap-32 {
+        gap: 24px;
+    }
+    button.button-outline {
+        height: 38px;
+        padding: 0 10px;
+        font-size: 0.85rem;
+    }
+}
+
 </style>

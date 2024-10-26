@@ -2,9 +2,7 @@
     <div class="modal-overlay centered fixed h-100 w-100" @click.self="closeModal">
         <div class="modal-container bg-modal-surface ov-hidden">
             <div class="modal-header flex">
-                <slot name="header">
-                    <h4>{{ title }}</h4>
-                </slot>
+                <slot name="header"></slot>
                 <button @click="closeModal" class="transparent-button jc-c" data-type="modal">
                     <svg height="14" viewBox="0 0 13.587 13.587">
                         <path id="close_modal" d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"/>
@@ -13,9 +11,6 @@
             </div>
             <div class="modal-body">
                 <slot name="body"></slot>
-            </div>
-            <div class="modal-footer">
-                <slot name="footer"></slot>
             </div>
         </div>
     </div>
@@ -29,10 +24,7 @@ export default {
         zindex: Number,
         opacity: Number,
         width: Number,
-        title: {
-            type: String,
-            default: 'Modal'
-        } 
+        minHeight: Number
     },
     computed: {
         computedZindex() {
@@ -43,6 +35,9 @@ export default {
         },
         computedWidth() {
             return this.width + 'px'
+        },
+        computedMinHeight() {
+            return this.minHeight + 'dvh'
         }
     },
     methods: {
@@ -72,12 +67,11 @@ export default {
 }
 
 .modal-container {
-    padding: 12px 0;
-    border-radius: 16px;
     width: v-bind(computedWidth);
-    max-width: 90vw;
     max-height: 90dvh;
-    min-height: 50dvh;
+    min-height: v-bind(computedMinHeight);
+    padding: 12px 0;
+    box-shadow: var(--box-shadow-1);
 }
 
 .modal-header {
@@ -85,7 +79,7 @@ export default {
     align-items: center;
 }
 
-.modal-header, .modal-footer {
+.modal-header{
     padding: 0 20px;
 }
 

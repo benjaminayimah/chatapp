@@ -134,6 +134,9 @@ hr {
 .fs-102rem {
   font-size: 1.2rem;
 }
+.fs-105rem {
+  font-size: 1.5rem;
+}
 .fs-108rem{
   font-size: 1.8rem;
 }
@@ -221,8 +224,11 @@ button.button-primary {
   }
 }
 
-
-
+.dropdown {
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-1);
+  padding: 10px 0;
+}
 
 aside {
   height: 100vh;
@@ -629,6 +635,12 @@ table {
   }
 }
 
+.modal-container {
+  border-radius: 20px;
+  max-width: 90vw;
+  box-shadow: var(--box-shadow-1);
+
+}
 
 .desktop, .tablet {
   .transparent-button:not(:disabled, [data-type=modal]) {
@@ -694,9 +706,9 @@ table {
 }
 .mobile {
   nav {
-    padding: 0 20px 0 70px;
+    padding: 0 0 0 50px;
     .top-bar-wrapper {
-      height: 70px;
+      height: 72px;
     }
   }
   .fs-205rem {

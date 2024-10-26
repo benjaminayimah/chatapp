@@ -9,8 +9,9 @@
       </div>
     </section>
   </div>
+  <about-float />
   <transition name="modal-fade">
-    <component v-if="isModalOpen && auth" :is="modalContent"></component>
+    <component v-if="isModalOpen" :is="modalContent" :auth="auth"></component>
   </transition>
   <transition name="modal-fade">
     <component v-if="isDeleteOpen && auth" :is="deleteContent"></component>
@@ -24,9 +25,11 @@ import SideBarToggle from './components/SideBarToggle.vue'
 import SideBar from './components/SideBar.vue'
 import SettingsModal from './modals/SettingsModal.vue'
 import DeleteModal from './modals/DeleteModal.vue'
+import SignUpModal from './modals/SignUpModal.vue'
 import { mapGetters, mapState } from 'vuex';
+import AboutFloat from './components/AboutFloat.vue'
 export default {
-  components: { TopBar, SideBarToggle, SideBar, SettingsModal, DeleteModal },
+  components: { TopBar, SideBarToggle, SideBar, SettingsModal, DeleteModal, SignUpModal, AboutFloat },
   name: 'AppView',
   computed: {
     ...mapGetters(['auth']),
@@ -46,6 +49,8 @@ export default {
       switch (this.modalType) {
         case 'settings':
           return 'SettingsModal';
+        case 'signup':
+          return 'SignUpModal'
         default:
           return 'DefaultContent';
       }
@@ -60,6 +65,7 @@ export default {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemeChange);
     // localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser', localStorage.getItem('auth')) : ''
     window.addEventListener('resize', this.windowSize)
+    !this.auth ? this.$router.push({ query: { m: 'signup' }}) : ''
   },
   methods: {
     windowSize() {

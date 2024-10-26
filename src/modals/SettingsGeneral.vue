@@ -33,7 +33,7 @@
     </div>
     <teleport to="main">
         <backdrop @click="handleDropdown('theme_toggler', null)" v-if="dropdownToggle" :opacity="0" :zindex="501" />
-        <div v-if="dropdownType === 'theme'" class="dropdown bg-transition" :style="{ top: dropdown.top + 40 + 'px', left: dropdown.left + 'px'}">
+        <div v-if="dropdownType === 'theme'" class="dropdown bg-transition fixed" :style="{ top: dropdown.top + 40 + 'px', left: dropdown.left + 'px'}">
             <ul>
                 <li @click="handleDropdown('theme_toggler', null)">
                     <a v-for="(theme, index) in themes" :key="index" @click.prevent="!theme.system ? $store.commit('setTheme', theme.id): $store.commit(theme.key)" href="#" class="flex ai-c gap-8 jc-sb">
@@ -45,7 +45,7 @@
                 </li>
             </ul>
         </div>
-        <div v-if="dropdownType === 'language'" class="dropdown bg-transition" :style="{ top: dropdown.top + 40 + 'px', left: dropdown.left + 'px'}">
+        <div v-if="dropdownType === 'language'" class="dropdown bg-transition fixed" :style="{ top: dropdown.top + 40 + 'px', left: dropdown.left + 'px'}">
             <ul>
                 <li @click="handleDropdown('theme_toggler', null)">
                     <a v-for="(language, index) in languages" :key="index" href="#" class="flex ai-c gap-8 jc-sb">
@@ -132,12 +132,8 @@ hr {
 
 .dropdown {
     width: 170px;
-    position: fixed;
     z-index: 502;
     background-color: var(--modal-main-background-2);
-    border-radius: 12px;
-    box-shadow: var(--box-shadow-1);
-    padding: 10px 0;
     font-size: 0.95rem;
     a {
         padding: 5px 12px;

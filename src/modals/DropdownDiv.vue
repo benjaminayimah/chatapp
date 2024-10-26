@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown" :style="{ top: dropdown.top + 30 + 'px', left: dropdown.left + 'px'}">
+    <div class="dropdown fixed" :style="{ top: dropdown.top + 30 + 'px', left: dropdown.left + 'px'}">
         <ul>
             <a @click.prevent="$emit('trigger-edit-mode')" href="#" class="flex ai-c gap-10">
                 <svg viewBox="0 0 17.792 17">
@@ -38,13 +38,15 @@ export default {
 <style lang="scss" scoped>
 .dropdown {
     width: 150px;
-    position: fixed;
     z-index: 102;
     background-color: var(--modal-main-background);
-    border-radius: 12px;
-    box-shadow: var(--box-shadow-1);
-    padding: 10px 0;
 }
+
+
+
+
+
+
 a {
     padding: 4px 12px;
     &:hover {

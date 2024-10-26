@@ -91,10 +91,7 @@ export default {
 }
 
 .modal-container {
-    padding: 12px 0;
-    border-radius: 16px;
     width: 450px;
-    max-width: 90vw;
     max-height: 90dvh;
     padding: 16px 20px 20px 20px;
 }

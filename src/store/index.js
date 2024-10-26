@@ -6,11 +6,15 @@ import dropdown from './modules/dropdown'
 
 export default createStore({
   state: {
-    token: localStorage.getItem('auth') || 'null',
+    token: localStorage.getItem('auth') || null,
+    user: null,
     recents: JSON.parse(localStorage.getItem('recents')) || [],
     deleteModal: null
   },
   mutations: {
+    setAuth(state, payload) {
+      state.token = payload
+    },
     saveCurrentTheme(state, payload) {
       localStorage.setItem('theme', payload)
     },
