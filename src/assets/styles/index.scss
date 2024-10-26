@@ -288,6 +288,7 @@ aside {
 
 
 
+
 .bg-transparent {
   background-color: transparent;
 }
@@ -309,6 +310,12 @@ aside {
 }
 .flex-column {
   flex-direction: column;
+}
+.flex-shrink-1{
+  flex-shrink: 1;
+}
+.flex-shrink-0{
+  flex-shrink: 0;
 }
 .jc-c {
   justify-content: center;
@@ -481,6 +488,10 @@ aside {
 }
 .gap-32 {
   gap: 32px;
+}
+
+svg {
+  flex-shrink: 0;
 }
 
 //overflow

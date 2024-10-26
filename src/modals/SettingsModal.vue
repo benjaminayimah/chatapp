@@ -114,6 +114,7 @@ ul {
         height: 38px;
         padding: 0 18px 0 12px;
         border-radius: 40px;
+        white-space: nowrap;
         &:hover {
             background-color: var(--light-surface-hover);
         }
