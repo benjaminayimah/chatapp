@@ -40,33 +40,7 @@ export default {
     msg: String
   },
   methods: {
-    // fetchImages() {
-        //     const images = JSON.parse(localStorage.getItem('imageHistory'));
-        //     this.$nextTick(() => {
-        //         images.forEach(e => {
-        //             this.selectDiv(e.image, e.index)
-        //         })
-        //     })
-        // },
-        // selectDiv(image, index) {
-        //     const imageDiv = document.querySelector(`#prompt_${index}`)
-        //     if (imageDiv) {
-        //         const img = document.createElement('img');
-        //         img.src = image
-        //         img.alt = `Prompt image ${index}`;
-        //         img.height = 200;
-        //         img.loading = 'lazy';
-        //         img.addEventListener('click', () => {
-        //             this.previewImage(image)
-        //         });
-        //         imageDiv.appendChild(img);
-        //     }
-        // },
-        // fetchCurrentImage(image, index) {
-        //     this.$nextTick(() => {
-        //         this.selectDiv(image, index)
-        //     })
-        // },
+    //
   }
 }
 </script>

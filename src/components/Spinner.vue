@@ -7,7 +7,6 @@ export default {
     name: 'SpinnerLoader',
     props: {
         size: Number,
-        color: String
     },
     computed: {
         dimension() {
@@ -23,9 +22,6 @@ export default {
   width: var(--dimension);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: 
-    radial-gradient(farthest-side,v-bind(color) 94%,#0000) top/3px 3px no-repeat,
-    conic-gradient(#0000 30%,v-bind(color));
   -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0);
   animation: spin 1s infinite linear;
 }

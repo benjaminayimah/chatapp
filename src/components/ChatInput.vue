@@ -3,10 +3,10 @@
         <div v-if="uploadedImageUrl" class="image-preview flex">
             <div class="preview-holder centered">
                 <div v-if="uploading" class="img-overlay centered absolute">
-                    <spinner :size="28" :color="'#fff'" />
+                    <spinner :size="28" />
                 </div>
                 <button v-if="!uploading" @click="deleteImage(uploadedImageUrl)" class="image-uploader absolute jc-c" :class="!(uploading || deleting) ? 'image-uploader-idle' : 'image-uploader-processing'">
-                    <spinner v-if="deleting" :size="18" :color="'#fff'" />
+                    <spinner v-if="deleting" :size="18"/>
                     <svg v-else  height="12" viewBox="0 0 13.587 13.587">
                         <path class="invert-fill-color" d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#ffffff"/>
                     </svg>
@@ -91,7 +91,7 @@ export default {
                         const formData = new FormData();
                         formData.append("image", file);
                         try {
-                            const response = await fetch("http://localhost:8001/upload-image", {
+                            const response = await fetch("http://localhost:3000/api/upload-image", {
                                 method: "POST",
                                 body: formData
                             })
@@ -124,7 +124,7 @@ export default {
             const filename = image.split('/').pop();
 
             try {
-                const response = await fetch(`http://localhost:8001/delete-image/${filename}`, {
+                const response = await fetch(`http://localhost:3000/api/delete-image/${filename}`, {
                     method: 'DELETE',
                 });
 
@@ -170,19 +170,6 @@ textarea {
     max-height: 200px;
     font-size: 1.1rem;
     line-height: 24px;
-}
-.div-textarea {
-    padding:  0 16px 0 12px;
-    border: none;
-    p {
-        margin: 0;
-    }
-
-    p.placeholder {
-        &::before {
-            content: 'Enter a prompt here';
-        }
-    }
 }
 .chat-container {
     padding: 8px 8px;

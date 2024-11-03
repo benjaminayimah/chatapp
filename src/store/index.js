@@ -3,17 +3,32 @@ import DeviceWindow from './modules/window'
 import playback from './modules/playback'
 import theme from './modules/theme'
 import dropdown from './modules/dropdown'
+import api from '@/services/apis'
 
 export default createStore({
   state: {
-    token: localStorage.getItem('auth') || null,
-    user: null,
+    token: localStorage.getItem('token') || null,
+    tokenExpired: false,
+    user: JSON.parse(localStorage.getItem('user')) || null,
     recents: JSON.parse(localStorage.getItem('recents')) || [],
     deleteModal: null
   },
   mutations: {
     setAuth(state, payload) {
+      localStorage.setItem('token', payload)
       state.token = payload
+    },
+    setUser(state, payload) {
+      localStorage.setItem('user', JSON.stringify(payload))
+      state.user = payload
+    },
+    setTokenExpired(state) {
+      state.tokenExpired = true
+    },
+    destroyToken() {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      location.reload()
     },
     saveCurrentTheme(state, payload) {
       localStorage.setItem('theme', payload)
@@ -52,6 +67,14 @@ export default createStore({
     }
   },
   actions: {
+    async logout(state) {
+      try {
+        await api.post('/auth/logout')
+        state.commit('destroyToken')
+      } catch (error) {
+        state.commit('destroyToken')
+      }
+    }
   },
   getters: {
     auth(state) {

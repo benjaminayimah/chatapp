@@ -72,16 +72,6 @@ path:not(.invert-fill-color) {
   transition: var(--transition-time) all;
 }
 
-input:not([type=checkbox],[type=radio]), select, textarea, .div-textarea {
-  appearance: none;
-  outline: 0;
-  font-family: inherit;
-  // font-size: 1rem;
-  color: var(--input-color);
-}
-textarea::placeholder {
-  color: var(--input-placeholder);
-}
 
 hr {
   border-left: 0;
@@ -155,6 +145,94 @@ hr {
 .fs-5rem {
   font-size: clamp(2rem, 1vw + 3rem, 5rem);
 }
+//Spiner 
+.loader {
+    background: 
+      radial-gradient(farthest-side,#fff 94%,#0000) top/3px 3px no-repeat,
+      conic-gradient(#0000 30%,#fff);
+}
+
+.dark-theme {
+  .button-primary {
+    .loader {
+        background: 
+          radial-gradient(farthest-side,#000 94%,#0000) top/3px 3px no-repeat,
+          conic-gradient(#0000 30%,#000);
+    }
+  }
+}
+
+//form
+
+.input-wrapper {
+  .input-label {
+    position: absolute;
+    left: 12px;
+    transform: translateY(-50%);
+    transition: var(--transition-time) all;
+    padding: 0 3px;
+    pointer-events: none;
+  }
+}
+.input-wrapper:not(.input-focused) {
+  .input-label {
+    color: var(--input-placeholder);
+    top: 50%;
+  }
+}
+
+.input-focused {
+  .input-label {
+    color: var(--main-font-color-primary);
+    font-size: .75rem;
+    top: 0;
+    font-weight: 600;
+  }
+}
+
+input:not([type=checkbox],[type=radio]), select, textarea {
+  appearance: none;
+  outline: 0;
+  font-family: inherit;
+  color: var(--input-color);
+  background-color: transparent;
+  transition: var(--transition-time) all;
+  &:hover {
+    border-color: var(--main-font-color-2);
+  }
+  &:focus {
+    border-color: var(--font-color-2);
+  }
+}
+
+textarea::placeholder {
+  color: var(--input-placeholder);
+}
+.form-control {
+  border: 1px solid var(--button-press-bg);
+  border-radius: 80px;
+  height: 42px;
+  font-size: 1rem;
+  padding: 0 16px;
+}
+
+
+.form-row {
+  text-align: left;
+}
+
+.form-row:has(.validation-errors) {
+  input {
+    border-color: var(--danger) !important;
+  }
+}
+.validation-errors li {
+  color: var(--danger);
+  &::marker {
+    content: '*';
+  }
+}
+
 
 
 button, .a-button{
@@ -185,10 +263,16 @@ button:not(:disabled, .preview-close, .button-danger), .a-button{
 }
 button.transparent-button:not(.preview-close, :disabled), .a-button{
   background-color: transparent;
+  color: var(--main-font-color-primary);
   &:active {
     background-color: var(--button-press-bg) !important;
   }
 }
+
+button:disabled{
+  cursor: default;
+}
+
 .button-danger {
   background-color: var(--danger);
   color: #fff;
@@ -205,6 +289,8 @@ button.button-outline {
   background-color: transparent;
   border: 1px solid var(--main-background-3);
   transition: var(--transition-time) border;
+  color: var(--main-font-color-primary);
+
   &:hover {
     background-color: var(--main-background-2);
   }
@@ -225,7 +311,9 @@ button.button-primary {
 }
 
 .dropdown {
-  border-radius: 12px;
+
+  overflow: hidden;
+  border-radius: 14px;
   box-shadow: var(--box-shadow-1);
   padding: 10px 0;
 }
@@ -284,6 +372,15 @@ aside {
 
 .br-50 {
   border-radius: 50%;
+}
+
+.use-cases {
+  button.button-outline {
+    height: 45px;
+    padding: 0 16px;
+    font-size: .95rem;
+    color: var(--input-placeholder);
+  }
 }
 
 
@@ -650,6 +747,11 @@ table {
   border-radius: 20px;
   max-width: 90vw;
   box-shadow: var(--box-shadow-1);
+  .button-outline{
+    &:hover {
+      background-color: var(--modal-close-button-hover);
+    }
+  }
 
 }
 
@@ -657,6 +759,11 @@ table {
   .transparent-button:not(:disabled, [data-type=modal]) {
     &:hover {
       background-color: var(--main-background-3);
+    }
+  }
+  .transparent-button[data-type=modal] {
+    &:hover {
+      background-color: var(--modal-close-button-hover);
     }
   }
   .chat-loader {
@@ -774,6 +881,13 @@ table {
         }
     }
     
+  }
+  .use-cases {
+    button.button-outline {
+      height: 38px;
+      padding: 0 10px;
+      font-size: 0.85rem;
+    }
   }
   
 

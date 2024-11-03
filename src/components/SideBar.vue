@@ -2,13 +2,13 @@
     <transition name="modal-fade">
         <backdrop @click="$store.commit('closeSideBar')" v-if="device === 'mobile' && menu" :opacity=".4" :zindex="98" />
     </transition>
-    <aside class="flex bg-surface-2 ov-hidden" :class="menu ? 'expanded' : 'collapsed'">
+    <aside class="flex bg-surface-2 ov-hidden" :class="menu ? 'expanded' : 'collapsed'" role="navigation">
         <div class="flex-1 flex flex-column aside-wrapper jc-sb">
             <div class="flex gap-16 flex-column">
                 <section>
                     <ul>
                         <li @mouseup="device === 'mobile' ? $store.commit('closeSideBar') : ''">
-                            <button @click="newChat" class="gap-8 new-chat">
+                            <button @mouseleave="hideToolTip" @mouseenter="showToolTip('new_chat_btn')" id="new_chat_btn" tooltip="New chat" @click="newChat" class="gap-8 new-chat" aria-label="New chat">
                                 <svg width="20" height="14" viewBox="0 0 14 14">
                                     <path class="invert-fill-color" d="M21.5,15.5h-6v6h-2v-6h-6v-2h6v-6h2v6h6Z" transform="translate(-7.5 -7.5)"/>
                                 </svg>
@@ -60,9 +60,11 @@
 import { mapState } from 'vuex';
 import Backdrop from './Backdrop.vue';
 import RecentChatList from './RecentChatList.vue';
+import tooltipMixin from '@/mixins/tooltipMixin';
 export default {
     components: { Backdrop, RecentChatList },
     name: 'SideBar',
+    mixins: [tooltipMixin],
     computed: {
         ...mapState({
             menu: (state) => state.DeviceWindow.menu,

@@ -130,13 +130,13 @@ export default {
                         history: this.chatHistory,
                         prompt: prompt,
                         image: image ? image.split('/').pop() : '',
-                        fileType: fileType ? fileType: '',
+                        fileType: fileType || '',
                     }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 };
-                const res = await fetch('http://localhost:8001/submit-prompt', options);
+                const res = await fetch('http://localhost:3000/api/submit-prompt', options);
                 this.removeLoader()
                 
                 if (res.status === 200) {
@@ -254,7 +254,6 @@ export default {
             this.chatHistory = []
             this.images = []
 
-
             this.$nextTick(() => {
                 this.submitPrompt(e)
             })
@@ -280,7 +279,7 @@ export default {
                         'Content-Type': 'application/json'
                     }
                 };
-                const res = await fetch('http://localhost:8001/get-recent-title', options);
+                const res = await fetch('http://localhost:3000/api/get-recent-title', options);
                 
                 if (res.status === 200) {
                     const data = await res.json();

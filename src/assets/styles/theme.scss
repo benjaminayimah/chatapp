@@ -39,7 +39,7 @@
         --main-background-secondary-hover: #292b2d;
 
         --modal-main-background: #ffffff;
-        --modal-main-background-2: #ffffff ;
+        --modal-main-background-2: #ffffff;
 
         --modal-font: #000000;
         --modal-close-icon: #2b2c2d;
@@ -127,9 +127,6 @@
         --box-shadow-1: rgba(0, 0, 0, 0.2) 0px 0px 3px 1px;
 
 
-
-
-
     }
     --transition-time: .2s ease;
     --danger: #f22121;
@@ -149,6 +146,9 @@ body {
     background-color: var(--main-background-primary);
     color: var(--main-font-color-primary);
     transition: var(--transition-time) background-color;
+    .input-label {
+        background-color: var(--modal-main-background);
+    }
 }
 .bg-surface-2 {
     background-color: var(--main-background-2);
@@ -159,5 +159,12 @@ body {
     background-color: var(--modal-main-background);
     color: var(--modal-font);
     transition: var(--transition-time) background-color;
-
+    .input-label {
+        background-color: var(--modal-main-background);
+    }
+}
+.bg-surface-inverse {
+    background-color: var(--main-background-secondary);
+    color: var(--main-background-primary);
+    transition: var(--transition-time) background-color;
 }

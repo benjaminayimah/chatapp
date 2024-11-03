@@ -13,15 +13,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'HomeView',
-  components: {HelloWorld},
-  data() {
-    return {
-      prompt: 'hi'
-    }
-  },
-  methods: {
-    
-  }
+  components: {HelloWorld}
 
 }
 </script>

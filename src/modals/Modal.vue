@@ -87,15 +87,7 @@ button {
     height: 36px;
     width: 36px;
     cursor: pointer;
-    margin-right: -6px;
+    margin-right: -8px;
 }
 
-.desktop, .tablet {
-  .transparent-button {
-    &:hover {
-      background-color: var(--modal-close-button-hover);
-
-    }
-  }
-}
 </style>

@@ -2,7 +2,12 @@
     <nav class="bg-surface-1 flex jc-c ai-c">
         <div class="top-bar-wrapper flex flex-1 ai-c jc-sb">
             <h3 class="fw-500">Xirion</h3>
-            <button @click="getStarted" class="button-primary fw-600 fs-09">Get started</button>
+            <div v-if="!auth" class="flex gap-8">
+                <button @click="signUp" class="button-primary fw-600 fs-09">Sign up</button>
+                <button @click="signIn" class="button-outline fw-600 fs-09">Log in</button>
+            </div>
+            <button v-else @click="logout" class="button-primary fw-600 fs-09">Logout</button>
+
         </div>
     </nav>
 </template>
@@ -13,8 +18,14 @@ export default {
         auth: Boolean
     },
     methods: {
-        getStarted() {
+        signUp() {
             this.$router.push({ query: { m: 'signup' }}) 
+        },
+        signIn() {
+            this.$router.push({ query: { m: 'signin' }}) 
+        },
+        async logout() {
+            this.$store.dispatch('logout')
         }
     }
 }

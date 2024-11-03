@@ -28,9 +28,6 @@ export default {
     name: 'DropdownDiv',
     props: {
         dropdown: Object
-    },
-    methods: {
-        
     }
 }
 </script>
@@ -41,11 +38,6 @@ export default {
     z-index: 102;
     background-color: var(--modal-main-background);
 }
-
-
-
-
-
 
 a {
     padding: 4px 12px;

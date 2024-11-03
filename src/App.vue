@@ -16,25 +16,27 @@
   <transition name="modal-fade">
     <component v-if="isDeleteOpen && auth" :is="deleteContent"></component>
   </transition>
-
+  <div v-if="toolTip.body" class="tooltip-container fs-08 absolute bg-surface-inverse" :style="{ top: toolTip.top + 50 + 'px', left: toolTip.left + 'px'}">{{ toolTip.body }}</div>
 </template>
 <script>
-
+import api from './services/apis'
 import TopBar from '@/components/TopBar'
 import SideBarToggle from './components/SideBarToggle.vue'
 import SideBar from './components/SideBar.vue'
 import SettingsModal from './modals/SettingsModal.vue'
 import DeleteModal from './modals/DeleteModal.vue'
 import SignUpModal from './modals/SignUpModal.vue'
+import TokenExpiredModal from './modals/TokenExpiredModal.vue'
 import { mapGetters, mapState } from 'vuex';
 import AboutFloat from './components/AboutFloat.vue'
 export default {
-  components: { TopBar, SideBarToggle, SideBar, SettingsModal, DeleteModal, SignUpModal, AboutFloat },
+  components: { TopBar, SideBarToggle, SideBar, SettingsModal, DeleteModal, SignUpModal, TokenExpiredModal, AboutFloat },
   name: 'AppView',
   computed: {
     ...mapGetters(['auth']),
     ...mapState({
-      deleteState: (state) => state.deleteModal
+      deleteState: (state) => state.deleteModal,
+      toolTip: (state) => state.dropdown.tooltip
     }),
     isDeleteOpen() {
       return !!this.deleteState;
@@ -51,6 +53,10 @@ export default {
           return 'SettingsModal';
         case 'signup':
           return 'SignUpModal'
+        case 'signin':
+          return 'SignUpModal'
+        case 'token-expired':
+          return 'TokenExpiredModal'
         default:
           return 'DefaultContent';
       }
@@ -65,9 +71,20 @@ export default {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemeChange);
     // localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser', localStorage.getItem('auth')) : ''
     window.addEventListener('resize', this.windowSize)
-    !this.auth ? this.$router.push({ query: { m: 'signup' }}) : ''
+    !this.auth ? this.$router.push({ query: { m: 'signin' }}) : ''
+
+    this.getuser()
   },
   methods: {
+    async getuser() {
+      try {
+                const response = await api.get('/user')
+                console.log(response)
+
+            } catch (err) {
+                console.log(err)
+            }
+    },
     windowSize() {
       setTimeout(()=> {
         this.$store.commit('computeWindow')
@@ -92,5 +109,9 @@ export default {
   flex: 1;
   height: 100dvh;
 }
-
+.tooltip-container {
+  padding: 4px 8px;
+  z-index: 300;
+  border-radius: 6px;
+}
 </style>
