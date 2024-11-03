@@ -233,6 +233,13 @@ textarea::placeholder {
   }
 }
 
+.error-msg-container {
+  padding: 12px;
+  border-radius: 8px;
+  color: var(--danger);
+  background-color: var(--danger-light);
+}
+
 
 
 button, .a-button{
@@ -754,6 +761,16 @@ table {
   }
 
 }
+.modal-container  {
+  container: modal_container / inline-size;
+}
+
+@container modal_container (width < 400px) {
+  .su-inner {
+      width: 90% !important;
+  }
+}
+
 
 .desktop, .tablet {
   .transparent-button:not(:disabled, [data-type=modal]) {
@@ -889,7 +906,6 @@ table {
       font-size: 0.85rem;
     }
   }
-  
 
 }
 

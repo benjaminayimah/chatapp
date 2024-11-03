@@ -1,5 +1,6 @@
 <template>
     <form @submit.prevent="handleSubmit">
+        <div class="error-msg-container" v-if="errorMessage">{{ errorMessage }}</div>
         <div class="form-wrapper flex flex-column gap-10">
             <div class="form-row flex flex-column gap-4">
                 <div id="email_input_wrapper" class="input-wrapper relative">
@@ -54,7 +55,7 @@
                 <spinner v-if="spinner" :size="18" />
                 <span v-else>{{ formType === 'signup' ? 'Sign up' : 'Sign in' }}</span>
             </button>
-            <button v-if="formType === 'signup'" class="transparent-button fw-600  fs-09 jc-c" data-type="modal">Forgot password?</button>
+            <button @click.prevent="" v-if="formType === 'signup'" class="transparent-button fw-600  fs-09 jc-c" data-type="modal">Forgot password?</button>
         </div>
     </form>
 </template>
@@ -149,5 +150,8 @@ button {
 }
 #pass_icon_stroke {
     stroke: var(--main-background-primary)
+}
+.error-msg-container {
+  margin-bottom: 32px;
 }
 </style>
