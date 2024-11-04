@@ -766,8 +766,8 @@ table {
 }
 
 @container modal_container (width < 400px) {
-  .su-inner {
-      width: 85% !important;
+  .su-inner.su-inner {
+      width: 85%
   }
 }
 

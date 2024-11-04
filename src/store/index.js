@@ -11,6 +11,7 @@ export default createStore({
     tokenExpired: false,
     user: JSON.parse(localStorage.getItem('user')) || null,
     recents: JSON.parse(localStorage.getItem('recents')) || [],
+    error: null,
     deleteModal: null
   },
   mutations: {
@@ -24,6 +25,12 @@ export default createStore({
     },
     setTokenExpired(state) {
       state.tokenExpired = true
+    },
+    setError(state, payload) {
+      state.error = payload
+    },
+    dismissError(state) {
+      state.error = null
     },
     destroyToken() {
       localStorage.removeItem('token')

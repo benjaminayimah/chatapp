@@ -28,7 +28,7 @@
         <div class="chat-wrapper flex-1 relative">
             <div id="chat_info_container" class="centered absolute gap-8">
                 <scroll-bottom-buttton v-if="showScrollButton" @do-scroll="doScroll('smooth')" />
-                <alert-box v-if="showAlert" />
+                <chat-alert-box v-if="showAlert" />
             </div>
             <div class="bg-surface-1">
                 <chat-input @submit-prompt="submitPrompt" />
@@ -54,11 +54,11 @@ import ChatInput from '@/components/ChatInput.vue';
 import ImagePreviewModal from '@/modals/ImagePreviewModal.vue';
 import ResponseRow from '@/components/ResponseRow.vue';
 import ScrollBottomButtton from '@/components/ScrollBottomButtton.vue';
-import AlertBox from '@/components/AlertBox.vue';
+import ChatAlertBox from '@/components/ChatAlertBox.vue';
 import { mapState } from 'vuex';
   
 export default {
-    components: { ChatInput, ImagePreviewModal, ResponseRow, ScrollBottomButtton, AlertBox },
+    components: { ChatInput, ImagePreviewModal, ResponseRow, ScrollBottomButtton, ChatAlertBox },
     name: 'ChatView',
     data() {
         return {

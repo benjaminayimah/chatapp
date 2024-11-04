@@ -17,9 +17,11 @@
     <component v-if="isDeleteOpen && auth" :is="deleteContent"></component>
   </transition>
   <div v-if="toolTip.body" class="tooltip-container fs-08 absolute bg-surface-inverse" :style="{ top: toolTip.top + 50 + 'px', left: toolTip.left + 'px'}">{{ toolTip.body }}</div>
+  <error-snack-bar />
 </template>
 <script>
 import api from './services/apis'
+import errorHandlerMixin from './mixins/errorHandlerMixin'
 import TopBar from '@/components/TopBar'
 import SideBarToggle from './components/SideBarToggle.vue'
 import SideBar from './components/SideBar.vue'
@@ -27,11 +29,23 @@ import SettingsModal from './modals/SettingsModal.vue'
 import DeleteModal from './modals/DeleteModal.vue'
 import SignUpModal from './modals/SignUpModal.vue'
 import TokenExpiredModal from './modals/TokenExpiredModal.vue'
+import ErrorSnackBar from './components/ErrorSnackBar.vue'
 import { mapGetters, mapState } from 'vuex';
 import AboutFloat from './components/AboutFloat.vue'
 export default {
-  components: { TopBar, SideBarToggle, SideBar, SettingsModal, DeleteModal, SignUpModal, TokenExpiredModal, AboutFloat },
+  components: { 
+    TopBar,
+    SideBarToggle,
+    SideBar,
+    SettingsModal,
+    DeleteModal,
+    SignUpModal,
+    TokenExpiredModal,
+    AboutFloat,
+    ErrorSnackBar
+  },
   name: 'AppView',
+  mixins: [errorHandlerMixin],
   computed: {
     ...mapGetters(['auth']),
     ...mapState({
@@ -69,21 +83,19 @@ export default {
     this.$store.commit('setInitialTheme')
     this.$store.commit('computeWindow')
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemeChange);
-    // localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser', localStorage.getItem('auth')) : ''
+    localStorage.getItem('token') ? this.getuser(): ''
     window.addEventListener('resize', this.windowSize)
     !this.auth ? this.$router.push({ query: { m: 'signin' }}) : ''
-
-    this.getuser()
+    
   },
   methods: {
     async getuser() {
       try {
-                const response = await api.get('/user')
-                console.log(response)
-
-            } catch (err) {
-                console.log(err)
-            }
+        const response = await api.get('/user')
+        this.$store.commit('setUser', response.data)
+      } catch (err) {
+          this.handleError(err)
+      }
     },
     windowSize() {
       setTimeout(()=> {

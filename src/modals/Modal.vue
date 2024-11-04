@@ -86,7 +86,6 @@ export default {
 button {
     height: 36px;
     width: 36px;
-    cursor: pointer;
     margin-right: -8px;
 }
 
