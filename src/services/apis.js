@@ -15,12 +15,12 @@ api.interceptors.request.use(config => {
 // Add a response interceptor
 api.interceptors.response.use(
     (response) => response,
-    (error) => {
-      if (error.response && error.response.status === 401) {
-        store.commit('setTokenExpired')
-        router.push({ query: { m: 'token-expired' }})
-      }
-      return Promise.reject(error);
+        (error) => {
+        if (error.response?.status === 401 && error.response?.data?.tokenExpired) {
+            store.commit('setTokenExpired');
+            router.push({ query: { m: 'token-expired' } });
+        }
+        return Promise.reject(error);
     }
 );
 

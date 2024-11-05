@@ -4,7 +4,7 @@
     <side-bar v-if="auth" />
     <section class="right-page bg-surface-1">
       <div class="h-100 flex flex-column">
-        <top-bar :auth="auth" />
+        <top-bar :auth="auth" :user="user" />
         <router-view/>
       </div>
     </section>
@@ -50,7 +50,8 @@ export default {
     ...mapGetters(['auth']),
     ...mapState({
       deleteState: (state) => state.deleteModal,
-      toolTip: (state) => state.dropdown.tooltip
+      toolTip: (state) => state.dropdown.tooltip,
+      user: (state) => state.user
     }),
     isDeleteOpen() {
       return !!this.deleteState;
@@ -84,9 +85,10 @@ export default {
     this.$store.commit('computeWindow')
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemeChange);
     localStorage.getItem('token') ? this.getuser(): ''
+
     window.addEventListener('resize', this.windowSize)
+
     !this.auth ? this.$router.push({ query: { m: 'signin' }}) : ''
-    
   },
   methods: {
     async getuser() {

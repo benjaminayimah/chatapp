@@ -1,5 +1,4 @@
 <template>
-    <!-- @mouseup="device === 'mobile' ? $store.commit('closeSideBar') : ''" -->
     <li class="flex" >
         <router-link  :to="!editMode ? { name: 'ChatView', params: { id: recent.id }} : ''" data-type="menu" class="flex ai-c bg-transition" :class="{'is-toggled' : dropdownToggle}">
             <div v-if="!editMode" class="gap-10 flex ai-c">
@@ -8,10 +7,10 @@
                 </svg>
                 <span class="wrap-text wrap-line-1 fs-09">{{ recent.title }}</span>
             </div>
-            <input @keydown.enter="handleKeyDownEnter" @focusout="handleFocusOut"  ref="input" v-model="input" v-if="editMode" type="text" name="renameChat" class="bg-transparent" autocomplete="off">
+            <input @keydown.enter="handleKeyDownEnter" @focusout="handleFocusOut"  ref="input" v-model="input" v-if="editMode" type="text" name="renameChat" class="bg-transparent edit-recent" autocomplete="off">
             <i v-if="!editMode" @click.prevent="handleDropdown(`recent_${this.recent.id}`)" :id="`recent_${recent.id}`" class="flex jc-c ai-c a-button">
                 <svg height="14" viewBox="0 0 2 10">
-                    <path id="Path_2601" data-name="Path 2601" d="M-1990,9a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,9Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,5Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,1Z" transform="translate(1990)"/>
+                    <path d="M-1990,9a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,9Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,5Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,1Z" transform="translate(1990)"/>
                 </svg>
             </i>
         </router-link>
@@ -104,7 +103,7 @@ export default {
         background-color: var(--sidebar-active-button);
     }
 }
-input {
+input.edit-recent.edit-recent {
     border: 2px solid var(--primary-color);
     width: 100%;
     border-radius: 4px;

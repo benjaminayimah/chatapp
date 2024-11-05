@@ -16,12 +16,12 @@ export default createStore({
   },
   mutations: {
     setAuth(state, payload) {
-      localStorage.setItem('token', payload)
       state.token = payload
+      localStorage.setItem('token', payload)
     },
     setUser(state, payload) {
-      localStorage.setItem('user', JSON.stringify(payload))
       state.user = payload
+      localStorage.setItem('user', JSON.stringify(payload))
     },
     setTokenExpired(state) {
       state.tokenExpired = true

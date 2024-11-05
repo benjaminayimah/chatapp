@@ -34,7 +34,7 @@
                 <chat-input @submit-prompt="submitPrompt" />
                 <div class="footnote">
                     <div>
-                        Xirion may display inaccurate info, including about people, so double-check its responses.
+                        Artemis AI may display inaccurate info, including about people, so double-check its responses.
                     </div>
                 </div>
             </div>

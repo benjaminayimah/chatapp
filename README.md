@@ -1,4 +1,4 @@
-# Xirion
+# Artemis AI
 
 ## Project setup
 ```

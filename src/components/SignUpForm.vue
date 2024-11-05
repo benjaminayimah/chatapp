@@ -13,12 +13,15 @@
                         type="email"
                         id="email_input"
                         name="email"
-                        placeholder=""
+                        maxlength="100"
                         autofocus
                     >
+                    <!-- autocomplete="off" -->
+                    <!-- aria-invalid="false" -->
+
                 </div>
                 <div v-if="emailErrors.length" class="validation-errors">
-                    <li v-for="(error, index) in emailErrors" :key="index" class="fs-09" >
+                    <li role="alert" v-for="(error, index) in emailErrors" :key="index" class="fs-09" >
                         {{ error.msg }}
                     </li>
                 </div>
@@ -34,7 +37,6 @@
                         class="w-100 form-control error-border"
                         id="password_input"
                         name="password"
-                        placeholder=""
                     >
                     <span class="hide-show-pass transparent-button absolute centered br-50 a-button" :class="{ 'hide-pass-active' : showPass }" @click.prevent="togglePass" data-type="modal">
                         <svg height="18" viewBox="0 0 26.364 26.364">
@@ -46,7 +48,7 @@
                     </span>
                 </div>
                 <div v-if="passwordErrors.length" class="validation-errors">
-                    <li v-for="(error, index) in passwordErrors" :key="index" class="fs-09" >
+                    <li role="alert" v-for="(error, index) in passwordErrors" :key="index" class="fs-09" >
                         {{ error.msg }}
                     </li>
                 </div>

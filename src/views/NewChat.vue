@@ -33,7 +33,7 @@ export default {
     mixins: [randomIdGenMixin],
     data() {
         return {
-            textToType: "Hello, welcome to Xirion!",
+            textToType: "Hello, welcome to Artemis AI!",
             typedText: "",
             typingSpeed: 30,
             showCursor: true,
