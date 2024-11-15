@@ -66,7 +66,7 @@ button {
     right: 10px;
 }
 a {
-    padding: 5px 12px;
+    padding: 5px 16px;
     font-size: .9rem;
     &:hover {
         background-color: var(--modal-close-button-hover);

@@ -136,7 +136,7 @@ hr {
     background-color: var(--modal-main-background-2);
     font-size: 0.95rem;
     a {
-        padding: 5px 12px;
+        padding: 5px 12px 5px 16px;
         &:hover {
             background-color: var(--button-press-bg);
         }

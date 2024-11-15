@@ -87,14 +87,15 @@ export default {
     localStorage.getItem('token') ? this.getuser(): ''
 
     window.addEventListener('resize', this.windowSize)
-
-    !this.auth ? this.$router.push({ query: { m: 'signin' }}) : ''
   },
   methods: {
     async getuser() {
       try {
-        const response = await api.get('/user')
-        this.$store.commit('setUser', response.data)
+          const response = await api.get('/user')
+          this.$store.commit('setUser', response.data)
+          const recents = JSON.parse(localStorage.getItem('recents'))
+          !recents ? localStorage.setItem('recents', JSON.stringify([])) : ''
+
       } catch (err) {
           this.handleError(err)
       }

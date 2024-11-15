@@ -9,7 +9,8 @@
         --main-background-2: #f2f3f6;
         --main-background-3: #eaebf0;
         --main-background-4: #d8d9dd;
-        // --main-background-5: #d8d9dd;
+        --main-background-light: #fbfbfc;
+
 
         --black: #0f0f10;
         --black-hover: #2f3032;
@@ -49,7 +50,7 @@
         --sidebar-active-button: #acc0f4;
 
 
-        --box-shadow-1: rgba(0, 0, 0, 0.1) 0px 0px 3px 1px;
+        --box-shadow-1: rgba(0, 0, 0, 0.1) 0px 0px 12px 1px;
 
         --light-surface-hover: #f9fafb;
         --light-surface-active: var(--main-background-2);
@@ -73,7 +74,7 @@
         --main-background-2: #1e1f20;
         --main-background-3: #2e2f30;
         --main-background-4: #3b3c3d;
-        // --main-background-5: #333638;
+        --main-background-light: #141515;
 
         --font-color-2: #c4c7c5;
         --font-color-3: #838383;
@@ -124,8 +125,8 @@
 
 
 
-        --box-shadow-1: rgba(0, 0, 0, 0.2) 0px 0px 3px 1px;
-
+        --box-shadow-1: rgba(0, 0, 0, 0.15) 0px 0px 24px 8px;
+        
 
     }
     --transition-time: .2s ease;

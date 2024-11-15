@@ -88,7 +88,7 @@ export default {
     },
     methods: {
         handleRoute(param) {
-            this.$router.push({query: { m: 'settings', page: param }})
+            this.$router.push({ query: { ...this.$route.query, m: 'settings', page: param } });
         }
     },
     mounted() {

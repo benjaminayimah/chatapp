@@ -21,8 +21,8 @@
                             <div v-else>Please fill out the form</div>
                         </div>
                         <div v-if="!emailSignUp" class="flex flex-column gap-32">
-                            <div class="flex flex-column gap-8">
-                                <button class="button-outline jc-c fs-09 fw-600 gap-8">
+                            <div class="flex flex-column gap-10">
+                                <button @click="loginWithGoogle" class="button-outline jc-c fs-09 fw-600 gap-8">
                                     <svg height="16" viewBox="0 0 31.341 32.021">
                                         <g transform="translate(26.754 -39.239)">
                                             <path class="invert-fill-color" d="M.576,52.268a18.55,18.55,0,0,0-.254-3.029H-14.754v6.017h8.632a7.433,7.433,0,0,1-3.2,4.777v4h5.15A15.654,15.654,0,0,0,.576,52.268Z" transform="translate(4.011 3.342)" fill="#4285f4"/>
@@ -82,17 +82,89 @@ export default {
     methods: {
         useEmail() {
             this.emailSignUp = !this.emailSignUp
-        }
+        },
+        loginWithGoogle() {
+            const width = 500;
+            const height = 600;
+            const left = (window.screen.width / 2) - (width / 2);
+            const top = (window.screen.height / 2) - (height / 2);
+
+            const popup = window.open('http://localhost:3000/api/auth/google', 'oauthPopup', `width=${width},height=${height},top=${top},left=${left}`);
+            popup.name = 'oauth_popup';
+            if (!popup) {
+                alert('Popup blocked. Please allow popups for this website.');
+            }
+            // this.openWebsocket()
+            // window.addEventListener('message', this.handleAuthResponse, false);
+        },
+        handleAuthResponse(event) {
+
+            // Ensure the message is from your backend
+            const trustedOrigin = 'http://localhost:3000';
+
+            if (event.origin === trustedOrigin) {
+                if (event.data.success) {
+                    // On success, store the token and set the user as logged in
+                    // const token = event.data.token;
+                    // this.signInSuccess(token)
+                    console.log(event.data)
+                    // localStorage.setItem('authToken', token);
+                    // this.$router.push('/dashboard'); // Redirect to a protected route
+                } 
+            }
+
+
+            // Remove the event listener to prevent multiple triggers
+            window.removeEventListener('message', this.handleAuthResponse, false);
+        },
+        openWebsocket() {
+            // let userID = localStorage.getItem('userID')
+        },
+     
     },
     mounted() {
         this.auth ? this.$router.push({ query: { m: null }}) : ''
+
+        
+
+
+        // let userID = localStorage.getItem('userID')
+        // if(!userID) {
+        //     localStorage.setItem('userID', this.generateUniqueId(16))
+        // }
+
+        // const socket = new WebSocket(`ws://localhost:8000/ws?userID=${userID}`); // URL should match your WebSocket server
+
+        // socket.onopen = () => {
+        //     console.log('Connected to WebSocket server');
+        // };
+
+        // socket.onmessage = (event) => {
+        //     const message = JSON.parse(event.data.toString());
+
+        //     if (message.type === 'auth_success') {
+        //         console.log('Authentication successful, token:', message.token);
+        //         // Handle the token, e.g., store it or update the UI
+        //     }
+        // };
+
+        // socket.onclose = () => {
+        //     console.log('Disconnected from WebSocket server');
+        // };
+        
+    },
+    unmounted() {
+        window.removeEventListener('message', this.handleAuthResponse, false);
+        // const socket = new WebSocket('ws://localhost:8000/ws'); // URL should match your WebSocket server
+        // socket.close(1000, 'Client closed the connection'); // Status code 1000 means "Normal Closure"
+
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .signup-wrapper {
-    padding: 0 20px 32px 20px;
+    padding: 16px 20px 32px 20px;
 }
 .su-inner {
     width: 70%;

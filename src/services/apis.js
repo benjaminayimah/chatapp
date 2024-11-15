@@ -14,8 +14,13 @@ api.interceptors.request.use(config => {
 });
 // Add a response interceptor
 api.interceptors.response.use(
-    (response) => response,
-        (error) => {
+    (response) => {
+        if (response.status === 200 && store.state.error) {
+            store.commit('dismissError')
+        }
+        return response;
+    },
+    (error) => {
         if (error.response?.status === 401 && error.response?.data?.tokenExpired) {
             store.commit('setTokenExpired');
             router.push({ query: { m: 'token-expired' } });
@@ -23,7 +28,5 @@ api.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
-
 
 export default api

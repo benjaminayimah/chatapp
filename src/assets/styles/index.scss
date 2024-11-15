@@ -239,6 +239,13 @@ textarea::placeholder {
   color: var(--danger);
   background-color: var(--danger-light);
   border: 1px solid #f221214a;
+  text-align: left;
+  path {
+    fill: var(--danger);
+  }
+}
+.profile-header .avatar {
+    font-size: 2rem;
 }
 
 
@@ -251,12 +258,16 @@ button, .a-button{
   font-family: inherit;
   font-size: 1rem;
   border-radius: 32px;
-  transition: var(--transition-time) background-color;
+  transition: var(--transition-time) background-color, var(--transition-time) color;
 }
 button:not(:disabled), .a-button{
   cursor: pointer;
 }
 
+button.default {
+  height: 40px;
+  padding: 0 16px
+}
 
 button:not(:disabled), .a-button {
   &:active {
@@ -310,6 +321,9 @@ button.button-outline {
 button.button-primary {
   background-color: var(--black);
   color: var(--main-background-primary);
+  path {
+    fill: var(--main-background-primary);
+  }
   &:hover {
     background-color: var(--black-hover);
   }
@@ -501,6 +515,12 @@ aside {
   img {
     border-radius: 12px;
   }
+  p {
+    margin: 16px 0;
+  }
+  h1, h2, h3, h4, h5 {
+      margin: 8px 0;
+  }
 }
 .model-response {
   a {
@@ -620,7 +640,9 @@ svg {
   overflow: hidden;
 }
 
-
+p, h1, h2, h3, h4, h5 {
+  margin: 0;
+}
 ul, ol, p {
   line-height: 1.75rem;
 }
@@ -637,9 +659,6 @@ a {
   color: unset;
 }
 
-h1, h2, h3, h4, h5 {
-  margin: 8px 0;
-}
 h1 {
   font-size: 2rem;
 }
@@ -842,10 +861,12 @@ table {
 }
 .mobile {
   nav {
-    padding: 0 0 0 50px;
     .top-bar-wrapper {
       height: 72px;
     }
+  }
+  nav:has(#user_acc_dropdown) {
+    padding: 0 0 0 50px;
   }
   .fs-205rem {
     font-size: 1.5rem;

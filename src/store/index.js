@@ -35,7 +35,6 @@ export default createStore({
     destroyToken() {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      location.reload()
     },
     saveCurrentTheme(state, payload) {
       localStorage.setItem('theme', payload)
@@ -78,10 +77,22 @@ export default createStore({
       try {
         await api.post('/auth/logout')
         state.commit('destroyToken')
+        window.location = '/'
+
       } catch (error) {
         state.commit('destroyToken')
+        window.location = '/'
+
       }
-    }
+    },
+    async logoutMe() {
+      try {
+        const res = await api.get('/auth/me-logout')
+        console.log(res.data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
   getters: {
     auth(state) {

@@ -1,7 +1,12 @@
 <template>
     <form @submit.prevent="handleSubmit">
-        <div class="error-msg-container" v-if="errorMessage">{{ errorMessage }}</div>
-        <div class="form-wrapper flex flex-column gap-10">
+        <div role="alert" class="error-msg-container flex ai-c gap-8" v-if="errorMessage">
+            <svg height="18" viewBox="0 0 30 30">
+                <path d="M16.5,22.5h3v3h-3Zm0-12h3v9h-3ZM17.985,3A15,15,0,1,0,33,18,14.993,14.993,0,0,0,17.985,3ZM18,30A12,12,0,1,1,30,18,12,12,0,0,1,18,30Z" transform="translate(-3 -3)"/>
+            </svg>
+            {{ errorMessage }}
+        </div>
+        <div class="form-wrapper flex flex-column gap-16">
             <div class="form-row flex flex-column gap-4">
                 <div id="email_input_wrapper" class="input-wrapper relative">
                     <label for="email_input" class="input-label">Email</label>
@@ -9,19 +14,19 @@
                         v-model="form.email"
                         @focusin="isFocusIn('email_input_wrapper')"
                         @focusout="isFocusOut('email_input_wrapper', 'email_input')"
+                        :aria-invalid="emailHasErrors"
+                        :aria-describedby="emailDescribedBy"
                         class="w-100 form-control"
                         type="email"
                         id="email_input"
                         name="email"
                         maxlength="100"
                         autofocus
+                        autocomplete="on"
                     >
-                    <!-- autocomplete="off" -->
-                    <!-- aria-invalid="false" -->
-
                 </div>
                 <div v-if="emailErrors.length" class="validation-errors">
-                    <li role="alert" v-for="(error, index) in emailErrors" :key="index" class="fs-09" >
+                    <li :id="`email_error_${index + 1}`" role="alert" v-for="(error, index) in emailErrors" :key="index" class="fs-09">
                         {{ error.msg }}
                     </li>
                 </div>
@@ -34,6 +39,8 @@
                         @focusin="isFocusIn('password_input_wrapper')"
                         @focusout="isFocusOut('password_input_wrapper', 'password_input')"
                         :type="showPass ? 'text' : 'password'"
+                        :aria-invalid="passwordHasErrors"
+                        :aria-describedby="passwordDescribedBy"
                         class="w-100 form-control error-border"
                         id="password_input"
                         name="password"
@@ -48,7 +55,7 @@
                     </span>
                 </div>
                 <div v-if="passwordErrors.length" class="validation-errors">
-                    <li role="alert" v-for="(error, index) in passwordErrors" :key="index" class="fs-09" >
+                    <li :id="`password_error_${index + 1}`" role="alert" v-for="(error, index) in passwordErrors" :key="index" class="fs-09" >
                         {{ error.msg }}
                     </li>
                 </div>
@@ -57,7 +64,7 @@
                 <spinner v-if="spinner" :size="18" />
                 <span v-else>{{ formType === 'signup' ? 'Sign up' : 'Sign in' }}</span>
             </button>
-            <button @click.prevent="" v-if="formType === 'signup'" class="transparent-button fw-600  fs-09 jc-c" data-type="modal">Forgot password?</button>
+            <button @click.prevent="" v-if="formType === 'signin'" class="transparent-button fw-600  fs-09 jc-c" data-type="modal">Forgot password?</button>
         </div>
     </form>
 </template>
@@ -81,6 +88,18 @@ export default {
         passwordErrors() {
             return this.errors && this.errors.filter(err => err.path === 'password')
         },
+        emailHasErrors() {
+            return !!this.emailErrors.length
+        },
+        passwordHasErrors() {
+            return !!this.passwordErrors.length
+        },
+        emailDescribedBy() {
+            return this.emailErrors.map((_, index) => `email_error_${index + 1}`).join(" ");
+        },
+        passwordDescribedBy() {
+            return this.passwordErrors.map((_, index) => `password_error_${index + 1}`).join(" ");
+        }
     },
     data () {
         return {
@@ -105,18 +124,8 @@ export default {
             }
         },
         async signInSuccess(token) {
-            this.hideSpiner()
             await this.$store.commit('setAuth', token)
-            this.$router.push({ name: 'Home'})
-            try {
-                const response = await api.get('/user')
-                this.$store.commit('setUser', response.data)
-                const recents = JSON.parse(localStorage.getItem('recents'))
-                !recents ? localStorage.setItem('recents', JSON.stringify([])) : ''
-
-            } catch (err) {
-                console.log(err)
-            }
+            location.reload()
         },
         async SignUp() {
             this.showSpiner()

@@ -40,6 +40,7 @@ export default {
     methods: {
         async reLogin() {
             await this.$store.commit('destroyToken')
+            this.$router.push({ query: { m: 'signin' }}) 
         }
     },
     mounted() {
