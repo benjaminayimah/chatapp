@@ -24,11 +24,11 @@
                             </a>
                         </li>
                         <li>
-                            <a @click.prevent="handleRoute('avatar')" href="#" class="w-100 gap-8 flex ai-c bg-transition" :class="{'active-nav' : $route.query.page === 'avatar'}">
+                            <a @click.prevent="handleRoute('agent')" href="#" class="w-100 gap-8 flex ai-c bg-transition" :class="{'active-nav' : $route.query.page === 'agent'}">
                                 <svg height="18" viewBox="0 0 19.4 21">
                                     <path d="M-1980.735,21a3,3,0,0,1-2.588-1.481l-.811-1.382a1,1,0,0,0-.855-.493l-1.6-.014a3,3,0,0,1-2.576-1.5l-.439-.76a3,3,0,0,1-.012-2.974l.792-1.4a1,1,0,0,0,0-.985l-.792-1.4a3,3,0,0,1,.012-2.974l.439-.761a3,3,0,0,1,2.576-1.5l1.6-.013a1,1,0,0,0,.855-.493l.811-1.382A3,3,0,0,1-1980.735,0h.87a3,3,0,0,1,2.588,1.481l.811,1.382a1,1,0,0,0,.854.493l1.6.013a3,3,0,0,1,2.576,1.5l.438.761a3,3,0,0,1,.013,2.974l-.792,1.4a1,1,0,0,0,0,.985l.792,1.4a3,3,0,0,1-.013,2.974l-.438.76a3,3,0,0,1-2.576,1.5l-1.6.014a1,1,0,0,0-.854.493l-.811,1.382A3,3,0,0,1-1979.865,21Zm-.862-18.506-.811,1.382a3,3,0,0,1-2.564,1.481l-1.6.013a1,1,0,0,0-.859.5l-.439.761a1,1,0,0,0,0,.992l.792,1.4a3,3,0,0,1,0,2.953l-.792,1.4a1,1,0,0,0,0,.991l.439.761a1,1,0,0,0,.859.5l1.6.014a3,3,0,0,1,2.564,1.481l.811,1.381a1,1,0,0,0,.862.494h.87a1,1,0,0,0,.863-.494l.811-1.381a3,3,0,0,1,2.563-1.481l1.6-.014a1,1,0,0,0,.859-.5l.438-.761a1,1,0,0,0,0-.991l-.792-1.4a3,3,0,0,1,0-2.953l.792-1.4a1,1,0,0,0,0-.992l-.438-.761a1,1,0,0,0-.859-.5l-1.6-.013a3,3,0,0,1-2.563-1.481L-1979,2.494a1,1,0,0,0-.863-.494h-.87A1,1,0,0,0-1981.6,2.494Zm-2.2,8.006a3.5,3.5,0,0,1,3.5-3.5,3.5,3.5,0,0,1,3.5,3.5,3.5,3.5,0,0,1-3.5,3.5A3.5,3.5,0,0,1-1983.8,10.5Zm2,0a1.5,1.5,0,0,0,1.5,1.5,1.5,1.5,0,0,0,1.5-1.5,1.5,1.5,0,0,0-1.5-1.5A1.5,1.5,0,0,0-1981.8,10.5Z" transform="translate(1990)"/>
                                 </svg>
-                                Avatar builder
+                                Agent builder
                             </a>
                         </li>
                         <li>
@@ -56,11 +56,11 @@ import Modal from './Modal.vue'
 import SettingsGeneral from './SettingsGeneral.vue';
 import SettingsPersonalization from './SettingsPersonalization.vue';
 import SettingsSecurity from './SettingsSecurity.vue';
-import SettingsAvatar from './SettingsAvatar.vue';
+import SettingsAgent from './SettingsAgent.vue';
 
 export default {
     name: 'SettingsModal',
-    components: { Modal, SettingsGeneral, SettingsPersonalization, SettingsSecurity, SettingsAvatar },
+    components: { Modal, SettingsGeneral, SettingsPersonalization, SettingsSecurity, SettingsAgent },
     props: {
         auth: Boolean
     },
@@ -79,8 +79,8 @@ export default {
                     return 'SettingsPersonalization';
                 case 'security':
                     return 'SettingsSecurity';
-                case 'avatar':
-                    return 'SettingsAvatar';
+                case 'agent':
+                    return 'SettingsAgent';
                 default:
                     return 'SettingsGeneral';
             }

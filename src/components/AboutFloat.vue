@@ -57,7 +57,6 @@ button {
         background-color: var(--main-background-3);
     }
 }
-
 .dropdown {
     width: 200px;
     z-index: 102;

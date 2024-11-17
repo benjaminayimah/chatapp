@@ -1,5 +1,5 @@
 <template>
-    <img v-if="user.picture" class="avatar br-50" :src="user.picture" :alt="user.name">
+    <img v-if="user.picture" class="avatar br-50" :src="user.picture" :alt="user.username">
     <div v-else class="centered avatar br-50"><strong>{{ computedInitial }}</strong></div>
 </template>
 

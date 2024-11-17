@@ -8,7 +8,7 @@
                 <div class="su-inner text-center flex flex-column gap-24">
                     <div class="fs-105rem">Token has expired</div>
                     <div>Re-login to continue chating</div>
-                    <button @click="reLogin" class="button-primary fw-600 fs-09 jc-c">Go to login</button>
+                    <button @click="reLogin" class="button-primary fw-600 fs-09 ai-c jc-c">Go to login</button>
                 </div>
             </div>
         </template>

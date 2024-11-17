@@ -60,11 +60,11 @@
                     </li>
                 </div>
             </div>
-            <button type="submit" class="button-primary fw-600 fs-09 jc-c gap-8" :disabled="spinner">
+            <button type="submit" class="button-primary fw-600 fs-09 jc-c ai-c gap-8" :disabled="spinner">
                 <spinner v-if="spinner" :size="18" />
                 <span v-else>{{ formType === 'signup' ? 'Sign up' : 'Sign in' }}</span>
             </button>
-            <button @click.prevent="" v-if="formType === 'signin'" class="transparent-button fw-600  fs-09 jc-c" data-type="modal">Forgot password?</button>
+            <button @click.prevent="" v-if="formType === 'signin'" class="transparent-button fw-600  fs-09 jc-c ai-c" data-type="modal">Forgot password?</button>
         </div>
     </form>
 </template>
@@ -164,5 +164,10 @@ button {
 }
 .error-msg-container {
   margin-bottom: 32px;
+}
+input {
+    border-radius: 80px;
+    height: 42px;
+    padding: 0 16px;
 }
 </style>

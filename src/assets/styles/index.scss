@@ -204,16 +204,23 @@ input:not([type=checkbox],[type=radio]), select, textarea {
     border-color: var(--font-color-2);
   }
 }
-
+input::placeholder, .sub-label, .input-wrapper textarea::placeholder  {
+  color: var(--font-color-3);
+}
 textarea::placeholder {
   color: var(--input-placeholder);
 }
 .form-control {
   border: 1px solid var(--button-press-bg);
-  border-radius: 80px;
-  height: 42px;
   font-size: 1rem;
-  padding: 0 16px;
+}
+
+.textarea-no-resize {
+  resize: none;
+  overflow: auto;
+}
+.capitalize {
+  text-transform: capitalize;
 }
 
 
@@ -248,23 +255,23 @@ textarea::placeholder {
     font-size: 2rem;
 }
 
+.no-wrap {
+  white-space: nowrap;
+}
 
-
-button, .a-button{
+button, .a-button {
   border-style: none;
   display: flex;
-  align-items: center;
-  white-space: nowrap;
   font-family: inherit;
   font-size: 1rem;
   border-radius: 32px;
   transition: var(--transition-time) background-color, var(--transition-time) color;
 }
-button:not(:disabled), .a-button{
+button:not(:disabled), .a-button {
   cursor: pointer;
 }
 
-button.default {
+button.default, .a-button.default {
   height: 40px;
   padding: 0 16px
 }
@@ -275,12 +282,12 @@ button:not(:disabled), .a-button {
     outline-style: solid;
   }
 }
-button:not(:disabled, .preview-close, .button-danger), .a-button{
+button:not(:disabled, .preview-close, .button-danger), .a-button {
   &:active {
     outline-color: var(--button-press-outline);
   }
 }
-button.transparent-button:not(.preview-close, :disabled), .a-button{
+button.transparent-button:not(.preview-close, :disabled), .a-button:not(.button-primary) {
   background-color: transparent;
   color: var(--main-font-color-primary);
   &:active {
@@ -318,7 +325,7 @@ button.button-outline {
   }
 }
 
-button.button-primary {
+.button-primary {
   background-color: var(--black);
   color: var(--main-background-primary);
   path {
@@ -331,9 +338,8 @@ button.button-primary {
     background-color: var(--black);
   }
 }
-
 .dropdown {
-
+  color: var(--main-font-color-primary);
   overflow: hidden;
   border-radius: 14px;
   box-shadow: var(--box-shadow-1);
@@ -392,9 +398,7 @@ aside {
   }
 }
 
-.br-50 {
-  border-radius: 50%;
-}
+
 
 .use-cases {
   button.button-outline {
@@ -462,10 +466,94 @@ aside {
   display: none !important;
 }
 
+
+
+//border-radius
+.br-0 {
+  border-radius: 0;
+}
+.br-4 {
+  border-radius: 4px;
+}
+.br-8 {
+  border-radius: 8px;
+}
+.br-12 {
+  border-radius: 12px;
+}
+.br-16 {
+  border-radius: 16px;
+}
+.br-24 {
+  border-radius: 24px;
+}
+.br-32 {
+  border-radius: 32px;
+}
+
+.br-50 {
+  border-radius: 50%;
+}
+
+
+
 //padding
 .pd-b-8 {
   padding-bottom: 8px;
 }
+.pd-b-16 {
+  padding-bottom: 16px;
+}
+.pd-b-24 {
+  padding-bottom: 24px;
+}
+.pd-b-32 {
+  padding-bottom: 32px;
+}
+.pd-t-8 {
+  padding-top: 8px;
+}
+.pd-t-16 {
+  padding-top: 16px;
+}
+.pd-t-24 {
+  padding-top: 24px;
+}
+.pd-t-32 {
+  padding-top: 32px;
+}
+
+
+//tabs
+
+ul.tab-default {
+  button {
+    color: var(--font-color-2);
+    &:active {
+      outline: unset;
+    }
+  }
+  li {
+      padding: 2px 0;
+      a {
+          padding: 6px 8px;
+          color: var(--font-color-2);
+          &:hover {
+              color: var(--main-font-color-primary);
+          }
+      }
+  }
+
+  li:has(.active-tab), button:has(.active-tab) {
+      border-bottom: 1.5px solid var(--main-font-color-2);
+      a, span {
+          font-weight: 600;
+          color: var(--main-font-color-primary);
+      }
+  }
+}
+
+
 
 #menu_toggler{
   fill:var(--main-font-color-primary) ;
@@ -473,7 +561,12 @@ aside {
 #close_modal {
   fill:var(--modal-close-icon) ;
 }
+
+
 // #close_
+
+
+
 
 .model-avatar {
   height: 38px;
@@ -602,6 +695,9 @@ aside {
 .gap-10 {
   gap: 10px;
 }
+.gap-12 {
+  gap: 12px;
+}
 .gap-14 {
   gap: 14px;
 }
@@ -719,6 +815,9 @@ h1 {
 
 .text-center {
   text-align: center;
+}
+.text-left {
+  text-align: left;
 }
 
   // ul {
@@ -936,6 +1035,15 @@ table {
 }
 .modal-fade-enter-from, .modal-fade-leave-to {
   opacity: 0;
+}
+
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: .5 }
 }
 
 

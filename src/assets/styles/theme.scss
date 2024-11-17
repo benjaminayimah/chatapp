@@ -57,10 +57,8 @@
 
         --light-surface-border: var(--main-background-3);
 
+        --skeleton-bg: #d6d9e4;
 
-
-
-        
 
 
         
@@ -126,6 +124,8 @@
 
 
         --box-shadow-1: rgba(0, 0, 0, 0.15) 0px 0px 24px 8px;
+
+        --skeleton-bg: #26272b;
         
 
     }
@@ -169,5 +169,9 @@ body {
 .bg-surface-inverse {
     background-color: var(--main-background-secondary);
     color: var(--main-background-primary);
+    transition: var(--transition-time) background-color;
+}
+.skeleton-surface {
+    background-color: var(--skeleton-bg);
     transition: var(--transition-time) background-color;
 }

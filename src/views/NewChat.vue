@@ -14,7 +14,7 @@
                         :key="index"
                         :useCase="useCase"
                     />
-                    <button class="button-outline gap-4">
+                    <button class="button-outline gap-4 ai-c">
                         More
                     </button>
                 </div>

@@ -7,8 +7,8 @@
             <div class="modal-body">
                 <div v-html="deleteItem.body" class="body-wrapper delete-modal-body flex flex-column gap-8"></div>
                 <div class="flex gap-8 jc-fe">
-                    <button @click="closeModal" class="button-outline">Cancel</button>
-                    <button @click="doDelete" class="button-danger">Delete</button>
+                    <button @click="closeModal" class="button-outline ai-c jc-c">Cancel</button>
+                    <button @click="doDelete" class="button-danger ai-c jc-c">Delete</button>
                 </div>
             </div>
         </div>

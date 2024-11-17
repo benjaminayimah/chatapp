@@ -4,7 +4,7 @@ import store from '@/store'
 import Home from '../views/HomeView.vue'
 import ChatView from '@/views/ChatView.vue'
 import NewChat from '@/views/NewChat.vue'
-import CreateAvatar from '@/views/CreateAvatar.vue'
+import CreateAgent from '@/views/CreateAgent.vue'
 import PublicProfile from '@/views/PublicProfile.vue'
 
 // Guards
@@ -25,7 +25,7 @@ const routes = [
   { path: '/', name: 'Home', component: Home},
   { path: '/chat/:id', name: 'ChatView', component: ChatView, beforeEnter: AuthGuard},
   { path: '/new-chat', name: 'NewChat', component: NewChat, beforeEnter: AuthGuard },
-  { path: '/create-avatar', name: 'CreateAvatar', component: CreateAvatar, beforeEnter: AuthGuard },
+  { path: '/new-agent', name: 'CreateAgent', component: CreateAgent, beforeEnter: AuthGuard },
   { path: '/profile/:user', name: 'PublicProfile', component: PublicProfile}
 
 ]

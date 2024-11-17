@@ -1,6 +1,6 @@
 <template>
     <div class="flex jc-sb">
-        <div>Avatar builder</div>
+        <div>Agent builder</div>
         <div>
             Off
         </div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-    name: 'SettingsPersona'
+    name: 'SettingsAgent'
 }
 </script>
 

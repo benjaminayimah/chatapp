@@ -17,8 +17,8 @@ export default {
     },
     data() {
         return {
-            heading: 'No liked avatar',
-            body: 'You have not liked any avatar yet. Your liked avatars will appear here.',
+            heading: 'No liked agents',
+            body: 'You have not liked any agent yet. Your liked AI agents will appear here.',
         }
     }
 }

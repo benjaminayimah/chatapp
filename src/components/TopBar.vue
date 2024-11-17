@@ -3,12 +3,12 @@
         <div class="top-bar-wrapper flex flex-1 ai-c jc-sb">
             <h3 class="fw-500">Artemis AI</h3>
             <div v-if="!auth" class="flex gap-8">
-                <button @click="signUp" type="submit" class="button-primary default fw-600 fs-09">Sign up</button>
-                <button @click="signIn" type="submit" class="button-outline default fw-600 fs-09">Log in</button>
+                <button @click="signUp" type="submit" class="button-primary default ai-c jc-c fw-600 fs-09">Sign up</button>
+                <button @click="signIn" type="submit" class="button-outline default fw-600 ai-c jc-c fs-09">Log in</button>
             </div>
             <div v-else-if="auth && user">
-                <button @click="handleDropdown('user_acc_dropdown')" id="user_acc_dropdown" class="gap-8 bg-transparent">
-                    <span class="user-name">{{ user.name }}</span>
+                <button @click="handleDropdown('user_acc_dropdown')" id="user_acc_dropdown" class="gap-8 bg-transparent jc-c ai-c">
+                    <span class="user-name">{{ user.username }}</span>
                     <profile-avatar :user="user" :dimension="40" />
                 </button>
             </div>
@@ -19,7 +19,7 @@
         <div v-if="dropdownToggle" class="dropdown fixed" :style="{ top: dropdown.top + 54 + 'px', left: dropdown.left - 60 + 'px'}">
             <ul>
                 <li @click="handleDropdown('user_acc_dropdown')">
-                    <router-link :to="{ name: 'PublicProfile', params: { user: user.name } }" @click.prevent="" class="flex ai-c gap-10">
+                    <router-link :to="{ name: 'PublicProfile', params: { user: user.username } }" @click.prevent="" class="flex ai-c gap-10">
                         <svg viewBox="0 0 19.576 20.304">
                             <path d="M-2112.987,138.1v.027a4.8,4.8,0,0,0-.927-2.5,5.342,5.342,0,0,0-2.116-1.662,10.7,10.7,0,0,0-4.425-.809c-2.747,0-4.773.648-6.023,1.925a4.646,4.646,0,0,0-1.322,2.992,1.2,1.2,0,0,1-1.174,1.226H-2129a1.2,1.2,0,0,1-1.2-1.174,7.053,7.053,0,0,1,2.006-4.721c1.718-1.756,4.322-2.647,7.738-2.647s6.028.888,7.776,2.639a7.058,7.058,0,0,1,2.056,4.729,1.114,1.114,0,0,1-1.052,1.174q-.05,0-.1,0C-2112.787,139.3-2112.987,138.1-2112.987,138.1Zm-12.064-14.108a5,5,0,0,1,4.99-4.991,5,5,0,0,1,4.991,4.991,5,5,0,0,1-4.991,4.991A5,5,0,0,1-2125.051,123.988Zm2.4,0a2.6,2.6,0,0,0,2.591,2.591,2.594,2.594,0,0,0,2.591-2.591,2.593,2.593,0,0,0-2.591-2.591A2.594,2.594,0,0,0-2122.652,123.988Z" transform="translate(2130.199 -118.996)" fill="#191b1f"/>
                         </svg>

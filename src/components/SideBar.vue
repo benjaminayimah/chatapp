@@ -8,7 +8,7 @@
                 <section>
                     <ul>
                         <li @mouseup="device === 'mobile' ? $store.commit('closeSideBar') : ''">
-                            <button @mousedown="hideToolTip" @mouseleave="hideToolTip" @mouseenter="showToolTip('new_chat_btn')" id="new_chat_btn" tooltip="New chat" @click="newChat" class="gap-8 new-chat" aria-label="New chat">
+                            <button @mousedown="hideToolTip" @mouseleave="hideToolTip" @mouseenter="showToolTip('new_chat_btn')" id="new_chat_btn" tooltip="New chat" @click="newChat" class="gap-8 new-chat ai-c" aria-label="New chat">
                                 <svg width="20" height="14" viewBox="0 0 14 14">
                                     <path class="invert-fill-color" d="M21.5,15.5h-6v6h-2v-6h-6v-2h6v-6h2v6h6Z" transform="translate(-7.5 -7.5)"/>
                                 </svg>
@@ -43,7 +43,7 @@
             <section>
                 <ul>
                     <li class="flex" @mouseup="device === 'mobile' ? $store.commit('closeSideBar') : ''">
-                        <button @click="openSettings" class="gap-10 transparent-button">
+                        <button @click="openSettings" class="gap-10 transparent-button ai-c">
                             <svg width="20" height="18" viewBox="0 0 19.4 21">
                                 <path d="M-1980.735,21a3,3,0,0,1-2.588-1.481l-.811-1.382a1,1,0,0,0-.855-.493l-1.6-.014a3,3,0,0,1-2.576-1.5l-.439-.76a3,3,0,0,1-.012-2.974l.792-1.4a1,1,0,0,0,0-.985l-.792-1.4a3,3,0,0,1,.012-2.974l.439-.761a3,3,0,0,1,2.576-1.5l1.6-.013a1,1,0,0,0,.855-.493l.811-1.382A3,3,0,0,1-1980.735,0h.87a3,3,0,0,1,2.588,1.481l.811,1.382a1,1,0,0,0,.854.493l1.6.013a3,3,0,0,1,2.576,1.5l.438.761a3,3,0,0,1,.013,2.974l-.792,1.4a1,1,0,0,0,0,.985l.792,1.4a3,3,0,0,1-.013,2.974l-.438.76a3,3,0,0,1-2.576,1.5l-1.6.014a1,1,0,0,0-.854.493l-.811,1.382A3,3,0,0,1-1979.865,21Zm-.862-18.506-.811,1.382a3,3,0,0,1-2.564,1.481l-1.6.013a1,1,0,0,0-.859.5l-.439.761a1,1,0,0,0,0,.992l.792,1.4a3,3,0,0,1,0,2.953l-.792,1.4a1,1,0,0,0,0,.991l.439.761a1,1,0,0,0,.859.5l1.6.014a3,3,0,0,1,2.564,1.481l.811,1.381a1,1,0,0,0,.862.494h.87a1,1,0,0,0,.863-.494l.811-1.381a3,3,0,0,1,2.563-1.481l1.6-.014a1,1,0,0,0,.859-.5l.438-.761a1,1,0,0,0,0-.991l-.792-1.4a3,3,0,0,1,0-2.953l.792-1.4a1,1,0,0,0,0-.992l-.438-.761a1,1,0,0,0-.859-.5l-1.6-.013a3,3,0,0,1-2.563-1.481L-1979,2.494a1,1,0,0,0-.863-.494h-.87A1,1,0,0,0-1981.6,2.494Zm-2.2,8.006a3.5,3.5,0,0,1,3.5-3.5,3.5,3.5,0,0,1,3.5,3.5,3.5,3.5,0,0,1-3.5,3.5A3.5,3.5,0,0,1-1983.8,10.5Zm2,0a1.5,1.5,0,0,0,1.5,1.5,1.5,1.5,0,0,0,1.5-1.5,1.5,1.5,0,0,0-1.5-1.5A1.5,1.5,0,0,0-1981.8,10.5Z" transform="translate(1990)"/>
                             </svg>

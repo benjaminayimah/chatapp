@@ -1,5 +1,5 @@
 <template>
-  <button @mousedown="hideToolTip" @mouseleave="hideToolTip" @mouseenter="showToolTip('main_menu')" id="main_menu" @click="$store.commit('toggleSideBar')" aria-label="Main menu" tooltip="Expand menu" class="fixed transparent-button jc-c">
+  <button @mousedown="hideToolTip" @mouseleave="hideToolTip" @mouseenter="showToolTip('main_menu')" id="main_menu" @click="$store.commit('toggleSideBar')" aria-label="Main menu" tooltip="Expand menu" class="fixed transparent-button jc-c ai-c">
     <svg height="13" viewBox="0 0 27 18">
       <path id="menu_toggler" d="M4.5,27h27V24H4.5Zm0-7.5h27v-3H4.5ZM4.5,9v3h27V9Z" transform="translate(-4.5 -9)"/>
     </svg>

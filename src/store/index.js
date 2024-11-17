@@ -10,6 +10,7 @@ export default createStore({
     token: localStorage.getItem('token') || null,
     tokenExpired: false,
     user: JSON.parse(localStorage.getItem('user')) || null,
+    userProfile: null,
     recents: JSON.parse(localStorage.getItem('recents')) || [],
     error: null,
     deleteModal: null
@@ -23,6 +24,9 @@ export default createStore({
       state.user = payload
       localStorage.setItem('user', JSON.stringify(payload))
     },
+    setUserProfile(state, payload) {
+      state.userProfile = payload
+    },
     setTokenExpired(state) {
       state.tokenExpired = true
     },
@@ -32,9 +36,11 @@ export default createStore({
     dismissError(state) {
       state.error = null
     },
-    destroyToken() {
+    destroyToken(state) {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
+      state.token = null
+      state.user = null
     },
     saveCurrentTheme(state, payload) {
       localStorage.setItem('theme', payload)

@@ -2,7 +2,10 @@ export default {
     data() {
         return {
             errorMessage: '',
-            errors: []
+            errors: [],
+            fetching: true,
+            processing: false
+            
         }
     },
     methods: {
@@ -15,6 +18,13 @@ export default {
             networkErrorCodes.includes(err.code)
                 ? (this.errorMessage = err.message, this.$store.commit('setError', err.message))
                 : this.$store.commit('dismissError');
+        },
+        startFetching() {
+            this.fetching = true
+        },
+        stopFetching() {
+            this.fetching = false
+            this.processing = false
         }
     }
 }
