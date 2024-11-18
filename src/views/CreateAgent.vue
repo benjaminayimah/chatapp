@@ -92,7 +92,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="preview-container flex flex-1 pd-t-24 flex-column sticky top-24">
+                    <div class="preview-container flex flex-1 pd-t-24 flex-column sticky top-32">
                         <p><strong>Preview</strong></p>
                         <div class="preview-wrapper pd-16 centered bg-surface-2 flex-1 br-12">
                             <span>Preview</span>

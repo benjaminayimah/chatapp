@@ -18,8 +18,8 @@ export default {
         computedMessage() {
             const message = {
                 heading: 'No agent',
-                body: this.isOwner ? 'Create an Agent and train it to help you with specific tasks.' : 'This user has not created any Agent yet.',
-                buttonText: 'Create AI Agent',
+                body: this.isOwner ? 'Create an AI Agent and train it to help you with specific tasks.' : 'This user has not created any Agent yet.',
+                buttonText: 'Create Agent',
             }
             return message
         },

@@ -264,7 +264,7 @@ button, .a-button {
   border-radius: 32px;
   transition: var(--transition-time) background-color, var(--transition-time) color;
 }
-button:not(:disabled), .a-button {
+button:not(:disabled), .a-button, a {
   cursor: pointer;
 }
 
@@ -413,7 +413,14 @@ aside {
   }
 }
 
-
+.a-link {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: var(--transition-time) color;
+  &:hover {
+      color: var(--main-font-color-primary);
+  }
+}
 
 
 .bg-transparent {
@@ -824,6 +831,9 @@ h5 {
 }
 .top-24 {
   top: 24px;
+}
+.top-32 {
+  top: 32px;
 }
 
 .bottom-0 {

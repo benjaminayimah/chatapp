@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="handleSubmit">
-        <div role="alert" class="error-msg-container fs-09 flex ai-c gap-8" v-if="responseErrorMessage || networkError">
+        <div role="alert" class="error-msg-container fs-095 flex ai-c gap-8" v-if="responseErrorMessage || networkError">
             <svg height="16" viewBox="0 0 30 30">
                 <path d="M16.5,22.5h3v3h-3Zm0-12h3v9h-3ZM17.985,3A15,15,0,1,0,33,18,14.993,14.993,0,0,0,17.985,3ZM18,30A12,12,0,1,1,30,18,12,12,0,0,1,18,30Z" transform="translate(-3 -3)"/>
             </svg>

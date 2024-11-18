@@ -25,8 +25,8 @@ module.exports = defineConfig({
     ],
   },
   pwa: {
-    name: 'Artemis ai',
-    shortName: 'Artemis ai',
+    name: 'artemis ai',
+    shortName: 'artemis ai',
     themeColor: '#0f0f10',
     msTileColor: '#ffffff',
     appleMobileWebAppCapable: 'yes',

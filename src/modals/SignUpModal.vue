@@ -50,7 +50,7 @@
                         </div>
                         <sign-up-form v-else :formType="computedQuery" @use-email="useEmail"/>
                     <!-- </div> -->
-                    <div class="foot-text fs-09">By continuing, you agree to our Terms & Conditions and our Privacy Policy.</div>
+                    <div class="foot-text fs-09">By continuing, you agree to our <a href="#" class="a-link">Terms & Conditions</a> and our <a href="#" class="a-link">Privacy Policy</a>.</div>
                 </div>
             </div>
         </template>

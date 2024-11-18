@@ -33,7 +33,7 @@ export default {
     mixins: [randomIdGenMixin],
     data() {
         return {
-            textToType: "Hello, welcome to Artemis AI!",
+            textToType: "Hello, welcome to artemis ai!",
             typedText: "",
             typingSpeed: 30,
             showCursor: true,
@@ -97,7 +97,7 @@ export default {
     padding: 0 16px;
 }
 .hello {
-  background: linear-gradient(90deg, #ef2d2d, #4848ff);
+  background: linear-gradient(90deg, #ee3030, #ee4bcb, #4f69ec,  #50a7f4);
   -webkit-background-clip: text;
   color: transparent;
   line-height: var(--hello-text-height);

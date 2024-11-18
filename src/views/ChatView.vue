@@ -28,7 +28,7 @@
                 <chat-input @submit-prompt="submitPrompt" />
                 <div class="footnote">
                     <div>
-                        Artemis AI may display inaccurate info, including about people, so double-check its responses.
+                        artemis ai may display inaccurate info, including about people, so double-check its responses.
                     </div>
                 </div>
             </div>
