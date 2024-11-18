@@ -1,4 +1,3 @@
-@import url('https://fonts.cdnfonts.com/css/avenir');
 @import 'theme.scss';
 @import 'variables.scss';
 
@@ -12,6 +11,12 @@
 }
 html {
   overflow: hidden;
+  font-family: "Host Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 img {
   display: block;
@@ -21,10 +26,6 @@ body{
   display: flex;
   margin: 0;
   overflow-x: hidden;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeSpeed;
 }
 
 main {
@@ -251,10 +252,6 @@ textarea::placeholder {
     fill: var(--danger);
   }
 }
-.profile-header .avatar {
-    font-size: 2rem;
-}
-
 .no-wrap {
   white-space: nowrap;
 }
@@ -398,7 +395,14 @@ aside {
   }
 }
 
+.blur {
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+}
 
+.blur-to-bottom {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--main-background-primary) 80%);
+}
 
 .use-cases {
   button.button-outline {
@@ -498,6 +502,21 @@ aside {
 
 
 //padding
+.pd-0 {
+  padding: 0;
+}
+.pd-8 {
+  padding: 8px;
+}
+.pd-16 {
+  padding: 16px;
+}
+.pd-24 {
+  padding: 24px;
+}
+.pd-32 {
+  padding: 32px;
+}
 .pd-b-8 {
   padding-bottom: 8px;
 }
@@ -509,6 +528,9 @@ aside {
 }
 .pd-b-32 {
   padding-bottom: 32px;
+}
+.pd-t-4 {
+  padding-top: 4px;
 }
 .pd-t-8 {
   padding-top: 8px;
@@ -790,11 +812,31 @@ h5 {
   position: sticky;
   -webkit-position: sticky;
 }
-.sticky-top {
+
+.top-0 {
   top: 0;
 }
-.sticky-bottom {
+.top-8 {
+  top: 8px;
+}
+.top-16 {
+  top: 16px;
+}
+.top-24 {
+  top: 24px;
+}
+
+.bottom-0 {
   bottom: 0;
+}
+.bottom-8 {
+  bottom: 8px;
+}
+.bottom-16 {
+  bottom: 16px;
+}
+.bottom-24 {
+  bottom: 24px;
 }
 
 

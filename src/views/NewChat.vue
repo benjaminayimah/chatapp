@@ -76,7 +76,7 @@ export default {
         },
         submitPrompt(e) {
             const id = this.generateUniqueId(16)
-            const newChat = { id: id, prompt: e.prompt, fileType: e.fileType, image: e.image}
+            const newChat = { id: id, prompt: e.prompt, fileType: e.fileType, image: e.image }
             
             localStorage.setItem(id, JSON.stringify([]))
             localStorage.setItem(id + '_images', JSON.stringify([]))

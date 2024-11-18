@@ -1,10 +1,10 @@
 <template>
     <form @submit.prevent="handleSubmit">
-        <div role="alert" class="error-msg-container flex ai-c gap-8" v-if="errorMessage">
-            <svg height="18" viewBox="0 0 30 30">
+        <div role="alert" class="error-msg-container fs-09 flex ai-c gap-8" v-if="responseErrorMessage || networkError">
+            <svg height="16" viewBox="0 0 30 30">
                 <path d="M16.5,22.5h3v3h-3Zm0-12h3v9h-3ZM17.985,3A15,15,0,1,0,33,18,14.993,14.993,0,0,0,17.985,3ZM18,30A12,12,0,1,1,30,18,12,12,0,0,1,18,30Z" transform="translate(-3 -3)"/>
             </svg>
-            {{ errorMessage }}
+            {{ responseErrorMessage || networkError }}
         </div>
         <div class="form-wrapper flex flex-column gap-16">
             <div class="form-row flex flex-column gap-4">
@@ -64,7 +64,7 @@
                 <spinner v-if="spinner" :size="18" />
                 <span v-else>{{ formType === 'signup' ? 'Sign up' : 'Sign in' }}</span>
             </button>
-            <button @click.prevent="" v-if="formType === 'signin'" class="transparent-button fw-600  fs-09 jc-c ai-c" data-type="modal">Forgot password?</button>
+            <button @click.prevent="" v-if="formType === 'signin'" class="transparent-button fw-600 fs-09 jc-c ai-c" data-type="modal">Forgot password?</button>
         </div>
     </form>
 </template>

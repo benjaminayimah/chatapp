@@ -1,10 +1,7 @@
 <template>
     <empty-state
-        :heading="heading"
-        :body="body"
-        :button="true"
-        :buttonText="buttonText"
-        :auth="auth"
+        :message="computedMessage"
+        :button="computedButtonState"
         @empty-btn-event="goToCreate"
     />
 </template>
@@ -15,13 +12,24 @@ export default {
     name: 'ProfileAgentTab',
     components: { EmptyState },
     props: {
-        auth: Boolean
+        isOwner: Boolean
+    },
+    computed: {
+        computedMessage() {
+            const message = {
+                heading: 'No agent',
+                body: this.isOwner ? 'Create an Agent and train it to help you with specific tasks.' : 'This user has not created any Agent yet.',
+                buttonText: 'Create AI Agent',
+            }
+            return message
+        },
+        computedButtonState() {
+            return !!(this.computedMessage.buttonText && this.isOwner)
+        }
     },
     data() {
         return {
-            heading: 'No agent',
-            body: this.auth ? 'Create an avatar and train it to help you with specific tasks.' : 'This user has not created any avatar yet.',
-            buttonText: 'Create AI Agent'
+            
         }
     },
     methods: {

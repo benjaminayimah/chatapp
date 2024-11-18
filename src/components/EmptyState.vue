@@ -1,15 +1,15 @@
 <template>
     <div class="flex flex-column gap-16 ai-c">
         <div class="centered">
-            <h4>{{ heading }}</h4>
-            <p class="text-center">{{ body }}</p>
+            <h4>{{ message.heading }}</h4>
+            <p class="text-center">{{ message.body }}</p>
         </div>
-       <div v-if="button && auth">
+       <div v-if="button">
             <button @click="$emit('empty-btn-event')" class="button-primary default fw-600 fs-09 gap-4 ai-c">
                 <svg height="14" viewBox="0 0 14 14">
                     <path d="M21.5,15.5h-6v6h-2v-6h-6v-2h6v-6h2v6h6Z" transform="translate(-7.5 -7.5)"/>
                 </svg>
-                {{ buttonText }}
+                {{ message.buttonText }}
             </button>
        </div>
     </div>
@@ -20,11 +20,8 @@
 export default {
     name: 'EmptyState',
     props: {
-        heading: String,
-        body: String,
+        message: Object,
         button: Boolean,
-        buttonText: String,
-        auth: Boolean
     }
 }
 </script>

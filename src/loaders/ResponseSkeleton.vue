@@ -17,7 +17,6 @@ export default {
 <style lang="scss" scoped>
 
 .skeleton-loader {
-  opacity: 0.4;
   .avatar {
     height: 38px;
     width: 38px;

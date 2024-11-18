@@ -1,23 +1,28 @@
 export default {
     data() {
         return {
-            errorMessage: '',
             errors: [],
             fetching: true,
-            processing: false
-            
+            processing: false,
+            responseStatusText: '',
+            responseErrorMessage: '',
+            networkError: ''
         }
     },
     methods: {
         handleError(err) {
             console.log(err)
             this.errors = err.response?.data?.errors ?? [];
-            this.errorMessage = err.response?.data?.message ?? '';
-            const networkErrorCodes = ['ERR_NETWORK', 'ECONNABORTED', 'ERR_BAD_RESPONSE'];
+            this.responseStatusText = err.response?.statusText ?? '';
+            this.responseErrorMessage = (err.response?.data?.error || err.response?.data?.message) ?? '';
+
+
+
+            const networkErrorCodes = ['ERR_NETWORK', 'ECONNABORTED'];
             
             networkErrorCodes.includes(err.code)
-                ? (this.errorMessage = err.message, this.$store.commit('setError', err.message))
-                : this.$store.commit('dismissError');
+                ? (this.networkError = err.message, this.$store.commit('setError', err.message))
+                : (this.networkError = '', this.$store.commit('dismissError'));
         },
         startFetching() {
             this.fetching = true

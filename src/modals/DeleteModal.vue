@@ -1,6 +1,6 @@
 <template>
     <div class="modal-overlay centered fixed h-100 w-100" @click.self="closeModal">
-        <div class="modal-container bg-modal-surface ov-hidden">
+        <div class="modal-container flex flex-column gap-8 bg-modal-surface ov-hidden">
             <div class="modal-header">
                 <h4>{{ deleteItem.title }}</h4>
             </div>

@@ -26,7 +26,7 @@ const routes = [
   { path: '/chat/:id', name: 'ChatView', component: ChatView, beforeEnter: AuthGuard},
   { path: '/new-chat', name: 'NewChat', component: NewChat, beforeEnter: AuthGuard },
   { path: '/new-agent', name: 'CreateAgent', component: CreateAgent, beforeEnter: AuthGuard },
-  { path: '/profile/:user', name: 'PublicProfile', component: PublicProfile}
+  { path: '/profile/:username', name: 'PublicProfile', component: PublicProfile}
 
 ]
 

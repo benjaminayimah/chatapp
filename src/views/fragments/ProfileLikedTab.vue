@@ -1,9 +1,7 @@
 <template>
     <empty-state 
-        :heading="heading" 
-        :body="body" 
+        :message="computedMessage"
         :button="false"
-        :auth="auth"
     />
 </template>
 
@@ -12,13 +10,13 @@ import EmptyState from '@/components/EmptyState.vue'
 export default {
     name: 'ProfileLikedTab',
     components: { EmptyState },
-    props: {
-        auth: Boolean
-    },
-    data() {
-        return {
-            heading: 'No liked agents',
-            body: 'You have not liked any agent yet. Your liked AI agents will appear here.',
+    computed: {
+        computedMessage() {
+            const message = {
+                heading: 'No liked agents',
+                body: 'You have not liked any agent yet. Your liked AI agents will appear here.',
+            }
+            return message
         }
     }
 }
