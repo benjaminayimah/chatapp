@@ -101,7 +101,7 @@ export default {
   height: var(--hello-text-height);
 }
 .text {
-    background: linear-gradient(90deg, #0085ff, #5eb4ff,#f262e3,#f94646, #f26294 );
+    background: linear-gradient(120deg, #5eb4ff, #0085ff,#f262e3,#f94646, #f26294 );
   -webkit-background-clip: text;
   color: transparent;
 }
