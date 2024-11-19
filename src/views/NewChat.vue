@@ -4,7 +4,7 @@
             <div class="w-100 flex flex-column gap-32">
                 <div>
                     <div class="fs-205rem fw-600 text-center hello">
-                        <span>{{ typedText }}</span>
+                        <span class="text">{{ typedText }}</span>
                         <span class="cursor fw-500" v-if="showCursor">|</span>
                     </div>
                 </div>
@@ -97,11 +97,13 @@ export default {
     padding: 0 16px;
 }
 .hello {
-  background: linear-gradient(90deg, #ee3030, #ee4bcb, #4f69ec,  #50a7f4);
-  -webkit-background-clip: text;
-  color: transparent;
   line-height: var(--hello-text-height);
   height: var(--hello-text-height);
+}
+.text {
+    background: linear-gradient(90deg, #0085ff, #5eb4ff,#f262e3,#f94646, #f26294 );
+  -webkit-background-clip: text;
+  color: transparent;
 }
 .cursor {
     color: var(--main-font-color-primary);
