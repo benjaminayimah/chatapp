@@ -17,7 +17,7 @@
     <component v-if="isDeleteOpen && auth" :is="deleteContent"></component>
   </transition>
   <div v-if="toolTip.body" class="tooltip-container fs-08 absolute bg-surface-inverse" :style="{ top: toolTip.top + 50 + 'px', left: toolTip.left + 'px'}">{{ toolTip.body }}</div>
-  <error-snack-bar />
+  <alert-bar />
 </template>
 <script>
 import api from './services/apis'
@@ -29,7 +29,7 @@ import SettingsModal from './modals/SettingsModal.vue'
 import DeleteModal from './modals/DeleteModal.vue'
 import SignUpModal from './modals/SignUpModal.vue'
 import TokenExpiredModal from './modals/TokenExpiredModal.vue'
-import ErrorSnackBar from './components/ErrorSnackBar.vue'
+import AlertBar from './components/AlertBar.vue'
 import { mapGetters, mapState } from 'vuex';
 import AboutFloat from './components/AboutFloat.vue'
 export default {
@@ -42,7 +42,7 @@ export default {
     SignUpModal,
     TokenExpiredModal,
     AboutFloat,
-    ErrorSnackBar
+    AlertBar
   },
   name: 'AppView',
   mixins: [errorHandlerMixin],
@@ -51,7 +51,7 @@ export default {
     ...mapState({
       deleteState: (state) => state.deleteModal,
       toolTip: (state) => state.dropdown.tooltip,
-      user: (state) => state.user
+      user: (state) => state.auth.user
     }),
     isDeleteOpen() {
       return !!this.deleteState;
@@ -84,18 +84,24 @@ export default {
     this.$store.commit('setInitialTheme')
     this.$store.commit('computeWindow')
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemeChange);
-    localStorage.getItem('token') ? this.getuser(): ''
-
+    this.auth ? this.getuser(): ''
+    this.getAgents()
     window.addEventListener('resize', this.windowSize)
   },
   methods: {
     async getuser() {
       try {
-          const response = await api.get('/user')
-          this.$store.commit('setUser', response.data)
-          const recents = JSON.parse(localStorage.getItem('recents'))
-          !recents ? localStorage.setItem('recents', JSON.stringify([])) : ''
-
+          const res = await api.get('/user')
+          this.$store.commit('setUser', res.data)
+          // console.log(res.data)
+      } catch (err) {
+          this.handleError(err)
+      }
+    },
+    async getAgents() {
+      try {
+          const res = await api.get('/agent')
+          console.log(res.data)
       } catch (err) {
           this.handleError(err)
       }
@@ -111,6 +117,7 @@ export default {
   },
   beforeUnmount() {
     document.removeEventListener('resize', this.windowSize);
+    window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', this.handleThemeChange);
   }
 }
 </script>

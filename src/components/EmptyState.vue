@@ -6,9 +6,7 @@
         </div>
        <div v-if="button">
             <button @click="$emit('empty-btn-event')" class="button-primary default fw-600 fs-09 gap-4 ai-c">
-                <svg height="14" viewBox="0 0 14 14">
-                    <path d="M21.5,15.5h-6v6h-2v-6h-6v-2h6v-6h2v6h6Z" transform="translate(-7.5 -7.5)"/>
-                </svg>
+                <span v-html="message.icon" class="flex"></span>
                 {{ message.buttonText }}
             </button>
        </div>
@@ -21,7 +19,7 @@ export default {
     name: 'EmptyState',
     props: {
         message: Object,
-        button: Boolean,
+        button: Boolean
     }
 }
 </script>

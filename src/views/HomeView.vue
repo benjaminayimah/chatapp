@@ -1,54 +1,93 @@
 <template>
-  <div class="flex chat-body-wrapper flex-1 jc-c overflow-y-scroll">
-    <div class="chat-wrapper flex-1">
-      <img alt="Vue logo" src="../assets/logo.png">
-      <button class="flex jc-c ai-c br-50">Gradient Border</button>
-
-      <HelloWorld msg="Get answers. Find inspiration. Be more productive."/>
+  <div class="flex flex-1 jc-c overflow-y-scroll custom-scrollbar">
+    <div class="main-wrapper flex-1">
+      <section class="flex gap-16 flex-wrap w-100 pd-b-32">
+        <a href="#" v-for="data in arr" :key="data.id" class="card-wrapper">
+          <div class="image-wrapper relative">
+            <div class="overlay absolute"></div>
+            <img src="../assets/sample.jpeg" />
+          </div>
+          <div class="image-footer flex flex-column gap-4">
+            <div class="flex jc-sb">
+              <div>Name of product</div>
+              <div>Price</div>
+            </div>
+            <span>MOVIE PREPIERE</span>
+            <div class="flex gap-8">
+              <span>Silverbird Cinima</span>
+              <span>Accra Mall</span>
+            </div>
+          </div>
+        </a>
+      </section>
+      
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'HomeView',
-  components: { HelloWorld },
-  mounted() {
-    !this.auth ? this.$router.push({ query: { m: 'signin' }}) : ''
-  }
+  data() {
+    return {
+      arr: [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 },
+        { id: 4 },
+        { id: 5 },
+        { id: 6 },
+        { id: 7 },
+        { id: 8 },
+        { id: 9 },
+        { id: 10 },
+        { id: 11 },
+        { id: 12 },
+        { id: 13 },
+        { id: 14 },
+        { id: 15 },
+        { id: 16 },
+        { id: 17 },
+        { id: 18 },
 
+
+      ]
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
-.chat-wrapper {
+.main-wrapper {
     max-width: 1080px;
     padding: 0 20px;
 }
 
 
-/* Basic button styling */
-button {
-  position: relative;
-  padding: 12px 24px;
-  background-color: #19191b;
-  color: white; /* Text color */
-  border: none;
-  border-radius: 80px; /* Rounded corners */
+.card-wrapper {
+  flex-grow: 1;
+  max-width: 300px;
+  &:hover {
+    .overlay {
+      background-color: rgba($color: #000000, $alpha: .5);
+    }
+  }
+
 }
 
-button::after {
-  content: '';
-  position: absolute;
-  height: 107%;
-  width: 102%;
-  border-radius: 99px;
-  background-image: linear-gradient(to bottom right, #3159e9, #f747e8);
-  z-index: -1;
+.image-wrapper {
+  width: inherit;
+  border-radius: 12px;
+  img {
+    width: 100%;
+    border-radius: inherit;
+  }
+  .overlay {
+    border-radius: inherit;
+    inset: 0;
+    transition: var(---transition-time) all;
+  }
 }
-
 
 
 </style>

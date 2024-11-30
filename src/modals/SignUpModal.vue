@@ -16,7 +16,7 @@
             <div class="centered signup-wrapper">
                 <div class="su-inner text-center flex flex-column gap-32">
                         <div class="flex flex-column gap-8">
-                            <div class="fs-105rem">{{ computedQuery === 'signup' ? 'Create a new account' : 'Sign in'  }}</div>
+                            <div class="fs-105">{{ computedQuery === 'signup' ? 'Create a new account' : 'Sign in'  }}</div>
                             <div v-if="!emailSignUp">{{ computedQuery === 'signup' ? 'Choose a sign up method.' : 'Choose a sign in method below.'  }}</div>
                             <div v-else>Please fill out the form</div>
                         </div>
@@ -108,7 +108,6 @@ export default {
                     // const token = event.data.token;
                     // this.signInSuccess(token)
                     console.log(event.data)
-                    // localStorage.setItem('authToken', token);
                     // this.$router.push('/dashboard'); // Redirect to a protected route
                 } 
             }
@@ -117,7 +116,7 @@ export default {
         },
     },
     mounted() {
-        this.auth ? this.$router.push({ query: { m: null }}) : ''
+        this.auth ? this.$router.push({ query: { ...this.$route.query, m: null }}) : ''
     },
     unmounted() {
         window.removeEventListener('message', this.handleAuthResponse, false);

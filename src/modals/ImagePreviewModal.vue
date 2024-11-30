@@ -6,7 +6,7 @@
             </svg>
         </button>
         <div class="preview-image-container">
-            <img :src="image" class="w-100 h-100" alt="Prompt image">
+            <img :src="image" class="w-100 h-100" alt="Prompt image" loading="lazy">
         </div>
     </div>
 </template>

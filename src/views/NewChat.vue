@@ -1,22 +1,24 @@
 <template>
-    <div class="flex chat-body-wrapper flex-1 jc-c overflow-y-scroll">
-        <div class="chat-wrapper flex-1 centered">
+    <div class="flex flex-1 jc-c overflow-y-scroll custom-scrollbar">
+        <div class="main-wrapper flex-1 centered">
             <div class="w-100 flex flex-column gap-32">
                 <div>
-                    <div class="fs-205rem fw-600 text-center hello">
-                        <span class="text">{{ typedText }}</span>
-                        <span class="cursor fw-500" v-if="showCursor">|</span>
+                    <div class="text-center fs-205 hello">
+                        <span class="text fw-600">{{ typedText }}</span>
+                        <span class="cursor fw-100" v-if="showCursor">|</span>
                     </div>
                 </div>
                 <chat-input @submit-prompt="submitPrompt" />
-                <div class="flex gap-8 jc-c flex-wrap use-cases">
-                    <use-case-button v-for="(useCase, index) in useCases" 
-                        :key="index"
-                        :useCase="useCase"
-                    />
-                    <button class="button-outline gap-4 ai-c">
-                        More
-                    </button>
+                <div class="use-cases">
+                    <div class="flex gap-8 jc-c flex-wrap">
+                        <use-case-button v-for="(useCase, index) in useCases" 
+                            :key="index"
+                            :useCase="useCase"
+                        />
+                        <button class="button-outline gap-4 ai-c">
+                            More
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,7 +47,6 @@ export default {
                 { name: 'Identify objects', prompt: ''},
                 { name: 'Code', prompt: ''},
                 { name: 'Analyze data', prompt: ''}
-
             ]
         }
     },
@@ -77,10 +78,11 @@ export default {
         submitPrompt(e) {
             const id = this.generateUniqueId(16)
             const newChat = { id: id, prompt: e.prompt, fileType: e.fileType, image: e.image }
+
+            this.$store.commit('setNewChat', newChat)
             
             localStorage.setItem(id, JSON.stringify([]))
             localStorage.setItem(id + '_images', JSON.stringify([]))
-            localStorage.setItem('newChat', JSON.stringify(newChat))
 
             this.$router.push({ name: 'ChatView', params: { id: id }})
         }
@@ -92,7 +94,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chat-wrapper {
+.main-wrapper {
     max-width: 832px;
     padding: 0 16px;
 }
@@ -101,7 +103,7 @@ export default {
   height: var(--hello-text-height);
 }
 .text {
-    background: linear-gradient(120deg, #5eb4ff, #0085ff,#f262e3,#f94646, #f26294 );
+    background: linear-gradient(120deg,  #0085ff,#BA62FC,#F2416B, #F55600 );
   -webkit-background-clip: text;
   color: transparent;
 }
@@ -114,5 +116,6 @@ export default {
         gap: 24px;
     }
 }
+
 
 </style>

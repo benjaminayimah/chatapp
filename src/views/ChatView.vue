@@ -1,8 +1,7 @@
 <template>
-    <div ref="chatContainer" class="flex chat-body-wrapper flex-1 jc-c overflow-y-scroll">
-        <div class="chat-wrapper flex-1">
+    <div ref="chatContainer" class="flex flex-1 jc-c overflow-y-scroll custom-scrollbar">
+        <div class="main-wrapper flex-1">
             <div ref="chatContainer" class="chat-body">
-
                 <response-row v-for="(chat, index) in formattedResult" 
                     :key="index"
                     :chat="chat"
@@ -19,10 +18,10 @@
         </div>
     </div>
     <div class="flex jc-c">
-        <div class="chat-wrapper flex-1 relative">
+        <div class="main-wrapper flex-1 relative">
             <div id="chat_info_container" class="centered absolute gap-8">
                 <scroll-bottom-buttton v-if="showScrollButton" @do-scroll="doScroll('smooth')" />
-                <chat-alert-box v-if="showAlert" />
+                <chat-alert-box v-if="showChatAlert" />
             </div>
             <div class="bg-surface-1">
                 <chat-input @submit-prompt="submitPrompt" />
@@ -36,7 +35,11 @@
     </div>
     <teleport to='body'>
         <transition name="modal-fade">
-            <image-preview-modal v-if="imagePreview" :image="imagePreview" @close-preview="closePreview" />
+            <image-preview-modal
+                v-if="imagePreview"
+                @close-preview="closePreview"
+                :image="imagePreview"
+                />
         </transition>
     </teleport>
 </template>
@@ -61,7 +64,7 @@ export default {
             error: null,
             imagePreview: null,
             showScrollButton: false,
-            showAlert: false,
+            showChatAlert: false,
             resEnded: false,
             newIndex: null,
             processing: null
@@ -69,7 +72,8 @@ export default {
     },
     computed: {
         ...mapState({
-            device: (state) => state.DeviceWindow.device
+            device: (state) => state.DeviceWindow.device,
+            newChat: (state) => state.newChat
         }),
         formattedResult() {
             return this.chatHistory.map(chat => {
@@ -150,7 +154,7 @@ export default {
                     } while (!done);
                     localStorage.setItem(this.$route.params.id, JSON.stringify(this.chatHistory))
                     this.resEnded = true
-                    this.getNewChat() ? this.getNewChatTitle(e.id) : ''
+                    this.newChat ? this.getNewChatTitle(e.id) : ''
                 }else {
                     this.showError(index, res.statusText)
                     this.removeLoader()
@@ -252,9 +256,6 @@ export default {
                 this.submitPrompt(e)
             })
         },
-        getNewChat() {
-            return JSON.parse(localStorage.getItem('newChat'))
-        },
         async getNewChatTitle(id) {
             const prompt = 'Just give one short sentence title to the conversation above, without any leading commentary. It should just be about five to six words maximum.'
 
@@ -279,14 +280,8 @@ export default {
                     const data = await res.json();
 
                     const newRecent = { id: id, title: data }
-                    let recents = JSON.parse(localStorage.getItem('recents'))
-
-                    if (recents) {
-                        recents.push(newRecent)
-                        localStorage.setItem('recents', JSON.stringify(recents))
-                        this.$store.commit('addToRecents', newRecent)
-                    }
-                    localStorage.removeItem('newChat')
+                    this.$store.commit('addToRecents', newRecent)
+                    this.$store.commit('clearNewChat')
                 }
             } catch (error) {
                 console.error(error)
@@ -298,8 +293,8 @@ export default {
         }
     },
     mounted() {
-        const chatType = this.getNewChat()
-        if(chatType && (chatType.prompt || chatType.image) && chatType.id === this.$route.params.id) {
+        const chatType = this.newChat
+        if((chatType?.prompt || chatType?.image) && chatType?.id === this.$route.params.id) {
             this.handleNewChat(chatType)
         }else {
             this.fetchHistory(this.$route.params.id)
@@ -307,7 +302,6 @@ export default {
         const chatContainer = this.$refs.chatContainer;
         chatContainer.addEventListener('scroll', this.handleScrollPosition);
         this.dismissMenu()
-
     },
     beforeUnmount() {
         const chatContainer = this.$refs.chatContainer;
@@ -320,14 +314,13 @@ export default {
 h2 {
     font-size: 2rem;
 }
-.chat-wrapper {
+.main-wrapper {
     max-width: 832px;
     padding: 0 16px;
 }
 .chat-body {
     padding: 40px 0;
 }
-
 
 </style>
   

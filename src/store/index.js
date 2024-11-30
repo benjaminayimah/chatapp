@@ -1,49 +1,56 @@
 import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
 import DeviceWindow from './modules/window'
 import playback from './modules/playback'
-import theme from './modules/theme'
+import preferences from './modules/preferences'
 import dropdown from './modules/dropdown'
+import auth from './modules/auth'
 import api from '@/services/apis'
+
+import { decryptToken } from '@/middlewares/encryptMiddleware'
 
 export default createStore({
   state: {
-    token: localStorage.getItem('token') || null,
-    tokenExpired: false,
-    user: JSON.parse(localStorage.getItem('user')) || null,
     userProfile: null,
-    recents: JSON.parse(localStorage.getItem('recents')) || [],
-    error: null,
-    deleteModal: null
+    recents: [],
+    favourites: [],
+    alert: null,
+    deleteModal: null,
+    newChat: null
   },
   mutations: {
-    setAuth(state, payload) {
-      state.token = payload
-      localStorage.setItem('token', payload)
-    },
-    setUser(state, payload) {
-      state.user = payload
-      localStorage.setItem('user', JSON.stringify(payload))
-    },
     setUserProfile(state, payload) {
       state.userProfile = payload
     },
-    setTokenExpired(state) {
-      state.tokenExpired = true
+    addToAgents(state, payload) {
+      state.userProfile.agents = [...state.userProfile.agents, ...payload]
     },
-    setError(state, payload) {
-      state.error = payload
+    removeAgent(state, payload) {
+      let index = state.userProfile?.agents?.findIndex(obj => obj.id === payload)
+      if (index !== -1) {
+        state.userProfile.agents.splice(index, 1);
+      }
     },
-    dismissError(state) {
-      state.error = null
+    //favourites
+    setFavourites(state, payload) {
+      state.favourites = payload
     },
-    destroyToken(state) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      state.token = null
-      state.user = null
+    addFavourite(state, payload) {
+      let agent = { agent: payload }
+      state.favourites = [...state.favourites, agent]
     },
-    saveCurrentTheme(state, payload) {
-      localStorage.setItem('theme', payload)
+    removeFavourite(state, id) {
+      let index = state.favourites.findIndex(obj => obj.agent.id === id)
+      if (index !== -1) {
+        state.favourites.splice(index, 1);
+      }
+    },
+
+    showAlert(state, payload) {
+      state.alert = payload
+    },
+    dismissAlert(state) {
+      state.alert = null
     },
     addToRecents(state, payload) {
       state.recents.push(payload)
@@ -55,26 +62,30 @@ export default createStore({
       state.deleteModal = null
     },
     deleteChat(state, payload) {
-      let recents = JSON.parse(localStorage.getItem('recents'))
+      let recents = state.recents
       let index = recents.findIndex(obj => obj.id === payload)
       if (index !== -1) {
-        recents.splice(index, 1);
         state.recents.splice(index, 1);
       }
-      localStorage.setItem('recents', JSON.stringify(recents));
       localStorage.removeItem(payload + '_images')
       localStorage.removeItem(payload)
     },
     deleteAllChats() {
       //
     },
+
+    setNewChat(state, payload) {
+      state.newChat = payload
+    },
+    clearNewChat(state) {
+      state.newChat = null
+    },
     renameChat(state, payload) {
-      let recents = JSON.parse(localStorage.getItem('recents'))
+      let recents = state.recents
       let index = recents.findIndex(obj => obj.id === payload.id)
       if (index !== -1) {
         recents[index].title = payload.title
       }
-      localStorage.setItem('recents', JSON.stringify(recents));
       state.recents = recents
     }
   },
@@ -88,7 +99,6 @@ export default createStore({
       } catch (error) {
         state.commit('destroyToken')
         window.location = '/'
-
       }
     },
     async logoutMe() {
@@ -99,16 +109,39 @@ export default createStore({
         console.log(error)
       }
     },
+    showAlert({ commit }, payload) {
+      commit('showAlert', payload);
+
+      if (payload.autoDismiss) {
+        setTimeout(() => {
+          commit('dismissAlert');
+        }, 4000);
+      }
+    }
   },
   getters: {
     auth(state) {
-      return state.token !== null
-    },
+      return !!decryptToken(state.auth.token)
+    }
   },
   modules: {
+    auth,
     DeviceWindow,
     dropdown,
     playback,
-    theme,
-  }
+    preferences,
+  },
+  plugins: [
+    createPersistedState({
+        key: 'artemis-ai',
+        storage: window.localStorage,
+        paths: [
+          'auth.token',
+          'auth.user',
+          'preferences.currentTheme',
+          'recents',
+          'newChat'
+        ]
+    })
+  ]
 })

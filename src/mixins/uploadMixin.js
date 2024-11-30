@@ -10,8 +10,9 @@ export default {
                 if (!(file.type == "image/png" || file.type == "image/jpg" || file.type == "image/jpeg")) {
                     console.error("Unsupported file. The file type must be \"png, jpg or jpeg\"");
                 }else {
-                    this.form.image = URL.createObjectURL(file);
                     if (this.checksize(file.size)) {
+                        this.form.image = URL.createObjectURL(file);
+
                         this.uploading = true
 
                         const formData = new FormData();
@@ -23,7 +24,6 @@ export default {
                             })
                             const data = await response.json()
                             if (data.imageUrl) {
-                                this.uploading = false
                                 this.form.image = data.imageUrl
     
                                 this.form.fileType = file.type
@@ -33,6 +33,7 @@ export default {
                             }
                         } catch (error) {
                             console.error("Error uploading the image:", error);
+                        } finally {
                             this.uploading = false
                         }
                     }else {
@@ -55,7 +56,7 @@ export default {
 
                 const data = await response.json()
                 if (response.status === 200) {
-                    this.form.image = ''
+                    this.form.image = null
                     this.deleting = false
                     this.clrOldfile('imageUploadInput')
                 } else {

@@ -15,7 +15,7 @@
             </div>
         </div>
         <form @submit.prevent="" action="" class="flex ai-fe">
-            <textarea v-model="form.prompt" class="flex" rows="1" @input="adjustHeight" @keydown.enter="submitPrompt" ref="textArea" name="prompt" id="prompt_input" placeholder="Enter a prompt here"></textarea>
+            <textarea v-model="form.prompt" class="flex" data-name="prompt" rows="1" @input="adjustHeight" @keydown.enter="submitPrompt" ref="textArea" name="prompt" id="prompt_input" placeholder="Enter a prompt here"></textarea>
             <div class="flex gap-8">
                 <input class="hide" @change="uploadImage" name="image" id="imageUploadInput" type="file" ref="img">
                 <button @click.prevent="uploadClick('imageUploadInput')" data-type="button" class="transparent-button jc-c ai-c">
@@ -44,7 +44,7 @@ export default {
     computed: {
         computedInput() {
             const sanitizedInput = this.form.prompt.trim(); 
-            if((sanitizedInput != '' && !this.uploading) || (this.form.image != '' && !this.uploading)) {
+            if((sanitizedInput != '' && !this.uploading) || (this.form.image != null && !this.uploading)) {
                 return true
             }else {
                 return false
@@ -57,7 +57,7 @@ export default {
             deleting: false,
             form: {
                 prompt: '',
-                image: '',
+                image: null,
                 fileType: ''
             }
 
@@ -71,7 +71,7 @@ export default {
                     this.$emit('submit-prompt', this.form)
                     this.form.prompt = ''
                     if (this.form.image) {
-                        this.form.image = ''
+                        this.form.image = null
                         this.clrOldfile('imageUploadInput')
                     }
                     this.$nextTick(() => {

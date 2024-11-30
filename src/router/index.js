@@ -1,32 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import store from '@/store'
+import { AuthGuard } from '@/middlewares/authMiddleware'
 
 import Home from '../views/HomeView.vue'
 import ChatView from '@/views/ChatView.vue'
 import NewChat from '@/views/NewChat.vue'
 import CreateAgent from '@/views/CreateAgent.vue'
 import PublicProfile from '@/views/PublicProfile.vue'
-
-// Guards
-const AuthGuard = (to, from, next) => {
-  // Perform your checks here
-  if (store.getters.auth) {
-    // If the condition is met, allow the route transition
-    next();
-  } else {
-    next({
-      name: 'Home'
-    });
-  }
-};
+import AgentChat from '@/views/AgentChat.vue'
 
 
 const routes = [
-  { path: '/', name: 'Home', component: Home},
-  { path: '/chat/:id', name: 'ChatView', component: ChatView, beforeEnter: AuthGuard},
+  { path: '/', name: 'Home', component: Home },
+  { path: '/chat/:id', name: 'ChatView', component: ChatView, beforeEnter: AuthGuard },
   { path: '/new-chat', name: 'NewChat', component: NewChat, beforeEnter: AuthGuard },
   { path: '/new-agent', name: 'CreateAgent', component: CreateAgent, beforeEnter: AuthGuard },
-  { path: '/profile/:username', name: 'PublicProfile', component: PublicProfile}
+
+  { path: '/a/chat/:id', name: 'AgentChat', component: AgentChat },
+  { path: '/profile/:username', name: 'PublicProfile', component: PublicProfile }
 
 ]
 

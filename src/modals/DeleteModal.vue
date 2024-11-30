@@ -16,11 +16,13 @@
 </template>
 
 <script>
+import api from '@/services/apis';
 import { mapState } from 'vuex';
-
+import errorHandlerMixin from '@/mixins/errorHandlerMixin';
 
 export default {
     name: 'DeleteModal',
+    mixins: [errorHandlerMixin],
     props: {
         zindex: Number,
         opacity: Number,
@@ -50,8 +52,11 @@ export default {
                     this.deleteChat();
                     break;
                 case 'all-chats':
-                    this.deleteAllChats()
-                break;
+                    this.deleteAllChats();
+                    break;
+                case 'agent':
+                    this.deleteAgent();
+                    break;
             }
         },
         async deleteChat() {
@@ -62,6 +67,8 @@ export default {
             
             this.$store.commit('closeDeleteModal')
 
+            this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: 'Chat has been deleted successfully'})
+
             if (routeId == itemId) {
                 this.$router.push({ name: 'NewChat' })
             }
@@ -70,8 +77,22 @@ export default {
             await this.$store.commit('deleteAllChats')
 
             this.$store.commit('closeDeleteModal')
+
+            this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: 'All chats deleted successfully'})
+
             if (this.$route.name === 'ChatView') {
                 this.$router.push({ name: 'NewChat', query: { m: 'settings' } })
+            }
+        },
+        async deleteAgent() {
+            try {
+                const res = await api.delete('/agent/'+ this.deleteItem.id)
+                await this.$store.commit('removeAgent', this.deleteItem.id)
+                await this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: res.data.message})
+                this.$store.commit('closeDeleteModal')
+            } catch (err) {
+                this.$store.commit('closeDeleteModal')
+                this.handleError(err)
             }
         }
     },
@@ -93,7 +114,7 @@ export default {
 .modal-container {
     width: 450px;
     max-height: 90dvh;
-    padding: 16px 20px 20px 20px;
+    padding: 28px 32px 32px 32px;
 }
 
 .modal-header {

@@ -31,7 +31,7 @@
 // require('dotenv').config()
 // const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// const genAI = new GoogleGenerativeAI(process.env.VUE_APP_API_KEY)
+// const genAI = new GoogleGenerativeAI(process.env.VUE_APP_SECRET)
 
 // //route
 

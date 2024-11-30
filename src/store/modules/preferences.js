@@ -1,12 +1,16 @@
 export default {
     state: {
-        currentTheme: localStorage.getItem('theme') || 'system-theme'
+        themes: [
+            { id: 'system-theme', name: 'System (Default)', key: 'setSystemTheme', system: true},
+            { id: 'dark-theme', name: 'Dark', key: 'setTheme'},
+            { id: 'light-theme', name: 'Light', key: 'setTheme'},
+        ],
+        currentTheme: 'system-theme'
     },
     mutations: {
         setTheme(state, theme) {
             state.currentTheme = theme
             this.commit('applyClass', theme)
-            this.commit('saveCurrentTheme', theme)
         },
         async setSystemTheme() {
             await this.commit('tiggerSystemTheme')
@@ -14,7 +18,6 @@ export default {
         },
         tiggerSystemTheme(state) {
             state.currentTheme = 'system-theme'
-            this.commit('saveCurrentTheme', 'system-theme')
         },
         preSetSystemTheme() {
             const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -22,10 +25,11 @@ export default {
         },
         setInitialTheme(state) {
             const theme = state.currentTheme
-            if(theme === 'system-theme') {
-                this.commit('preSetSystemTheme')
-            }else {
+            if(theme === 'light-theme' || theme === 'dark-theme') {
                 this.commit('applyClass', theme)
+            }else {
+                state.currentTheme = 'system-theme'
+                this.commit('preSetSystemTheme')
             }
         },
         handleThemeChange(state, payload) {

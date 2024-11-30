@@ -2,12 +2,22 @@
     <li class="flex" >
         <router-link  :to="!editMode ? { name: 'ChatView', params: { id: recent.id }} : ''" data-type="menu" class="flex ai-c bg-transition" :class="{'is-toggled' : dropdownToggle}">
             <div v-if="!editMode" class="gap-10 flex ai-c">
-                <svg width="20" height="14" viewBox="0 0 30 30">
-                    <path d="M6,3H30a3.009,3.009,0,0,1,3,3V33l-6-6H6a3.009,3.009,0,0,1-3-3V6A3.009,3.009,0,0,1,6,3ZM6,24H27l3,3V6H6Z" transform="translate(-3 -3)"/>
+                <svg height="14" viewBox="0 0 11.846 11.425">
+                    <path d="M3.308,2.923h7.231a1.385,1.385,0,0,1,1.385,1.385V8.923a1.385,1.385,0,0,1-1.385,1.385H6.923a.461.461,0,0,0-.326.135L4.615,11.85v-1.08a.462.462,0,0,0-.462-.462H3.308A1.385,1.385,0,0,1,1.923,8.923V4.308A1.385,1.385,0,0,1,3.308,2.923ZM10.538,2H3.308A2.308,2.308,0,0,0,1,4.308V8.923a2.308,2.308,0,0,0,2.308,2.308h.385v1.733a.462.462,0,0,0,.788.326l2.634-2.059h3.424a2.308,2.308,0,0,0,2.308-2.308V4.308A2.308,2.308,0,0,0,10.538,2Z" transform="translate(-1 -2)" fill-rule="evenodd"/>
                 </svg>
-                <span class="wrap-text wrap-line-1 fs-09">{{ recent.title }}</span>
+                <span class="wrap-text wrap-line-1 fs-09 block">{{ recent.title }}</span>
             </div>
-            <input @keydown.enter="handleKeyDownEnter" @focusout="handleFocusOut"  ref="input" v-model="input" v-if="editMode" type="text" name="renameChat" class="bg-transparent edit-recent" autocomplete="off">
+            <input
+                @keydown.enter="handleKeyDownEnter"
+                @focusout="handleFocusOut"
+                ref="input" v-model="input"
+                v-if="editMode"
+                type="text"
+                name="renameChat"
+                class="bg-transparent edit-recent"
+                autocomplete="off"
+                data-type="custom-focus"
+            >
             <i v-if="!editMode" @click.prevent="handleDropdown(`recent_${this.recent.id}`)" :id="`recent_${recent.id}`" class="flex jc-c ai-c a-button">
                 <svg height="14" viewBox="0 0 2 10">
                     <path d="M-1990,9a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,9Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,5Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,1Z" transform="translate(1990)"/>
@@ -17,7 +27,15 @@
     </li>
     <teleport to="body">
         <backdrop @click="handleDropdown(`recent_${this.recent.id}`)" v-if="dropdownToggle" :opacity="0" :zindex="101" />
-        <dropdown-div v-if="dropdownToggle" :dropdown="dropdown" @delete-chat="deleteChat" @trigger-edit-mode="triggerEditMode" />
+        <dropdown-div
+            v-if="dropdownToggle"
+            @delete-chat="deleteChat"
+            @trigger-edit-mode="triggerEditMode"
+            @share="share"
+            :dropdown="dropdown"
+            :edit="'Rename'"
+            :isOwner="true"
+        />
     </teleport>
 </template>
 
@@ -42,7 +60,7 @@ export default {
         }
     },
     methods: {
-        async deleteChat() {
+        deleteChat() {
             const body = `
                 <div>You are about to delete <strong>${this.recent.title}</strong> from your chat history.</div>
                 <div>
@@ -73,6 +91,9 @@ export default {
                 this.$store.commit('renameChat', payload)
             }
             this.closeEditMode()
+        },
+        share() {
+            console.log('share')
         },
         handleKeyDownEnter() {
             this.enterPressed = true;

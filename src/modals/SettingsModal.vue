@@ -41,7 +41,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="modal-body-right flex-1 overflow-y-scroll">
+                <div class="modal-body-right flex-1 overflow-y-scroll custom-scrollbar">
                     <div class="flex flex-column gap-14 content-right-wrapper">
                         <component v-if="isModalOpen" :is="modalContent"></component>
                     </div>

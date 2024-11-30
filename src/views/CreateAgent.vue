@@ -1,8 +1,15 @@
 <template>
-    <div class="overflow-y-scroll">
+    <div v-if="isEditMode && !computedAgent" class="centered pd-16 empty-state">
+        <empty-state
+            :message="computedMessage"
+            :button="true"
+            @empty-btn-event="redirectBack"
+        />
+    </div>
+    <div v-else class="overflow-y-scroll custom-scrollbar">
         <div class="flex jc-c sticky top-0 bg-surface-1" style="z-index: 2">
             <div class="section-wrapper page-top flex-1 pd-b-16 pd-t-4">
-                <button @click="goBack" class="gap-4 default button-outline back-btn ai-c fs-09">
+                <button @click="goBack" class="gap-4 default button-outline ai-c fs-09">
                     <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.677 13">
                         <path d="M14.943,11.5a.885.885,0,0,1,.007,1.246l-4.11,4.123H21.686a.88.88,0,0,1,0,1.76H10.841l4.116,4.123A.891.891,0,0,1,14.95,24a.877.877,0,0,1-1.239-.007L8.133,18.372h0a.988.988,0,0,1-.183-.278.84.84,0,0,1-.068-.339.882.882,0,0,1,.251-.616l5.579-5.619A.862.862,0,0,1,14.943,11.5Z" transform="translate(-7.882 -11.252)" fill="#fff"/>
                     </svg>
@@ -22,14 +29,15 @@
             <div class="section-wrapper flex-1">
                 <div class="flex gap-32" :class="device === 'mobile' ? tab : ''">
                     <div class="editor-container flex-1 pd-t-24">
-                        <form action="" class="pd-b-32">
+                        <form @submit.prevent="" class="pd-b-32">
                             <div class="form-wrapper flex flex-column gap-8">
-                                <div class="form-row">
+                                <div class="form-row pd-b-16">
                                     <profile-avatar
-                                        :picture="form.image"
+                                        :image="form.image"
+                                        :width="100"
+                                        :height="100"
                                         :color="form.color"
                                         :name="form.agentName"
-                                        :dimension="100"
                                         :fontSize="2"
                                         :upload="true"
                                         :deleting="deleting"
@@ -37,7 +45,7 @@
                                         @upload-click="uploadClick"
                                         @delete-image="deleteImage"
                                     />
-                                <input class="hide" @change="uploadImage" name="image" id="imageUploadInput" type="file" ref="img">
+                                    <input class="hide" @change="uploadImage" name="image" id="imageUploadInput" type="file" ref="img">
                                 </div>
                                 <div class="form-row flex flex-column gap-4">
                                     <div class="input-wrapper flex flex-column gap-4">
@@ -49,28 +57,28 @@
                                 <div class="form-row flex flex-column gap-4">
                                     <div class="input-wrapper flex flex-column gap-4">
                                         <label for="headline"><strong>Headline</strong></label>
-                                        <input id="headline" name="headline" class="form-control" type="text" @input="markUnsaved" maxlength="20" placeholder="E.g. A short headline about what your Agent does" autocomplete="off">
-                                        <div class="flex jc-fe"><span class="fs-08 sub-label">0/20</span></div>
+                                        <input v-model="form.headline" id="headline" name="headline" class="form-control" type="text" @input="markUnsaved" maxlength="50" placeholder="E.g. A short headline about what your Agent does" autocomplete="off">
+                                        <div class="flex jc-fe"><span class="fs-08 sub-label">0/50</span></div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="input-wrapper flex flex-column gap-4">
                                         <label for="greeting"><strong>Greeting</strong></label>
-                                        <textarea name="greeting" id="greeting" class="form-control textarea-no-resize" @input="markUnsaved" rows="5" maxlength="500" placeholder="E.g. Hello, I am your Cocoa farm AI Agent. Ask me anything about your cocoa farm."></textarea>
+                                        <textarea v-model="form.greeting" name="greeting" id="greeting" class="form-control textarea-no-resize" @input="markUnsaved" rows="5" maxlength="500" placeholder="E.g. Hello, I am your Cocoa farm AI Agent. Ask me anything about your cocoa farm."></textarea>
                                         <div class="flex jc-fe"><span class="fs-08 sub-label">0/500</span></div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="input-wrapper flex flex-column gap-4">
                                         <label for="description"><strong>Description</strong></label>
-                                        <textarea name="description" id="description" class="form-control textarea-no-resize" @input="markUnsaved" rows="5" maxlength="500" placeholder="How would your Agent describe themselves?"></textarea>
+                                        <textarea v-model="form.description" name="description" id="description" class="form-control textarea-no-resize" @input="markUnsaved" rows="5" maxlength="500" placeholder="How would your Agent describe themselves?"></textarea>
                                         <div class="flex jc-fe"><span class="fs-08 sub-label">0/500</span></div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="input-wrapper flex flex-column gap-4">
                                         <label for="instructions"><strong>Instructions</strong></label>
-                                        <textarea name="instructions" id="instructions" class="form-control textarea-no-resize" @input="markUnsaved" rows="5" maxlength="500" placeholder="E.g. You're an expert cocoa farm assistant located in Accra, Ghana. You provide"></textarea>
+                                        <textarea v-model="form.instructions" name="instructions" id="instructions" class="form-control textarea-no-resize" @input="markUnsaved" rows="5" maxlength="500" placeholder="E.g. You're an expert cocoa farm assistant located in Accra, Ghana. You provide"></textarea>
                                         <div class="flex jc-fe"><span class="fs-08 sub-label">0/500</span></div>
                                     </div>
                                 </div>
@@ -80,7 +88,7 @@
                                         <p><strong>Visibility</strong></p>
                                         <button id="visibility_toggle" @click.prevent="handleDropdown('visibility_toggle', null)" class="gap-10 capitalize default ai-c button-outline visibility-toggle fs-095">
                                             <div class="flex ai-c gap-4">
-                                                <span v-html="computedIcon(this.form.visibility)" class="flex"></span>
+                                                <span v-html="getVisibilityIcon(this.form.visibility)" class="flex"></span>
                                                 {{ form.visibility }}
                                             </div>
                                             <svg height="12" viewBox="0 0 12.001 18">
@@ -101,25 +109,29 @@
                 </div>
             </div>
         </div>
-
         <div class="flex jc-c sticky bottom-0 blur-to-bottom bg-transition">
             <div class="section-wrapper flex-1 pd-t-16 pd-b-24">
                 <div class="flex jc-fe ai-c">
-                    <button class="button-primary default ai-c fw-600 fs-09">Create Agent</button>
+                    <button
+                        @click.prevent="submit" 
+                        class="button-primary default ai-c fw-600 fs-09"
+                        :disabled="!isEditMode && !inputsHaveData"
+                        >
+                        {{ isEditMode ? 'Submit Update' : 'Create Agent' }}
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-
     <teleport to="body">
         <backdrop @click="handleDropdown('visibility_toggle', null)" v-if="dropdownToggle" :opacity="0" :zindex="101" />
-        <div v-if="dropdownToggle" class="dropdown fixed" :style="{ top: dropdown.top - 164 + 'px', left: dropdown.left + 'px'}">
+        <div v-if="dropdownToggle" class="dropdown fixed" :style="{ top: dropdown.top - 158 + 'px', left: dropdown.left + 'px'}">
             <div class="flex flex-column gap-4">
                 <button v-for="(visibility, index) in visibilities" :key="index" @click.prevent="selectVisibility(visibility.name)" class="br-8 w-100 bg-transparent " :class="form.visibility == visibility.name ? 'selected' : ''">
                     <div class="flex gap-4 flex-column">
                         <div class="flex ai-c gap-8">
-                            <span v-html="computedIcon(visibility.name)" class="flex"></span>
+                            <span v-html="getVisibilityIcon(visibility.name)" class="flex"></span>
                             <strong class="capitalize">{{ visibility.name }}</strong>
                         </div>
                         <span class="text-left">{{visibility.description}}</span>
@@ -137,16 +149,44 @@ import Backdrop from '@/components/Backdrop.vue';
 import ProfileAvatar from '@/components/ProfileAvatar.vue';
 const { getRandomColor } = require('@/utilities/ColorTrait');
 import uploadMixin from '@/mixins/uploadMixin';
+import errorHandlerMixin from '@/mixins/errorHandlerMixin';
+import api from '@/services/apis';
+import EmptyState from '@/components/EmptyState.vue';
+const { visibilityIcon } = require('@/utilities/IconsTrait')
 
 export default {
     name: 'CreateAgent',
-    components: { Backdrop, ProfileAvatar },
-    mixins: [dropdownMixin, uploadMixin],
+    components: { Backdrop, ProfileAvatar, EmptyState },
+    mixins: [dropdownMixin, uploadMixin, errorHandlerMixin],
     computed: {
         ...mapState({
-            user: (state) => state.user,
-            device: (state) => state.DeviceWindow.device
-        })
+            user: (state) => state.auth.user,
+            device: (state) => state.DeviceWindow.device,
+            agentArr: (state) => state.userProfile?.agents
+        }),
+        computedAgent() {
+            return this.agentArr?.find(agent => agent.id == this.$route.query?.agent) || null
+        },
+        isEditMode() {
+            return !!(this.$route.query?.mode === 'edit')
+        },
+        inputsHaveData() {
+            const form = this.form
+            return !!(form.agentName && form.headline && form.greeting && form.description && form.instructions)
+        },
+        computedMessage() {
+            const message = {
+                heading: 'Not Found',
+                body: 'The user you\'re tring to access does not exist.',
+                buttonText: 'Go back',
+                icon: `
+                    <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 14.677 13">
+                        <path d="M14.943,11.5a.885.885,0,0,1,.007,1.246l-4.11,4.123H21.686a.88.88,0,0,1,0,1.76H10.841l4.116,4.123A.891.891,0,0,1,14.95,24a.877.877,0,0,1-1.239-.007L8.133,18.372h0a.988.988,0,0,1-.183-.278.84.84,0,0,1-.068-.339.882.882,0,0,1,.251-.616l5.579-5.619A.862.862,0,0,1,14.943,11.5Z" transform="translate(-7.882 -11.252)" fill="#fff"/>
+                    </svg>
+                `
+            }
+            return message
+        },
     },
     data() {
         return {
@@ -161,20 +201,27 @@ export default {
             ],
             form: {
                 agentName: '',
+                headline: '',
+                greeting: '',
+                description: '',
+                instructions: '',
                 visibility: 'public',
-                color: getRandomColor(),
+                color: '',
                 image: null
             }
         }
     },
     watch: {
-        'form.image'() {
-            this.markUnsaved();
+        'form.image'(newImage, oldImage) {
+            newImage && oldImage ? this.markUnsaved() : ''
         }
     },
     methods: {
         markUnsaved() {
             this.hasUnsavedChanges = true;
+        },
+        markSaved() {
+            this.hasUnsavedChanges = false
         },
         handleBeforeUnload(event) {
             if (this.hasUnsavedChanges) {
@@ -192,25 +239,57 @@ export default {
             this.form.visibility = param
             this.dropdownToggle = false
         },
-        computedIcon(param) {
-            switch (param) {
-                case 'public':
-                    return `
-                        <svg height="15" width="15" viewBox="0 0 32.999 33">
-                            <path d="M-3165.29-587a16.393,16.393,0,0,1-6.423-1.3,16.433,16.433,0,0,1-5.243-3.535,16.441,16.441,0,0,1-3.536-5.244,16.4,16.4,0,0,1-1.3-6.423,16.4,16.4,0,0,1,1.3-6.422,16.431,16.431,0,0,1,3.536-5.244,16.433,16.433,0,0,1,5.243-3.535,16.393,16.393,0,0,1,6.423-1.3,16.391,16.391,0,0,1,6.423,1.3,16.437,16.437,0,0,1,5.244,3.535,16.428,16.428,0,0,1,3.535,5.244,16.4,16.4,0,0,1,1.3,6.422,16.4,16.4,0,0,1-1.3,6.423,16.438,16.438,0,0,1-3.535,5.244,16.437,16.437,0,0,1-5.244,3.535,16.391,16.391,0,0,1-6.423,1.3Zm3.41-3.432a13.418,13.418,0,0,0,6.136-3.522,13.4,13.4,0,0,0,3.872-8.046h-5.993A24.444,24.444,0,0,1-3161.88-590.432Zm-12.956-3.522a13.418,13.418,0,0,0,6.136,3.522A24.437,24.437,0,0,1-3172.715-602h-5.993A13.4,13.4,0,0,0-3174.836-593.954Zm9.545,3.128A21.443,21.443,0,0,0-3160.876-602h-8.827A21.45,21.45,0,0,0-3165.29-590.826ZM-3151.872-605a13.4,13.4,0,0,0-3.872-8.046,13.421,13.421,0,0,0-6.137-3.523A24.445,24.445,0,0,1-3157.865-605Zm-9,0a21.445,21.445,0,0,0-4.414-11.174A21.455,21.455,0,0,0-3169.7-605Zm-11.839,0a24.44,24.44,0,0,1,4.016-11.569,13.421,13.421,0,0,0-6.136,3.523,13.393,13.393,0,0,0-3.873,8.046Z" transform="translate(3181.79 620)"/>
-                        </svg>
-                    `;
-                case 'private':
-                    return `
-                        <svg height="15" width="15" viewBox="0 0 18.013 19.977">
-                            <path d="M-1985.5,19.977a4.274,4.274,0,0,1-4.5-4v-5a4.12,4.12,0,0,1,3.377-3.874V4.78a5.239,5.239,0,0,1,.772-2.353A5.37,5.37,0,0,1-1980.927,0a6.261,6.261,0,0,1,3.162.758,4.606,4.606,0,0,1,1.7,1.692,5.114,5.114,0,0,1,.689,2.363V7.1a4.122,4.122,0,0,1,3.387,3.876v5a4.274,4.274,0,0,1-4.5,4Zm-2.251-9v5a2.139,2.139,0,0,0,2.251,2h9.007a2.139,2.139,0,0,0,2.251-2v-5a2.139,2.139,0,0,0-2.251-2h-9.007A2.139,2.139,0,0,0-1987.748,10.977Zm10.123-4V4.828a3.4,3.4,0,0,0-.467-1.51A3.028,3.028,0,0,0-1980.927,2a3.169,3.169,0,0,0-2.951,1.392,3.552,3.552,0,0,0-.493,1.454V6.978Zm-4.494,8.059V11.963a1.069,1.069,0,0,1,1.126-1,1.069,1.069,0,0,1,1.126,1v3.074a1.069,1.069,0,0,1-1.126,1A1.069,1.069,0,0,1-1982.119,15.036Z" transform="translate(1990)"/>
-                        </svg>
-                    `
+        getVisibilityIcon(type) {
+            const param = { type: type, height: 15, class: null }
+            return visibilityIcon(param)
+        },
+        submit() {
+            this.isEditMode ? this.updateForm() : this.submitForm()
+        },
+        async submitForm() {
+            try {
+                const res = await api.post('/agent', this.form)
+                await this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: res.data.message })
+                this.markSaved()
+                this.goBack()
+            } catch (err) {
+                this.handleError(err)
             }
+        },
+        async updateForm() {
+            try {
+                const res = await api.put('/agent/'+this.computedAgent.id, this.form)
+                // await this.$store.commit('updateAgent', res.data.agent)
+                await this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: res.data.message })
+                this.markSaved()
+                this.goBack()
+
+            } catch (err) {
+                this.handleError(err)
+            }
+        },
+        getMode() {
+            if(!this.computedAgent) return
+            this.form.color = this.computedAgent.color
+            this.form.image = this.computedAgent.image
+            this.form.agentName = this.computedAgent.agentName
+            this.form.headline = this.computedAgent.headline
+            this.form.greeting = this.computedAgent.greeting
+            this.form.description = this.computedAgent.description
+            this.form.instructions = this.computedAgent.instructions
+            this.form.visibility = this.computedAgent.visibility
+        },
+        redirectBack() {
+            this.$router.push({ name: 'PublicProfile', params: { username: this.user.username } })
         }
     },
     mounted() {
         window.addEventListener('beforeunload', this.handleBeforeUnload);
+        if(this.isEditMode) {
+            this.getMode()
+        }else {
+            this.form.color = getRandomColor()
+        }
     },
 
     unmounted() {
@@ -229,7 +308,7 @@ export default {
         } else {
             next();
         }
-    },
+    }
 };
 </script>
 
@@ -289,14 +368,14 @@ ul {
         padding: 8px 16px;
         font-size: .9rem;
         color: var(--main-font-primary);
-        // &:hover {
-        //     background-color: var(--modal-close-button-hover);
-        // }
     }
     button.selected {
         background-color: var(--modal-close-button-hover);
         outline: .6px solid var(--button-press-outline) ;
     }
+}
+.empty-state {
+    height: 90dvh;
 }
 
 </style>

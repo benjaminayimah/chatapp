@@ -1,9 +1,9 @@
 <template>
     <form @submit.prevent="handleSubmit">
         <div role="alert" class="error-msg-container fs-095 flex ai-c gap-8" v-if="responseErrorMessage || networkError">
-            <svg height="16" viewBox="0 0 30 30">
-                <path d="M16.5,22.5h3v3h-3Zm0-12h3v9h-3ZM17.985,3A15,15,0,1,0,33,18,14.993,14.993,0,0,0,17.985,3ZM18,30A12,12,0,1,1,30,18,12,12,0,0,1,18,30Z" transform="translate(-3 -3)"/>
-            </svg>
+            <svg height="16" viewBox="0 0 20.003 18">
+                  <path class="invert-fill-color" d="M11.14,4.494a1,1,0,0,1,1.72,0l7,12.008A1,1,0,0,1,19,18H5a1,1,0,0,1-.86-1.5Zm3.447-1.007a2.994,2.994,0,0,0-5.174,0l-7,12.007A3,3,0,0,0,5,20H19a3,3,0,0,0,2.587-4.506ZM13,9.019a1,1,0,0,0-2,0v2.994a1,1,0,0,0,2,0V9.02ZM12,13.75A1.25,1.25,0,1,0,13.25,15,1.25,1.25,0,0,0,12,13.75Z" transform="translate(-1.998 -2)" fill="#f22121" fill-rule="evenodd"/>
+              </svg>
             {{ responseErrorMessage || networkError }}
         </div>
         <div class="form-wrapper flex flex-column gap-16">
@@ -74,6 +74,7 @@ import api from '@/services/apis';
 import errorHandlerMixin from '@/mixins/errorHandlerMixin';
 import inputMixin from '@/mixins/inputMixin';
 import Spinner from './Spinner.vue';
+
 export default {
     components: { Spinner },
     name: 'SignUpForm',

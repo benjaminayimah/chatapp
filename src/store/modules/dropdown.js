@@ -2,6 +2,7 @@ export default {
     state: {
       dropdownDiv: { active: false, right: '', left: '', top: '', bottom: ''},
       tooltip: { active: false, left: '', top: '', body: ''},
+      languages: [{ name: 'English (US)', key: 'eng'}],
       language: { name: 'English (US)', key: 'eng'}
     },
     mutations: {
@@ -18,13 +19,11 @@ export default {
                 state.dropdownDiv.top = top
                 state.dropdownDiv.bottom = '100'
             }
-            // element.classList.add('this-will-change')
         },
         reSetDropdown(state) {
             state.dropdownDiv.left = ''
             state.dropdownDiv.top = ''
             state.dropdownDiv.bottom = ''
-            // document.getElementById(id).classList.remove('this-will-change')
         },
         setTooltip(state, payload) {
             let element = document.getElementById(payload)
@@ -39,7 +38,6 @@ export default {
             state.tooltip.left = ''
             state.tooltip.top = ''
             state.tooltip.body = ''
-            // document.getElementById(id).classList.remove('this-will-change')
         },
     }
    
