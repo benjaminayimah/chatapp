@@ -1,9 +1,9 @@
 <template>
-    <router-link :to="{ name: 'AgentChat', params: { id: agent.chatId }}" @click.prevent="" class="flex gap-16 br-20" :class="{'toggle-in' : dropdownToggle}">
+    <router-link :to="{ name: 'AgentChat', params: { id: agent.chatId }}" @click.prevent="" class="flex gap-16 br-20 bg-transition" :class="{'toggle-in' : dropdownToggle}">
         <profile-avatar
             :image="agent.image"
-            :width="80"
-            :height="80"
+            :width="width"
+            :height="height"
             :color="agent.color"
             :name="agent.agentName"
             :fontSize="1.3"
@@ -11,9 +11,12 @@
             :upload="false"
         />
         <div class="flex flex-1 jc-sb">
-            <div class="flex flex-column gap-4">
-                <span class="fs-101">{{ agent.agentName }}</span>
-                <div>
+            <div class="flex flex-column gap-4 jc-sb pd-t-4 pd-b-4">
+                <div class="flex flex-column gap-4">
+                    <div class="flex flex-column">
+                        <span class="fs-101 wrap-text wrap-line-1">{{ agent.agentName }}</span>
+                        <span v-if="creator" class="h-2 fs-08 wrap-text wrap-line-1"><strong>By {{ creator }}</strong></span>
+                    </div>
                     <span class="h-2 wrap-text wrap-line-1">{{ agent.headline }}</span>
                 </div>
                 <div class="flex gap-8 ai-c">
@@ -34,7 +37,7 @@
                     <span v-html="getVisibilityIcon(agent.visibility)" class="flex visibility"></span>
                 </div>
             </div>
-            <div>
+            <div v-if="actionMenu">
                 <button :id="`agent_${this.agent.id}`" @click.prevent="handleDropdown(`agent_${this.agent.id}`)" class="transparent-button jc-c ai-c" style="height: 30px;width: 30px">
                     <svg class="list-menu" height="3" viewBox="0 0 10 2">
                         <path class="invert-fill-color" d="M-1990,9a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,9Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,5Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1,1,1,0,0,1-1-1Z" transform="translate(0 -1988) rotate(-90)"/>
@@ -76,7 +79,17 @@ export default {
     mixins: [dropdownMixin, errorHandlerMixin],
     props: {
         agent: Object,
-        isOwner: Boolean
+        isOwner: Boolean,
+        height: Number,
+        width: Number,
+        creator: {
+            default: null,
+            type: String
+        },
+        actionMenu: {
+            default: true,
+            type: Boolean
+        }
     },
     computed: {
         ...mapGetters(['auth']),
@@ -143,9 +156,6 @@ export default {
 <style lang="scss" scoped>
 a {
     padding: 12px;
-    &:hover {
-        background-color: var(--main-background-2);
-    }
 }
 a.toggle-in {
     background-color: var(--main-background-2);

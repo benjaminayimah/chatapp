@@ -1,7 +1,7 @@
 <template>
-    <div ref="chatContainer" class="flex flex-1 jc-c overflow-y-scroll custom-scrollbar">
+    <div class="flex flex-1 jc-c chat-container">
         <div class="main-wrapper flex-1">
-            <div ref="chatContainer" class="chat-body">
+            <div class="chat-body">
                 <response-row v-for="(chat, index) in formattedResult" 
                     :key="index"
                     :chat="chat"
@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="flex jc-c">
+    <div class="flex jc-c sticky bottom-0">
         <div class="main-wrapper flex-1 relative">
             <div id="chat_info_container" class="centered absolute gap-8">
                 <scroll-bottom-buttton v-if="showScrollButton" @do-scroll="doScroll('smooth')" />
@@ -211,16 +211,16 @@ export default {
             });
         },
         doScroll(behavior) {
-            const chatContainer = this.$refs.chatContainer;
-            chatContainer.scrollTo({
-                top: chatContainer.scrollHeight,
+            const scrollContainer = document.querySelector('main');
+            scrollContainer.scrollTo({
+                top: scrollContainer.scrollHeight,
                 behavior: behavior
             });
         },
         handleScrollPosition() {
-            const chatContainer = this.$refs.chatContainer;
+            const scrollContainer = document.querySelector('main');
 
-            const scrollPosition = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight;
+            const scrollPosition = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight;
 
             if (scrollPosition > 100) {
                 this.showScrollButton = true;
@@ -237,7 +237,6 @@ export default {
             const images = JSON.parse(localStorage.getItem(param + '_images'))
   
             images ? this.images = images : ''
-
         
             if (history) {
                 this.chatHistory = history;
@@ -299,13 +298,13 @@ export default {
         }else {
             this.fetchHistory(this.$route.params.id)
         }
-        const chatContainer = this.$refs.chatContainer;
-        chatContainer.addEventListener('scroll', this.handleScrollPosition);
+        const scrollContainer = document.querySelector('main');
+        scrollContainer.addEventListener('scroll', this.handleScrollPosition);
         this.dismissMenu()
     },
     beforeUnmount() {
-        const chatContainer = this.$refs.chatContainer;
-        chatContainer.removeEventListener('scroll', this.handleScrollPosition)
+        const scrollContainer = document.querySelector('main');
+        scrollContainer.removeEventListener('scroll', this.handleScrollPosition)
     }
 };
 </script>
@@ -322,5 +321,8 @@ h2 {
     padding: 40px 0;
 }
 
+.chat-container {
+    min-height: calc(100% - (var(--nav-height) + 96px));
+}
 </style>
   

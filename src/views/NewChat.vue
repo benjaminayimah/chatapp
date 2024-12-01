@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-1 jc-c overflow-y-scroll custom-scrollbar">
+    <div class="flex flex-1 jc-c chat-container">
         <div class="main-wrapper flex-1 centered">
             <div class="w-100 flex flex-column gap-32">
                 <div>
@@ -117,5 +117,7 @@ export default {
     }
 }
 
-
+.chat-container {
+    min-height: calc(100% - var(--nav-height));
+}
 </style>

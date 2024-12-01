@@ -13,16 +13,17 @@ export default {
         computeWindow(state) {
             const windowWidth = window.innerWidth
             const appWidth = 1344
+            const app = document.getElementById('app')
             if(windowWidth < 768){
-                document.getElementsByTagName('main')[0].setAttribute('class', 'mobile')
+                app.setAttribute('class', 'mobile')
                 state.device = 'mobile'
                 state.menu = false
             }else if(windowWidth > appWidth){
-                document.getElementsByTagName('main')[0].setAttribute('class', 'desktop')
+                app.setAttribute('class', 'desktop')
                 state.device = 'desktop'
                 state.menu = true
             }else{
-                document.getElementsByTagName('main')[0].setAttribute('class', 'tablet')
+                app.setAttribute('class', 'tablet')
                 state.device = 'tablet'
                 state.menu = false
             }

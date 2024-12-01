@@ -6,8 +6,8 @@
             @empty-btn-event="redirectBack"
         />
     </div>
-    <div v-else class="overflow-y-scroll custom-scrollbar">
-        <div class="flex jc-c sticky top-0 bg-surface-1" style="z-index: 2">
+    <div v-else>
+        <div class="flex jc-c sticky bg-surface-1 page-top-wrapper" style="z-index: 2">
             <div class="section-wrapper page-top flex-1 pd-b-16 pd-t-4">
                 <button @click="goBack" class="gap-4 default button-outline ai-c fs-09">
                     <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.677 13">
@@ -100,7 +100,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="preview-container flex flex-1 pd-t-24 flex-column sticky top-32">
+                    <div class="preview-container flex flex-1 pd-t-24 flex-column sticky">
                         <p><strong>Preview</strong></p>
                         <div class="preview-wrapper pd-16 centered bg-surface-2 flex-1 br-12">
                             <span>Preview</span>
@@ -338,6 +338,7 @@ button.visibility-toggle {
 }
 .preview-container {
     height: 550px;
+    top: calc(var(--nav-height) + 30px);
 }
 .desktop, .tablet {
     .preview-container {
@@ -376,6 +377,9 @@ ul {
 }
 .empty-state {
     height: 90dvh;
+}
+.page-top-wrapper {
+    top: 65px
 }
 
 </style>

@@ -14,6 +14,7 @@ export default createStore({
     userProfile: null,
     recents: [],
     favourites: [],
+    agents: [],
     alert: null,
     deleteModal: null,
     newChat: null
@@ -72,6 +73,10 @@ export default createStore({
     },
     deleteAllChats() {
       //
+    },
+
+    setAgents(state, payload) {
+      state.agents = payload
     },
 
     setNewChat(state, payload) {

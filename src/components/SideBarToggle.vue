@@ -30,6 +30,6 @@ button {
     z-index: 100;
     height: 48px;
     width: 48px;
-    margin: 12px 0 0 10px;
+    margin: 10px 0 0 10px;
 }
 </style>

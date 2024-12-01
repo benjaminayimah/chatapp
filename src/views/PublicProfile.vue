@@ -1,5 +1,5 @@
 <template>
-    <div ref="scrollContainer" class="flex flex-1 jc-c overflow-y-scroll custom-scrollbar">
+    <div ref="scrollContainer" class="flex flex-1 jc-c">
       <div class="main-wrapper flex-1">
         <div v-if="!user && fetching" class="centered gap-24">
             <profile-page-skeleton />

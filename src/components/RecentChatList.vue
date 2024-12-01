@@ -19,7 +19,7 @@
                 data-type="custom-focus"
             >
             <i v-if="!editMode" @click.prevent="handleDropdown(`recent_${this.recent.id}`)" :id="`recent_${recent.id}`" class="flex jc-c ai-c a-button">
-                <svg height="14" viewBox="0 0 2 10">
+                <svg height="14" width="4" viewBox="0 0 2 10">
                     <path d="M-1990,9a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,9Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,5Zm0-4a1,1,0,0,1,1-1,1,1,0,0,1,1,1,1,1,0,0,1-1,1A1,1,0,0,1-1990,1Z" transform="translate(1990)"/>
                 </svg>
             </i>

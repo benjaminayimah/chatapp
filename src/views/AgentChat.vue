@@ -1,5 +1,5 @@
 <template>
-    <div ref="chatContainer" class="flex flex-1 jc-c overflow-y-scroll custom-scrollbar">
+    <div class="flex flex-1 jc-c chat-container">
         <div class="main-wrapper flex-1">
             <div class="flex jc-sb pd-t-4 pb-b-4 sticky top-0">
                 <button @click="goBack" class="gap-4 default button-outline ai-c fs-09">
@@ -28,7 +28,7 @@
                         :upload="false"
                     />
                     <div class="fs-102">{{ agent.agentName }}</div>
-                    <router-link :to="{ name: 'PublicProfile', params: { username: user } }" class="h-2 a-link fs-09">@{{ user }}</router-link>
+                    <router-link :to="{ name: 'PublicProfile', params: { username: user } }" class="h-2 a-link fs-09">By @{{ user }}</router-link>
                     <div class="h-2">{{ agent.headline }}</div>
                 </div>
                 <div v-else class="centered gap-24">
@@ -40,7 +40,7 @@
                     <router-link :to="{ name: 'Home' }" class="a-button button-primary default ai-c jc-c fw-600  fs-09">Back home</router-link>
                 </div>
             </div>
-            <div ref="chatContainer" class="chat-body">
+            <div class="chat-body">
                
             </div>
         </div>
@@ -141,6 +141,10 @@ export default {
 button.back-btn {
     width: 40px;
     height: 40px;
+}
+
+.chat-container {
+    min-height: calc(100% - (var(--nav-height) + 96px));
 }
 
 </style>

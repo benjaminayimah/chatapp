@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-surface-1 flex jc-c ai-c">
+    <nav class="bg-surface-1 flex jc-c ai-c sticky top-0">
         <div class="top-bar-wrapper flex flex-1 ai-c jc-sb">
             <router-link id="logo" :to="{ name: 'Home' }">
                 <svg xmlns="http://www.w3.org/2000/svg"  height="16" viewBox="0 0 81.847 14.267">
@@ -95,7 +95,7 @@ export default {
 <style lang="scss" scoped>
 .top-bar-wrapper {
     max-width: 1080px;
-    height: 65px;
+    height: var(--nav-height);
     padding: 0 20px;
 }
 
@@ -129,6 +129,9 @@ a:not(#logo) {
         height: 16px;
         width: 16px;
     }
+}
+.sticky {
+    z-index: 50;
 }
 
 

@@ -31,7 +31,7 @@
             </button>
         </div>
     </div>
-    <teleport to="main">
+    <teleport to="body">
         <backdrop @click="handleDropdown('theme_toggler', null)" v-if="dropdownToggle" :opacity="0" :zindex="501" />
         <div v-if="dropdownType === 'theme'" class="dropdown bg-transition fixed" :style="{ top: dropdown.top + 40 + 'px', left: dropdown.left + 'px'}">
             <ul>

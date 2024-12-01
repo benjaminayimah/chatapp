@@ -2,12 +2,12 @@
   <side-bar-toggle v-if="auth" />
   <div class="main-page flex-1">
     <side-bar v-if="auth" />
-    <section class="right-page bg-surface-1">
-      <div class="h-100 flex flex-column">
+    <main class="right-page bg-surface-1 overflow-y-scroll custom-scrollbar">
+      <!-- <div class="h-100 flex flex-column"> -->
         <top-bar :auth="auth" :user="user" />
         <router-view/>
-      </div>
-    </section>
+      <!-- </div> -->
+    </main>
   </div>
   <about-float />
   <transition name="modal-fade">
@@ -101,7 +101,7 @@ export default {
     async getAgents() {
       try {
           const res = await api.get('/agent')
-          console.log(res.data)
+          this.$store.commit('setAgents', res.data)
       } catch (err) {
           this.handleError(err)
       }

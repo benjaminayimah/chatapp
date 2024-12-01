@@ -1,11 +1,13 @@
 <template>
     <div v-if="favourites.length" class="flex-1">
-        <div class="flex flex-column">
+        <div class="flex flex-column agent-list-wrapper">
             <profile-agent-list
                 v-for="agent in favourites"
                 :key="agent.agent.id"
                 :agent="agent.agent"
                 :isOwner="false"
+                :height="80"
+                :width="80"
             />
         </div>
     </div>

@@ -14,12 +14,14 @@
                 <span>Add new</span>
             </button>
         </div>
-        <div class="flex flex-column list-wrapper">
+        <div class="flex flex-column agent-list-wrapper">
             <profile-agent-list
                 v-for="agent in sortedAgents()"
                 :key="agent.id"
                 :agent="agent"
                 :isOwner="isOwner"
+                :height="80"
+                :width="80"
             />
         </div>
         <div v-if="isLoading" class="flex jc-c">Fetching more...</div>
@@ -29,8 +31,7 @@
         :button="computedButtonState"
         @empty-btn-event="goToCreate"
     />
-
-    <teleport to="main">
+    <teleport to="body">
         <backdrop @click="handleDropdown('agents_sort', null)" v-if="dropdownToggle" :opacity="0" :zindex="501" />
         <div v-if="dropdownType === 'agents_sort'" class="dropdown bg-transition fixed" :style="{ top: dropdown.top + 30 + 'px', left: dropdown.left + 'px'}">
             <ul>
@@ -119,7 +120,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list-wrapper {
+.agent-list-wrapper {
     margin-right: -12px;
     margin-left: -12px;
 }
