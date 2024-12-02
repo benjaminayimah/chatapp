@@ -1,4 +1,5 @@
 import { encryptToken } from '@/middlewares/encryptMiddleware'
+import api from '@/services/apis'
 
 export default {
     state: {
@@ -21,5 +22,18 @@ export default {
         setTokenExpired(state) {
             state.tokenExpired = true
         }
+    },
+    actions: {
+        async logout(state) {
+            try {
+              await api.post('/auth/logout')
+              state.commit('destroyToken')
+              window.location = '/'
+      
+            } catch (error) {
+              state.commit('destroyToken')
+              window.location = '/'
+            }
+        },
     }
 }

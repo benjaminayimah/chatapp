@@ -33,7 +33,7 @@
                         <svg height="16" viewBox="0 0 29.001 27.682">
                             <path d="M-3768.3-858.611a1,1,0,0,1-.264-.95l1.5-6a1.007,1.007,0,0,1,.264-.464l18.75-18.75a4.154,4.154,0,0,1,2.957-1.225,4.156,4.156,0,0,1,2.958,1.225,4.187,4.187,0,0,1,0,5.914l-18.751,18.75a.988.988,0,0,1-.464.263l-6,1.5a.99.99,0,0,1-.243.03A1,1,0,0,1-3768.3-858.611Zm21.664-24.75-18.554,18.554-1.029,4.115,4.114-1.029,18.555-18.554a2.186,2.186,0,0,0,0-3.086,2.167,2.167,0,0,0-1.543-.639A2.167,2.167,0,0,0-3746.636-883.361Zm-7.457,25.043a1,1,0,0,1-1-1,1,1,0,0,1,1-1h13.5a1,1,0,0,1,1,1,1,1,0,0,1-1,1Z" transform="translate(3768.594 886)" fill="#fff"/>
                         </svg>
-                        Update info
+                        Edit profile
                     </button>
                     <button v-else class="button-primary default fw-600 fs-09 ai-c">
                         Follow
@@ -144,7 +144,7 @@ export default {
     },
     methods: {
         openSettings() {
-            this.$router.push({ query: { ...this.$route.query, m: 'settings', page: 'agent' } });
+            this.$router.push({ query: { ...this.$route.query, m: 'settings', page: 'profile' } });
         },
         share() {
             //

@@ -7,7 +7,7 @@
             :color="agent.color"
             :name="agent.agentName"
             :fontSize="1.3"
-            :radius="12"
+            :radius="radius"
             :upload="false"
         />
         <div class="flex flex-1 jc-sb">
@@ -82,6 +82,7 @@ export default {
         isOwner: Boolean,
         height: Number,
         width: Number,
+        radius: Number,
         creator: {
             default: null,
             type: String

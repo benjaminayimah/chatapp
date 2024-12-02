@@ -181,15 +181,42 @@ hr {
   color: var(--main-font-color-2);
 }
 
+.font-color-2 {
+  color: var(--main-font-color-2);
+}
+
 //form
+
+//auto fill config
+
+input:-webkit-autofill {
+  background-color: #3df115 !important; /* Change background color */
+  color: #000; /* Change text color */
+  box-shadow: 0 0 0px 1000px #f0f8ff inset; /* Override default styles */
+  border: 1px solid #ccc; /* Adjust border if needed */
+  transition: background-color 5000s ease-in-out 0s; /* Prevent flashing */
+}
+
+input:-webkit-autofill:focus {
+  background-color: #3df115; /* Change background when focused */
+}
+
+input:-webkit-autofill:hover {
+  background-color: #3df115; /* Change background when hovered */
+}
+
+input:-moz-autofill {
+  background-color: #3df115 !important;
+}
+
+
 
 .input-wrapper {
   .input-label {
     position: absolute;
-    left: 12px;
+    left: 14px;
     transform: translateY(-50%);
     transition: var(--transition-time) all;
-    padding: 0 3px;
     pointer-events: none;
   }
 }
@@ -200,11 +227,17 @@ hr {
   }
 }
 
+input.custom-input {
+  border-radius: 14px;
+  height: 54px;
+  padding: 12px 14px 0 14px;
+}
+
 .input-focused {
   .input-label {
     color: var(--main-font-color-primary);
     font-size: .75rem;
-    top: 0;
+    top: 14px;
     font-weight: 600;
   }
 }
@@ -226,7 +259,7 @@ input:not([type=checkbox],[type=radio]), select, textarea {
 
 input:not([type=checkbox],[type=radio], [data-type=custom-focus]), textarea:not([data-name=prompt]) {
   &:focus {
-    outline: 1px solid var(--font-color-2);
+    box-shadow: 0 0 0 1px var(--font-color-2); /* Outward border */
   }
 }
 
@@ -260,6 +293,9 @@ textarea::placeholder {
 .form-row:has(.validation-errors) {
   input {
     border-color: var(--danger) !important;
+    &:focus {
+      box-shadow: 0 0 0 1px var(--danger);
+    }
   }
 }
 .validation-errors li {
@@ -368,7 +404,10 @@ button.button-outline {
   overflow: hidden;
   border-radius: 14px;
   box-shadow: var(--box-shadow-1);
-  padding: 10px 0;
+  padding: 6px;
+  a {
+    border-radius: 8px;
+  }
 }
 
 aside {
@@ -1238,9 +1277,6 @@ table {
 }
 .mobile {
   nav {
-    .top-bar-wrapper {
-      // height: 72px;
-    }
     .user-name {
       display: none;
     }

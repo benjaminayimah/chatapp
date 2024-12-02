@@ -1,8 +1,9 @@
 <template>
+    <h4>Preferences</h4>
     <div class="flex jc-sb ai-c">
         <div>Theme</div>
         <div class="flex flex-wrap gap-4">
-            <button id="theme_toggler" @click="handleDropdown('theme_toggler', 'theme')" class="button-outline gap-4 ai-c">
+            <button id="theme_toggler" @click="handleDropdown('theme_toggler', 'theme')" class="button-outline default gap-4 ai-c">
                 {{ computedTheme.name }}
                 <svg height="6" viewBox="0 0 10 5.714">
                     <path d="M1.533,10a.714.714,0,0,1-.505-1.219L4.809,5,1.028,1.22A.714.714,0,0,1,2.038.21L6.324,4.5a.714.714,0,0,1,0,1.01L2.038,9.791A.712.712,0,0,1,1.533,10Z" transform="translate(10.001 -0.819) rotate(90)"/>
@@ -14,20 +15,11 @@
     <div class="flex jc-sb ai-c">
         <div>Language</div>
         <div class="flex flex-wrap gap-4">
-            <button id="language_toggler" @click="handleDropdown('language_toggler', 'language')" class="button-outline gap-4 ai-c">
+            <button id="language_toggler" @click="handleDropdown('language_toggler', 'language')" class="button-outline default gap-4 ai-c">
                 {{ language.name }}
                 <svg height="6" viewBox="0 0 10 5.714">
                     <path d="M1.533,10a.714.714,0,0,1-.505-1.219L4.809,5,1.028,1.22A.714.714,0,0,1,2.038.21L6.324,4.5a.714.714,0,0,1,0,1.01L2.038,9.791A.712.712,0,0,1,1.533,10Z" transform="translate(10.001 -0.819) rotate(90)"/>
                 </svg>
-            </button>
-        </div>
-    </div>
-    <hr class="w-100">
-    <div class="flex jc-sb ai-c">
-        <div>Delete all chats</div>
-        <div class="flex flex-wrap gap-4">
-            <button @click="deleteAllChats" class="button-danger ai-c">
-               Delete all
             </button>
         </div>
     </div>
@@ -66,7 +58,7 @@ import dropdownMixin from '@/mixins/dropdownMixin';
 import Backdrop from '@/components/Backdrop.vue';
 
 export default {
-    name: 'SettingsGeneral',
+    name: 'SettingsPreferences',
     components: { Backdrop },
     mixins: [dropdownMixin],
     computed: {
@@ -87,24 +79,12 @@ export default {
         }
     },
     methods: {
-        async deleteAllChats() {
-            const body = `
-                <div>You are about to delete <strong>all chats</strong> from your history.</div>
-                <div>
-                    <span class="fs-095">This will also delete all activities like prompts, responses, and feedback from your app.</span>
-                </div>
-            `
-            this.$store.commit('setDeleteModal', { id: null, title: 'Delete all chat history?', type: 'all-chats', body: body })
-        },
+        
     }
 }
 </script>
 
 <style lang="scss" scoped>
-button {
-    height: 40px;
-    padding: 0 14px;
-}
 button.button-outline {
     font-size: 0.95rem;
     color: var(--main-font-color-primary);

@@ -207,7 +207,8 @@ export default {
                 instructions: '',
                 visibility: 'public',
                 color: '',
-                image: null
+                image: null,
+                oldImage: null
             }
         }
     },
@@ -271,7 +272,8 @@ export default {
         getMode() {
             if(!this.computedAgent) return
             this.form.color = this.computedAgent.color
-            this.form.image = this.computedAgent.image
+            this.form.image = this.computedAgent.image ?? null
+            this.form.oldImage = this.computedAgent.image ?? null
             this.form.agentName = this.computedAgent.agentName
             this.form.headline = this.computedAgent.headline
             this.form.greeting = this.computedAgent.greeting
@@ -284,6 +286,7 @@ export default {
         }
     },
     mounted() {
+        document.querySelector('main').scrollTo(0,0)
         window.addEventListener('beforeunload', this.handleBeforeUnload);
         if(this.isEditMode) {
             this.getMode()

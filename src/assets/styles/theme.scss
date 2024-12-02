@@ -151,9 +151,6 @@ body {
     background-color: var(--main-background-primary);
     color: var(--main-font-color-primary);
     transition: var(--transition-time) background-color;
-    .input-label {
-        background-color: var(--modal-main-background);
-    }
 }
 .bg-surface-2 {
     background-color: var(--main-background-2);
@@ -164,9 +161,6 @@ body {
     background-color: var(--modal-main-background);
     color: var(--modal-font);
     transition: var(--transition-time) background-color;
-    .input-label {
-        background-color: var(--modal-main-background);
-    }
 }
 .bg-surface-inverse {
     background-color: var(--main-background-secondary);

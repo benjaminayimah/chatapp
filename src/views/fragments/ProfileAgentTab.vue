@@ -22,6 +22,7 @@
                 :isOwner="isOwner"
                 :height="80"
                 :width="80"
+                :radius="12"
             />
         </div>
         <div v-if="isLoading" class="flex jc-c">Fetching more...</div>

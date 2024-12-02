@@ -8,6 +8,7 @@
                 :isOwner="false"
                 :height="80"
                 :width="80"
+                :radius="12"
             />
         </div>
     </div>

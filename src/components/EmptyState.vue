@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-column gap-16 ai-c">
         <div class="centered">
-            <h4>{{ message.heading }}</h4>
+            <h4 v-if="message.heading">{{ message.heading }}</h4>
             <p class="text-center">{{ message.body }}</p>
         </div>
        <div v-if="button">

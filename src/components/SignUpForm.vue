@@ -16,7 +16,7 @@
                         @focusout="isFocusOut('email_input_wrapper', 'email_input')"
                         :aria-invalid="emailHasErrors"
                         :aria-describedby="emailDescribedBy"
-                        class="w-100 form-control"
+                        class="w-100 form-control custom-input"
                         type="email"
                         id="email_input"
                         name="email"
@@ -41,7 +41,7 @@
                         :type="showPass ? 'text' : 'password'"
                         :aria-invalid="passwordHasErrors"
                         :aria-describedby="passwordDescribedBy"
-                        class="w-100 form-control error-border"
+                        class="w-100 form-control error-border custom-input"
                         id="password_input"
                         name="password"
                     >
@@ -84,10 +84,10 @@ export default {
     },
     computed: {
         emailErrors() {
-            return this.errors && this.errors.filter(err => err.path === 'email')
+            return this.errors?.filter(err => err.path === 'email') || []
         },
         passwordErrors() {
-            return this.errors && this.errors.filter(err => err.path === 'password')
+            return this.errors?.filter(err => err.path === 'password') || []
         },
         emailHasErrors() {
             return !!this.emailErrors.length
@@ -105,8 +105,8 @@ export default {
     data () {
         return {
             form: {
-                email: '',
-                password: ''
+                email: 'johndoe@example.com',
+                password: '123456#@!'
             }
         }
     },
@@ -141,7 +141,14 @@ export default {
         async signUpSuccess(res) {
             this.hideSpiner()
             console.log(res)
+        },
+        inspectInputs() {
+            this.form.email ? this.isFocusIn('email_input_wrapper') : ''
+            this.form.password ? this.isFocusIn('password_input_wrapper')  : ''
         }
+    },
+    mounted() {
+        this.inspectInputs()
     }
 }
 </script>
@@ -166,9 +173,5 @@ button {
 .error-msg-container {
   margin-bottom: 32px;
 }
-input {
-    border-radius: 80px;
-    height: 42px;
-    padding: 0 16px;
-}
+
 </style>

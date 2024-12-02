@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-1 jc-c ov-x-hidden page-wrapper">
+  <div class="flex flex-1 jc-c page-wrapper">
     <div class="main-wrapper flex-1 flex flex-column gap-24">
       <section id="main_banner" class="w-100 br-24 relative">
         <div v-if="!agents.length" class="animate-pulse skeleton-surface w-100"></div>
@@ -43,15 +43,29 @@
                   :actionMenu="false"
                   :height="95"
                   :width="80"
+                  :radius="12"
               />
           </div>
         </div>
       </section>
-      <section style="height: 900px">
+      <section style="height: 600px">
 
       </section>
     </div>
   </div>
+  <footer>
+    <div class="centered pd-32">
+      <div class="flex ai-c fs-09">
+        <a href="#" class="font-color-2">About</a>
+        <span class="fs-101 dot">&#8231;</span> 
+        <a href="#" class="font-color-2">Terms</a>
+        <span class="fs-101 dot">&#8231;</span> 
+        <a href="#" class="font-color-2">Privacy policy</a>
+        <span class="fs-101 dot">&#8231;</span> 
+        <a href="#" class="font-color-2">Help</a>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script>
@@ -278,6 +292,13 @@ h1 {
   line-height: 2.2rem;
   min-height: 70.5px;
 }
-  
+footer {
+  a {
+    padding: 8px;
+    &:hover {
+      color: var(--main-font-color-primary);
+    }
+  }
+}
 
 </style>

@@ -5,7 +5,6 @@ import playback from './modules/playback'
 import preferences from './modules/preferences'
 import dropdown from './modules/dropdown'
 import auth from './modules/auth'
-import api from '@/services/apis'
 
 import { decryptToken } from '@/middlewares/encryptMiddleware'
 
@@ -95,25 +94,6 @@ export default createStore({
     }
   },
   actions: {
-    async logout(state) {
-      try {
-        await api.post('/auth/logout')
-        state.commit('destroyToken')
-        window.location = '/'
-
-      } catch (error) {
-        state.commit('destroyToken')
-        window.location = '/'
-      }
-    },
-    async logoutMe() {
-      try {
-        const res = await api.get('/auth/me-logout')
-        console.log(res.data)
-      } catch (error) {
-        console.log(error)
-      }
-    },
     showAlert({ commit }, payload) {
       commit('showAlert', payload);
 
