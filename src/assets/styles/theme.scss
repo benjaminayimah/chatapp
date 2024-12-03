@@ -48,6 +48,7 @@
         --modal-close-icon: #2b2c2d;
         --modal-close-button-hover: #eaebf0;
 
+        --alert-background: #1b1b1c;
         --alert-close-icon: #898b8e;
         --alert-close-button-hover: #323334;
 
@@ -118,8 +119,9 @@
         --modal-close-icon: #acaeb1;
         --modal-close-button-hover: #3b3c3d;
 
+        --alert-background: #ebedf1;
         --alert-close-icon: #595b5d;
-        --alert-close-button-hover: #cdd0d3;
+        --alert-close-button-hover: #dee1e5;
 
 
         --sidebar-active: #283663;
@@ -132,7 +134,7 @@
 
 
 
-        --box-shadow-1: rgba(0, 0, 0, 0.15) 0px 0px 24px 8px;
+        --box-shadow-1: rgba(0, 0, 0, 0.2) 0px 0px 24px 8px;
 
         --skeleton-bg: #26272b;
         
@@ -172,6 +174,11 @@ body {
 }
 .bg-surface-inverse {
     background-color: var(--main-background-secondary);
+    color: var(--main-background-primary);
+    transition: var(--transition-time) background-color;
+}
+.bg-surface-inverse-2 {
+    background-color: var(--alert-background);
     color: var(--main-background-primary);
     transition: var(--transition-time) background-color;
 }
