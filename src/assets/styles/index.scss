@@ -350,7 +350,7 @@ button.default, .a-button.default {
   padding: 0 16px
 }
 
-button:not(:disabled, [data-type=controls]), .a-button {
+button:not(:disabled, .btn-inverted, [data-type=controls]), .a-button {
   &:active {
     outline-width: .6px;
     outline-style: solid;
@@ -797,6 +797,9 @@ ul.tab-default {
 #close_modal {
   fill:var(--modal-close-icon) ;
 }
+#close_alert {
+  fill: var(--alert-close-icon);
+}
 
 
 // #close_
@@ -1219,6 +1222,7 @@ table {
   }
   }
 }
+
 
 
 .desktop, .tablet {
