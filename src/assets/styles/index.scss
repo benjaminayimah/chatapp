@@ -220,27 +220,40 @@ input:-moz-autofill {
     pointer-events: none;
   }
 }
-.input-wrapper:not(.input-focused) {
+.input-label {
+  color: var(--input-placeholder);
+}
+.input-wrapper:has(input):not(.input-focused) {
   .input-label {
-    color: var(--input-placeholder);
     top: 50%;
   }
 }
-
-input.custom-input {
-  border-radius: 14px;
-  height: 54px;
-  padding: 12px 14px 0 14px;
+.input-wrapper:has(textarea):not(.input-focused) {
+  .input-label {
+    top: 28px;
+  }
 }
 
 .input-focused {
   .input-label {
-    color: var(--main-font-color-primary);
     font-size: .75rem;
-    top: 14px;
-    font-weight: 600;
   }
 }
+
+.input-focused {
+  .input-label {
+    top: 14px;
+  }
+}
+
+
+input.custom-input {
+  border-radius: 12px;
+  height: 54px;
+  padding: 12px 14px 0 14px;
+}
+
+
 
 input:not([type=checkbox],[type=radio]), select, textarea {
   appearance: none;
@@ -1276,6 +1289,9 @@ table {
   }
 }
 .mobile {
+  .settings-tab-title {
+    display: none;
+  }
   nav {
     .user-name {
       display: none;

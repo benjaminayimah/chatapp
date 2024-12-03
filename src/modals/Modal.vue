@@ -77,7 +77,6 @@ export default {
     width: v-bind(computedWidth);
     max-height: 90dvh;
     min-height: v-bind(computedMinHeight);
-    padding: 12px 0;
     box-shadow: var(--box-shadow-1);
 }
 
@@ -87,7 +86,7 @@ export default {
 }
 
 .modal-header{
-    padding: 0 20px;
+    padding: 12px 20px 0 20px;
 }
 
 button {

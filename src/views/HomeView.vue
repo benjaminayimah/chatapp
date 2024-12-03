@@ -71,10 +71,12 @@
 <script>
 import ProfileAgentList from '@/components/ProfileAgentList.vue'
 import { mapState } from 'vuex';
+import titleMixin from '@/mixins/titleMixin';
 
 export default {
   name: 'HomeView',
   components: { ProfileAgentList },
+  mixins: [titleMixin],
   computed: {
     ...mapState({
       agents: (state) => state.agents
@@ -82,6 +84,7 @@ export default {
   },
   data() {
     return {
+      pageTitle: 'artemis ai - Home',
       banners: [
         { id: 1, label: 'Ask anything...', title: 'Get help with your home work.', description: 'You can get help with your homework, from essays and compositions to math questions.', image: require('../assets/banner-image1.webp')},
         { id: 2, label: 'AI Agents', title: 'Create and train your AI Agents.', description: 'Create an AI Agent and train it to help you with specific tasks.', image: require('../assets/banner-image1.webp')},

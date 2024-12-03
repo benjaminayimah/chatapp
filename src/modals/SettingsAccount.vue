@@ -1,5 +1,5 @@
 <template>
-    <h4>Account</h4>
+    <h4 class="settings-tab-title">Account</h4>
     <div class="flex jc-sb ai-c">
         <div>Delete all chats</div>
         <div class="flex flex-wrap gap-4">
@@ -13,6 +13,9 @@
 <script>
 export default {
     name: 'SettingsAccount',
+    props: {
+        user: Object
+    },
     methods: {
         async deleteAllChats() {
             const body = `

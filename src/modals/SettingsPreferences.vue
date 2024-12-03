@@ -1,5 +1,5 @@
 <template>
-    <h4>Preferences</h4>
+    <h4 class="settings-tab-title">Preferences</h4>
     <div class="flex jc-sb ai-c">
         <div>Theme</div>
         <div class="flex flex-wrap gap-4">
@@ -60,6 +60,9 @@ import Backdrop from '@/components/Backdrop.vue';
 export default {
     name: 'SettingsPreferences',
     components: { Backdrop },
+    props: {
+        user: Object
+    },
     mixins: [dropdownMixin],
     computed: {
         ...mapState({
@@ -105,7 +108,7 @@ hr {
 
 
 .dropdown {
-    width: 170px;
+    width: 200px;
     z-index: 502;
     background-color: var(--modal-main-background-2);
     font-size: 0.95rem;

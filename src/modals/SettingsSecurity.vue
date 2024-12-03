@@ -1,5 +1,5 @@
 <template>
-    <h4>Security</h4>
+    <h4 class="settings-tab-title">Security</h4>
     <div class="flex jc-sb">
         <div>Security</div>
         <div>
@@ -15,7 +15,10 @@
 
 <script>
 export default {
-    name: 'SettingsSecurity'
+    name: 'SettingsSecurity',
+    props: {
+        user: Object
+    }
 }
 </script>
 

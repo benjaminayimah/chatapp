@@ -2,7 +2,6 @@ export default {
     data() {
         return {
             showPass: false,
-            spinner: false
         }
     },
     methods: {
@@ -20,12 +19,6 @@ export default {
         },
         getElement(id) {
             return document.getElementById(id)
-        },
-        showSpiner() {
-            this.spinner = true
-        },
-        hideSpiner() {
-            this.spinner = false
         }
     }
 }

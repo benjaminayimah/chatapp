@@ -7,59 +7,22 @@
             {{ responseErrorMessage || networkError }}
         </div>
         <div class="form-wrapper flex flex-column gap-16">
-            <div class="form-row flex flex-column gap-4">
-                <div id="email_input_wrapper" class="input-wrapper relative">
-                    <label for="email_input" class="input-label">Email</label>
-                    <input 
-                        v-model="form.email"
-                        @focusin="isFocusIn('email_input_wrapper')"
-                        @focusout="isFocusOut('email_input_wrapper', 'email_input')"
-                        :aria-invalid="emailHasErrors"
-                        :aria-describedby="emailDescribedBy"
-                        class="w-100 form-control custom-input"
-                        type="email"
-                        id="email_input"
-                        name="email"
-                        maxlength="100"
-                        autofocus
-                        autocomplete="on"
-                    >
-                </div>
-                <div v-if="emailErrors.length" class="validation-errors">
-                    <li :id="`email_error_${index + 1}`" role="alert" v-for="(error, index) in emailErrors" :key="index" class="fs-09">
-                        {{ error.msg }}
-                    </li>
-                </div>
-            </div>
-            <div class="form-row flex flex-column gap-4">
-                <div id="password_input_wrapper" class="input-wrapper relative">
-                    <label for="password_input" class="input-label">Password</label>
-                    <input 
-                        v-model="form.password"
-                        @focusin="isFocusIn('password_input_wrapper')"
-                        @focusout="isFocusOut('password_input_wrapper', 'password_input')"
-                        :type="showPass ? 'text' : 'password'"
-                        :aria-invalid="passwordHasErrors"
-                        :aria-describedby="passwordDescribedBy"
-                        class="w-100 form-control error-border custom-input"
-                        id="password_input"
-                        name="password"
-                    >
-                    <span class="hide-show-pass transparent-button absolute centered br-50 a-button" :class="{ 'hide-pass-active' : showPass }" @click.prevent="togglePass" data-type="modal">
-                        <svg height="18" viewBox="0 0 26.364 26.364">
-                            <g transform="translate(1.182 1.182)">
-                                <path d="M16027.619-15079.234a21.431,21.431,0,0,1-4.111-4.4,2.816,2.816,0,0,1,0-3.226,21.339,21.339,0,0,1,4.111-4.406,11.5,11.5,0,0,1,7.129-2.734,11.516,11.516,0,0,1,7.132,2.734,21.4,21.4,0,0,1,4.107,4.4,2.822,2.822,0,0,1,0,3.229,21.4,21.4,0,0,1-4.107,4.4,11.51,11.51,0,0,1-7.132,2.734A11.492,11.492,0,0,1,16027.619-15079.234Zm.927-10.853a19.948,19.948,0,0,0-3.813,4.087,1.32,1.32,0,0,0,0,1.5,19.8,19.8,0,0,0,3.81,4.084,10.018,10.018,0,0,0,6.2,2.412,10.015,10.015,0,0,0,6.2-2.412,19.886,19.886,0,0,0,3.814-4.088,1.322,1.322,0,0,0,0-1.5,19.9,19.9,0,0,0-3.81-4.083,10.011,10.011,0,0,0-6.2-2.413A10.013,10.013,0,0,0,16028.546-15090.087Zm1.454,4.836a4.754,4.754,0,0,1,4.748-4.748,4.758,4.758,0,0,1,4.752,4.748,4.758,4.758,0,0,1-4.752,4.752A4.754,4.754,0,0,1,16030-15085.251Zm1.5,0a3.253,3.253,0,0,0,3.25,3.25,3.253,3.253,0,0,0,3.249-3.25,3.253,3.253,0,0,0-3.249-3.25A3.253,3.253,0,0,0,16031.5-15085.251Z" transform="translate(-16022.748 15097.25)" fill="#000"/>
-                                <path id="pass_icon_stroke" v-if="!showPass" d="M0,22.121-2.121,20,20-2.121,22.121,0Z" transform="translate(2 2)" stroke-linecap="round" stroke-width="1.5"/>
-                            </g>
-                        </svg>
-                    </span>
-                </div>
-                <div v-if="passwordErrors.length" class="validation-errors">
-                    <li :id="`password_error_${index + 1}`" role="alert" v-for="(error, index) in passwordErrors" :key="index" class="fs-09" >
-                        {{ error.msg }}
-                    </li>
-                </div>
-            </div>
+            <input-reactive
+                v-model="form.email"
+                :id="'email'"
+                :type="'email'"
+                :label="'Email'"
+                :autocomplete="'on'"
+                :autofocus="true"
+                :errors="errors"
+            />
+            <input-reactive
+                v-model="form.password"
+                :id="'password'"
+                :type="'password'"
+                :label="'Password'"
+                :errors="errors"
+            />
             <button type="submit" class="button-primary fw-600 fs-09 jc-c ai-c gap-8" :disabled="spinner">
                 <spinner v-if="spinner" :size="18" />
                 <span v-else>{{ formType === 'signup' ? 'Sign up' : 'Sign in' }}</span>
@@ -72,42 +35,23 @@
 <script>
 import api from '@/services/apis';
 import errorHandlerMixin from '@/mixins/errorHandlerMixin';
-import inputMixin from '@/mixins/inputMixin';
 import Spinner from './Spinner.vue';
+import InputReactive from './InputReactive.vue';
 
 export default {
-    components: { Spinner },
+    components: { Spinner, InputReactive },
     name: 'SignUpForm',
-    mixins: [errorHandlerMixin, inputMixin],
+    mixins: [errorHandlerMixin],
     props: {
         formType: String
-    },
-    computed: {
-        emailErrors() {
-            return this.errors?.filter(err => err.path === 'email') || []
-        },
-        passwordErrors() {
-            return this.errors?.filter(err => err.path === 'password') || []
-        },
-        emailHasErrors() {
-            return !!this.emailErrors.length
-        },
-        passwordHasErrors() {
-            return !!this.passwordErrors.length
-        },
-        emailDescribedBy() {
-            return this.emailErrors.map((_, index) => `email_error_${index + 1}`).join(" ");
-        },
-        passwordDescribedBy() {
-            return this.passwordErrors.map((_, index) => `password_error_${index + 1}`).join(" ");
-        }
     },
     data () {
         return {
             form: {
                 email: 'johndoe@example.com',
                 password: '123456#@!'
-            }
+            },
+            spinner: false
         }
     },
     methods: {
@@ -142,33 +86,20 @@ export default {
             this.hideSpiner()
             console.log(res)
         },
-        inspectInputs() {
-            this.form.email ? this.isFocusIn('email_input_wrapper') : ''
-            this.form.password ? this.isFocusIn('password_input_wrapper')  : ''
+        showSpiner() {
+            this.spinner = true
+        },
+        hideSpiner() {
+            this.spinner = false
         }
-    },
-    mounted() {
-        this.inspectInputs()
     }
+   
 }
 </script>
 
 <style lang="scss" scoped>
 button {
     height: 40px;
-}
-.hide-show-pass{
-    right: 6px;
-    height: 30px;
-    width: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-.hide-pass-active{
-    background-color: var(--modal-close-button-hover) !important;
-}
-#pass_icon_stroke {
-    stroke: var(--main-background-primary)
 }
 .error-msg-container {
   margin-bottom: 32px;
