@@ -52,7 +52,7 @@ export default {
 .alert-container {
   position: fixed;
   z-index: 9999;
-  top: 20px;
+  top: 10px;
   width: 100%;
   text-align: center;
   padding: 0 20px;
