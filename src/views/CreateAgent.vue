@@ -272,8 +272,8 @@ export default {
         getMode() {
             if(!this.computedAgent) return
             this.form.color = this.computedAgent.color
-            this.form.image = this.computedAgent.image ?? null
-            this.form.oldImage = this.computedAgent.image ?? null
+            this.form.image = this.computedAgent.image || null
+            this.form.oldImage = this.computedAgent.image || null
             this.form.agentName = this.computedAgent.agentName
             this.form.headline = this.computedAgent.headline
             this.form.greeting = this.computedAgent.greeting

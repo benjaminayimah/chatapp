@@ -16,6 +16,7 @@
                 :autocomplete="autocomplete"
                 :aria-invalid="hasErrors"
                 :aria-describedby="ariaDescribedBy"
+                :placeholder="isFocused ? placeholder : ''"
             >
             <textarea v-else
                 v-model="inputValue"
@@ -30,6 +31,7 @@
                 :aria-invalid="hasErrors"
                 :aria-describedby="ariaDescribedBy"
                 data-gramm="false"
+                :placeholder="isFocused ? placeholder : ''"
             >
             </textarea>
             <span v-if="type === 'password'" class="hide-show-pass transparent-button absolute centered br-50 a-button" :class="{ 'hide-pass-active' : showPass }" @click.prevent="togglePass" data-type="modal">
@@ -76,6 +78,10 @@ export default {
         label: {
             type: String,
             default: 'Enter text:',
+        },
+        placeholder: {
+            type: String,
+            default: ''
         },
         errors: Array,
         autocomplete: {

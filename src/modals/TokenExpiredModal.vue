@@ -1,5 +1,5 @@
 <template>
-    <Modal :opacity=".5" :zindex="500" :width="450" :minHeight="20" :hasButton="false">
+    <Modal :opacity=".5" :zindex="500" :width="430" :minHeight="20" :hasButton="false">
         <template #body>
             <div class="centered signup-wrapper">
                 <div class="w-100 flex flex-column gap-16">

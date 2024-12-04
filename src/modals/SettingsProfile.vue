@@ -24,6 +24,7 @@
             :label="'Username'"
             :errors="errors"
             :maxLength="20"
+            :placeholder="'e.g. johnsmith123'"
         />
         <input-reactive
             v-model="form.name"
@@ -32,16 +33,18 @@
             :label="'Display name'"
             :errors="errors"
             :maxLength="50"
+            :placeholder="'e.g. John Smith'"
         />
         <input-reactive
             v-model="form.description"
-            :id="'description'"
+            :id="'bio'"
             :type="'text'"
-            :label="'Short description'"
+            :label="'Bio'"
             :errors="errors"
             :maxLength="400"
             :isTextarea="true"
             :rows="3"
+            :placeholder="'e.g. I\'m a UX Designer and Front-end developer.'"
         />
     </div>
 </template>
@@ -66,7 +69,7 @@ export default {
             form: {
                 username: '',
                 name: '',
-                description: '',
+                bio: '',
                 image: null,
                 oldImage: null,
                 color: ''
@@ -78,10 +81,10 @@ export default {
             if(!this.user) return
             this.form.username = this.user.username
             this.form.name = this.user.name
-            this.form.description = this.user.description
+            this.form.bio = this.user.bio
             this.form.color = this.user.color
-            this.form.image = this.user.picture ?? null
-            this.form.oldImage = this.user.picture ?? null
+            this.form.image = this.user.picture || null
+            this.form.oldImage = this.user.picture || null
         }
     },
     mounted() {

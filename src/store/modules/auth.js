@@ -1,4 +1,5 @@
 import { encryptToken } from '@/middlewares/encryptMiddleware'
+import router from '@/router'
 import api from '@/services/apis'
 
 export default {
@@ -21,6 +22,10 @@ export default {
         },
         setTokenExpired(state) {
             state.tokenExpired = true
+            const currentRoute = router.currentRoute.value;
+            router.push({
+                query: { ...currentRoute.query, m: 'token-expired' },
+            });
         }
     },
     actions: {
