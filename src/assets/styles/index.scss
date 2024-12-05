@@ -305,8 +305,8 @@ input[type="checkbox"] {
 
 /* Add active (checked) state */
 .custom-checkbox input[type="checkbox"]:checked + .checkmark {
-  background-color: var(--blue); /* Background for checked state */
-  border-color: var(--blue); /* Border color for checked state */
+  background-color: var(--blue);
+  border-color: var(--blue); 
 }
 
 /* Add a tick mark for checked state */
@@ -1248,34 +1248,35 @@ table {
   }
 
 }
-.modal-container  {
-  container: modal_container / inline-size;
-}
 
-@container modal_container (width < 400px) {
-  .su-inner.su-inner {
-      width: 75%
+// .modal-container  {
+//   container: modal_container / inline-size;
+// }
 
-  }
-}
-@container modal_container (width < 350px) {
-  .su-inner.su-inner {
-      width: 80%
+// @container modal_container (width < 400px) {
+//   .su-inner.su-inner {
+//       width: 75%
 
-  }
-}
-@container modal_container (width < 300px) {
-  .su-inner.su-inner {
-      width: 85%
+//   }
+// }
+// @container modal_container (width < 350px) {
+//   .su-inner.su-inner {
+//       width: 80%
 
-  }
-}
-@container modal_container (width < 260px) {
-  .su-inner.su-inner {
-      width: 90%
+//   }
+// }
+// @container modal_container (width < 300px) {
+//   .su-inner.su-inner {
+//       width: 85%
 
-  }
-}
+//   }
+// }
+// @container modal_container (width < 260px) {
+//   .su-inner.su-inner {
+//       width: 90%
+
+//   }
+// }
 .agent-list-wrapper {
   a {
       &:hover {

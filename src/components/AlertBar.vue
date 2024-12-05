@@ -1,7 +1,7 @@
 <template>
   <transition name="slide">
     <div v-if="alert" class="alert-container">
-      <div class="error-snack-container bg-surface-inverse-2 ">
+      <div class="error-snack-container bg-surface-inverse-2">
         <div class="flex ai-c gap-10" role="alert">
           <span v-html="icon(this.alert.type)" class="flex"></span>
           <div class="flex-1 text-left">{{ alert.message }}</div>

@@ -231,7 +231,7 @@ export default {
             }
         },
         goBack() {
-            this.$router.push({ name: 'PublicProfile', params: { username: this.user.username }})
+            this.$router.push({ name: 'PublicProfile', params: { username: this.user?.username }})
         },
         switchTab(tabName) {
             this.tab = tabName
@@ -282,7 +282,7 @@ export default {
             this.form.visibility = this.computedAgent.visibility
         },
         redirectBack() {
-            this.$router.push({ name: 'PublicProfile', params: { username: this.user.username } })
+            this.$router.push({ name: 'PublicProfile', params: { username: this.user?.username } })
         }
     },
     mounted() {

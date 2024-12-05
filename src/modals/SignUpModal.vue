@@ -14,7 +14,7 @@
         </template>
         <template #body>
             <div class="centered signup-wrapper">
-                <div class="su-inner text-center flex flex-column gap-32">
+                <div class="su-inner text-center flex flex-column gap-32" :class="emailSignUp ? 'use-email' : 'signups'">
                         <div class="flex flex-column gap-8">
                             <div class="fs-105">{{ computedQuery === 'signup' ? 'Create a new account' : 'Sign in'  }}</div>
                             <div v-if="!emailSignUp">{{ computedQuery === 'signup' ? 'Choose a sign up method.' : 'Choose a sign in method below.'  }}</div>
@@ -128,8 +128,20 @@ export default {
 .signup-wrapper {
     padding: 16px 20px 32px 20px;
 }
-.su-inner {
+.su-inner.signups {
     width: 70%;
+}
+.su-inner.use-email {
+    width: 80%;
+}
+
+.mobile {
+    .su-inner.use-email {
+        width: 85%;
+    }
+    .su-inner.signups {
+        width: 75%;
+    }
 }
 
 .foot-text {

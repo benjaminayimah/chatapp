@@ -29,7 +29,7 @@
     </nav>
     <teleport to="body">
         <backdrop @click="handleDropdown('user_acc_dropdown')" v-if="dropdownToggle" :opacity="0" :zindex="101" />
-        <div v-if="dropdownToggle" class="dropdown fixed" :style="{ top: dropdown.top + 54 + 'px', left: dropdown.left - 178 + 'px'}">
+        <div v-if="dropdownToggle && user" class="dropdown fixed" :style="{ top: dropdown.top + 54 + 'px', left: dropdown.left - 178 + 'px'}">
             <ul>
                 <li @click="handleDropdown('user_acc_dropdown')">
                     <router-link :to="{ name: 'PublicProfile', params: { username: user.username } }" class="flex ai-c gap-10">
