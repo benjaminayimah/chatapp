@@ -36,7 +36,7 @@
             </textarea>
         </div>
         <label v-if="type === 'password'" for="show_password" class="fs-09 custom-checkbox mt-4 flex ai-c gap-4">
-            <input v-model="showPass" id="show_password" type="checkbox">
+            <input v-model="showPass" @input="updateValue" id="show_password" type="checkbox">
             <span class="checkmark text-no-select"></span>
             <span class="text-no-select">{{ !showPass ? 'Show' : 'Hide' }} password</span>
         </label>
@@ -113,7 +113,6 @@ export default {
         }
     },
     watch: {
-    // Watch for changes in the modelValue prop and update the input
         modelValue(newValue) {
             this.inputValue = newValue;
             if(newValue != '') {
@@ -141,24 +140,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hide-show-pass{
-    right: 6px;
-    height: 30px;
-    width: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-.hide-pass-active{
-    background-color: var(--modal-close-button-hover) !important;
-}
-#pass_icon_stroke {
-    stroke: var(--main-background-primary)
-}
-
 textarea {
     border-radius: 12px;
     padding: 22px 14px 12px 14px;
 }
-
 
 </style>

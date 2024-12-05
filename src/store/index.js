@@ -118,7 +118,7 @@ export default createStore({
   },
   plugins: [
     createPersistedState({
-        key: 'artemis-ai',
+        key: 'ARTEMIS_STORAGE',
         storage: window.localStorage,
         paths: [
           'auth.token',
