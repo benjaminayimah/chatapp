@@ -1248,15 +1248,15 @@ table {
   }
 
 }
-// .modal-container  {
-//   container: modal_container / inline-size;
-// }
+.modal-container  {
+  container: modal_container / inline-size;
+}
 
-// @container modal_container (width < 400px) {
-//   .su-inner.su-inner {
-//       width: 85%
-//   }
-// }
+@container modal_container (width < 400px) {
+  .su-inner.su-inner {
+      width: 85%
+  }
+}
 .agent-list-wrapper {
   a {
       &:hover {

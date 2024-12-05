@@ -131,11 +131,7 @@ export default {
 .su-inner {
     width: 70%;
 }
-.mobile {
-    .su-inner {
-        width: 85%;
-    }
-}
+
 .foot-text {
     color: var(--main-font-color-2);
 }
