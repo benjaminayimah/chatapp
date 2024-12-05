@@ -55,6 +55,9 @@
                         Upgrade to Plus
                     </a>
                 </li>
+                <div class="centered">
+                    <hr class="mt-4 mb-4">
+                </div>
                 <li @click="handleDropdown('user_acc_dropdown')">
                     <a href="#" @click.prevent="logout" class="flex ai-c gap-10">
                         <svg viewBox="0 0 16.291 17.292">
@@ -145,6 +148,9 @@ a:not(#logo) {
 }
 .sticky {
     z-index: 50;
+}
+hr {
+    width: 85%
 }
 
 

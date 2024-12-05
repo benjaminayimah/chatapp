@@ -58,7 +58,7 @@ button {
     }
 }
 .dropdown {
-    width: 200px;
+    width: 210px;
     z-index: 102;
     background-color: var(--modal-main-background);
     bottom: 42px;

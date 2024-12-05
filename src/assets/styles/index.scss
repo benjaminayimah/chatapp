@@ -88,6 +88,8 @@ hr {
   border-bottom: 0;
   margin: 0;
   transition: var(--transition-time) border;
+  border-top: 1px solid var(--light-surface-border);
+
 }
 
 .fixed {
@@ -255,6 +257,7 @@ input.custom-input {
 
 
 
+
 input:not([type=checkbox],[type=radio]), select, textarea {
   appearance: none;
   outline: 0;
@@ -279,6 +282,47 @@ input:not([type=checkbox],[type=radio], [data-type=custom-focus]), textarea:not(
 input::placeholder, .sub-label, .input-wrapper textarea::placeholder  {
   color: var(--font-color-3);
 }
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox .checkmark {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  border: 2px solid var(--button-press-bg);
+  border-radius: 4px;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition-time) all;
+}
+
+.custom-checkbox:hover .checkmark {
+  border-color: var(--main-font-color-2); 
+}
+
+/* Add active (checked) state */
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+  background-color: var(--blue); /* Background for checked state */
+  border-color: var(--blue); /* Border color for checked state */
+}
+
+/* Add a tick mark for checked state */
+.custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg); /* Rotate to form a tick */
+}
+
+
 textarea::placeholder {
   color: var(--input-placeholder);
 }
@@ -291,11 +335,16 @@ textarea::placeholder {
   resize: none;
   overflow: auto;
 }
+
 .capitalize {
   text-transform: capitalize;
 }
 .uppercase {
   text-transform: uppercase;
+}
+
+.text-no-select {
+  user-select: none;
 }
 
 
@@ -418,6 +467,7 @@ button.button-outline {
   border-radius: 14px;
   box-shadow: var(--box-shadow-1);
   padding: 6px;
+  border: 1px solid var(--dropdown-border-color);
   a {
     border-radius: 8px;
   }

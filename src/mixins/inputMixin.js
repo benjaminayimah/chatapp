@@ -17,9 +17,6 @@ export default {
                 this.isFocused = false
             }
         },
-        togglePass() {
-            this.showPass = !this.showPass
-        },
         getElement(id) {
             return document.getElementById(id)
         }

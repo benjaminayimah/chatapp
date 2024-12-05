@@ -53,11 +53,15 @@
         --alert-close-button-hover: #323334;
 
 
+
         --sidebar-active: #c6d6ff;
         --sidebar-active-button: #acc0f4;
 
 
         --box-shadow-1: rgba(0, 0, 0, 0.1) 0px 0px 12px 1px;
+
+        --dropdown-border-color: #e2e5ed;
+
 
         --light-surface-hover: #f9fafb;
         --light-surface-active: var(--main-background-2);
@@ -136,6 +140,8 @@
 
         --box-shadow-1: rgba(0, 0, 0, 0.2) 0px 0px 24px 8px;
 
+        --dropdown-border-color: #3f3f3f;
+
         --skeleton-bg: #26272b;
         
 
@@ -145,6 +151,7 @@
     --danger: #f22121;
     --danger-hover: #d71e1e;
     --danger-light: #f221211e;
+    --blue: #1151F4;
 
 }
 // @media (prefers-color-scheme: dark) {

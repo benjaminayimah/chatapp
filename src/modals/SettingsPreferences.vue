@@ -96,9 +96,7 @@ button.button-outline {
         background-color: var(--light-surface-active);
     }
 }
-hr {
-    border-top: 1px solid var(--light-surface-border);
-}
+
 .mobile {
     .dropdown {
         right: 40px !important;
