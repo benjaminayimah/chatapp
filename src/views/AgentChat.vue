@@ -143,7 +143,7 @@ button.back-btn {
 }
 
 .chat-container {
-    min-height: calc(100% - (var(--nav-height) + 96px));
+    min-height: calc(100% - (var(--header-height) + 96px));
 }
 
 </style>

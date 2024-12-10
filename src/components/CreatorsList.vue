@@ -14,7 +14,7 @@
             <div class="w-100">
                 <div class="fs-101 text-ellipsis flex jc-c gap-4 ai-c">
                     <span>{{ creator.displayName }}</span>
-                    <span v-if="creator.verified" v-html="verifiedIcon"></span>
+                    <span v-if="creator.hasUpgraded" v-html="verifiedIcon(15)"></span>
                 </div>
                 <div class="h-2 fs-08 text-ellipsis text-center"><strong>@{{ creator.username }}</strong></div>
             </div>

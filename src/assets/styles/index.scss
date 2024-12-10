@@ -1047,7 +1047,7 @@ svg {
 .custom-scrollbar {
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: var(--scrollbar-color) transparent; /* Firefox */
-  scroll-behavior: smooth; /* Smooth scrolling */
+  // scroll-behavior: smooth; /* Smooth scrolling */
 }
 
 /* Chrome, Edge, Safari */
@@ -1398,12 +1398,12 @@ table {
   .settings-tab-title {
     display: none;
   }
-  nav {
+  header {
     .user-name {
       display: none;
     }
   }
-  nav:has(#user_acc_dropdown) {
+  header:has(#user_acc_dropdown) {
     padding: 0 0 0 45px;
     svg {
       height: 14px;

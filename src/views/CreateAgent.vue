@@ -359,7 +359,7 @@ button.visibility-toggle {
 }
 .preview-container {
     height: 550px;
-    top: calc(var(--nav-height) + 30px);
+    top: calc(var(--header-height) + 30px);
 }
 .desktop, .tablet {
     .preview-container {

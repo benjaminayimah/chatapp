@@ -118,6 +118,6 @@ export default {
 }
 
 .chat-container {
-    min-height: calc(100% - var(--nav-height));
+    min-height: calc(100% - var(--header-height));
 }
 </style>

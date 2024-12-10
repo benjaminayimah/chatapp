@@ -18,7 +18,7 @@
                 <div class="flex ai-c flex-column">
                     <span class="fs-105 fw-600 gap-4 flex ai-c">
                         <span>{{ user.displayName }}</span>
-                        <span v-if="user.verified" v-html="verifiedIcon"></span>
+                        <span v-if="user.hasUpgraded" v-html="verifiedIcon(15)"></span>
                     </span>
                     <strong class="fs-08 h-2">@{{ user.username }}</strong>
                 </div>

@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex jc-c ai-c sticky top-0"> <!-- bg-surface-1 -->
+    <header class="flex jc-c ai-c sticky top-0"> <!-- bg-surface-1 -->
         <div class="top-bar-wrapper flex flex-1 ai-c jc-sb">
             <router-link id="logo" :to="{ name: 'Home' }">
                 <svg xmlns="http://www.w3.org/2000/svg"  height="16" viewBox="0 0 81.847 14.267">
@@ -36,7 +36,7 @@
                 </button>
             </div>
         </div>
-    </nav>
+    </header>
     <teleport to="body">
         <backdrop @click="handleDropdown('user_acc_dropdown')" v-if="dropdownToggle" :opacity="0" :zindex="101" />
         <div v-if="dropdownToggle && user" class="dropdown fixed" :style="{ top: dropdown.top + 54 + 'px', left: dropdown.left - 178 + 'px'}">
@@ -115,14 +115,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-nav {
+header {
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
     background-color: rgba(var(--main-background-primary), .8);
 }
 .top-bar-wrapper {
     max-width: 1080px;
-    height: var(--nav-height);
+    height: var(--header-height);
     padding: 0 20px;
 }
 

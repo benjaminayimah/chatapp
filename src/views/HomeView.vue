@@ -22,19 +22,7 @@
       <home-section-creators :creators="creators" />
     </div>
   </div>
-  <footer>
-    <div class="centered pd-32 mt-32">
-      <div class="flex ai-c fs-09">
-        <a href="#" class="font-color-2">About</a>
-        <span class="fs-101 dot">&#8231;</span> 
-        <a href="#" class="font-color-2">Terms</a>
-        <span class="fs-101 dot">&#8231;</span> 
-        <a href="#" class="font-color-2">Privacy policy</a>
-        <span class="fs-101 dot">&#8231;</span> 
-        <a href="#" class="font-color-2">Help</a>
-      </div>
-    </div>
-  </footer>
+  <footer-section />
 </template>
 
 <script>
@@ -42,10 +30,11 @@ import { mapState } from 'vuex';
 import titleMixin from '@/mixins/titleMixin';
 import HomeSectionForYou from './fragments/HomeSectionForYou.vue';
 import HomeSectionCreators from './fragments/HomeSectionCreators.vue';
+import FooterSection from '@/components/FooterSection.vue';
 
 export default {
   name: 'HomeView',
-  components: { HomeSectionForYou, HomeSectionCreators },
+  components: { HomeSectionForYou, HomeSectionCreators, FooterSection},
   mixins: [titleMixin],
   computed: {
     ...mapState({
