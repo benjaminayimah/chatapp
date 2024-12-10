@@ -14,7 +14,7 @@
           </button>
           <div ref="scrollContent" class="overflow-x-scroll custom-scrollbar scroll-hidden scroll-snap flex gap-12">
             <div v-if="!creators.length" class="flex gap-8 w-100">
-              <div v-for="empty in emptyArr" :key="empty" class="br-20 animate-pulse skeleton-surface flex-1" style="height: 230px"></div>
+              <div v-for="empty in emptyArr" :key="empty" class="br-20 animate-pulse skeleton-surface flex-1" style="height:230px;min-width:254px"></div>
             </div>
             <creators-list
                 v-for="creator in creators.slice(0, 20)"
