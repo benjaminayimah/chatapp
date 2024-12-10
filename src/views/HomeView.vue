@@ -23,7 +23,7 @@
     </div>
   </div>
   <footer>
-    <div class="centered pd-32">
+    <div class="centered pd-32 mt-32">
       <div class="flex ai-c fs-09">
         <a href="#" class="font-color-2">About</a>
         <span class="fs-101 dot">&#8231;</span> 
