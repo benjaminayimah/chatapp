@@ -20,9 +20,6 @@
       </section>
       <home-section-for-you :agents="agents" />
       <home-section-creators :creators="creators" />
-      <section style="height: 600px">
-        
-      </section>
     </div>
   </div>
   <footer>
