@@ -8,12 +8,14 @@ import auth from './modules/auth'
 
 import { decryptToken } from '@/middlewares/encryptMiddleware'
 
+
 export default createStore({
   state: {
     userProfile: null,
     recents: [],
     favourites: [],
     agents: [],
+    creators: [],
     alert: null,
     deleteModal: null,
     newChat: null
@@ -22,6 +24,10 @@ export default createStore({
     setUserProfile(state, payload) {
       state.userProfile = payload
     },
+    updateCurrentProfile(state, payload) {
+      Object.assign(state.userProfile, payload);
+    },
+    //Agents
     addToAgents(state, payload) {
       state.userProfile.agents = [...state.userProfile.agents, ...payload]
     },
@@ -30,6 +36,10 @@ export default createStore({
       if (index !== -1) {
         state.userProfile.agents.splice(index, 1);
       }
+    },
+    //Creators
+    setUsers(state, payload) {
+      state.creators = payload
     },
     //favourites
     setFavourites(state, payload) {

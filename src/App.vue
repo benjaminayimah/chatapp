@@ -21,7 +21,7 @@
 </template>
 <script>
 import api from './services/apis'
-import errorHandlerMixin from './mixins/errorHandlerMixin'
+import formMixin from './mixins/formMixin'
 import TopBar from '@/components/TopBar'
 import SideBarToggle from './components/SideBarToggle.vue'
 import SideBar from './components/SideBar.vue'
@@ -45,7 +45,7 @@ export default {
     AlertBar
   },
   name: 'AppView',
-  mixins: [errorHandlerMixin],
+  mixins: [formMixin],
   computed: {
     ...mapGetters(['auth']),
     ...mapState({
@@ -86,6 +86,7 @@ export default {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemeChange);
     this.auth ? this.getuser(): ''
     this.getAgents()
+    this.getUsers()
     window.addEventListener('resize', this.windowSize)
   },
   methods: {
@@ -102,6 +103,15 @@ export default {
       try {
           const res = await api.get('/agent')
           this.$store.commit('setAgents', res.data)
+      } catch (err) {
+          this.handleError(err)
+      }
+    },
+    async getUsers() {
+      try {
+          const res = await api.get('/user/all')
+          this.$store.commit('setUsers', res.data)
+          console.log(res.data)
       } catch (err) {
           this.handleError(err)
       }

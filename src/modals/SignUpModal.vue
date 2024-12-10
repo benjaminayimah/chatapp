@@ -60,12 +60,12 @@
 <script>
 import Modal from './Modal.vue'
 import randomIdGenMixin from '@/mixins/randomIdGenMixin';
-import errorHandlerMixin from '@/mixins/errorHandlerMixin';
+import formMixin from '@/mixins/formMixin';
 import SignUpForm from '@/components/SignUpForm.vue';
 export default {
     name: 'SignUpModal',
     components: { Modal, SignUpForm },
-    mixins: [randomIdGenMixin, errorHandlerMixin],
+    mixins: [randomIdGenMixin, formMixin],
     props: {
         auth: Boolean
     },

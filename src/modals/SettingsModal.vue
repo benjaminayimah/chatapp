@@ -136,10 +136,9 @@ ul {
     }
     
 }
-.desktop,.tablet {
-    a.active-nav {
-        background-color: var(--light-surface-active);
-    }
+
+a.active-nav {
+    background-color: var(--light-surface-active) !important;
 }
 
 .mobile {
@@ -171,16 +170,6 @@ ul {
         width: 100%;
         padding-left: 0;
         padding-right: 0;
-    }
-    a.active-nav {
-        background-color: var(--main-background-secondary);
-        color: var(--main-background-primary);
-        path {
-            fill: var(--main-background-primary);
-        }
-        &:active {
-            background-color: var(--main-background-secondary-hover);
-        }
     }
 }
 </style>

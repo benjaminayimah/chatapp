@@ -11,7 +11,12 @@
                     </div>
                     <div>Your login session has expired. Please login again.</div>
                     <div class="flex jc-fe">
-                        <button @click="reLogin" class="button-primary fw-600 fs-09 ai-c jc-c pl-16 pr-16">Login</button>
+                        <button-submit
+                            @handle-button-click="reLogin"
+                            :classes="'button-primary default fs-09 fw-600'"
+                            :content="'Login'"
+                            :type="'button'"
+                        />
                     </div>
                 </div>
             </div>
@@ -20,12 +25,13 @@
 </template>
 
 <script>
+import ButtonSubmit from '@/components/ButtonSubmit.vue';
 import { mapState } from 'vuex';
 import Modal from './Modal.vue'
 
 export default {
     name: 'TokenExpiredModal',
-    components: { Modal },
+    components: { Modal, ButtonSubmit },
     computed: {
         ...mapState({
             tokenExpired: (state) => state.auth.tokenExpired
@@ -63,8 +69,5 @@ export default {
     .fs-105  {
         font-size: 1.3rem;
     }
-}
-button {
-    height: 40px;
 }
 </style>

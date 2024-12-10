@@ -7,15 +7,16 @@
                 :width="100"
                 :height="100"
                 :color="form.color"
-                :name="form.username"
+                :name="form.displayName || form.username"
                 :fontSize="2"
                 :upload="true"
+                :uploadInputId="uploadInputId"
                 :deleting="deleting"
                 :uploading="uploading"
                 @upload-click="uploadClick"
-                @delete-image="deleteImage"
+                @delete-image="handleImageDelete"
             />
-            <input class="hide" @change="uploadImage" name="image" id="imageUploadInput" type="file" ref="img">
+            <input class="hide" @change="uploadImage" name="image" :id="uploadInputId" type="file" ref="img">
         </div>
         <input-reactive
             v-model="form.username"
@@ -25,18 +26,24 @@
             :errors="errors"
             :maxLength="20"
             :placeholder="'e.g. johnsmith123'"
+            :required="true"
+            :checkUsername="checkUsername"
+            :hasUnsavedChanges="hasUnsavedChanges"
         />
+
         <input-reactive
-            v-model="form.name"
-            :id="'name'"
+            v-model="form.displayName"
+            :id="'displayName'"
             :type="'text'"
             :label="'Display name'"
             :errors="errors"
             :maxLength="50"
             :placeholder="'e.g. John Smith'"
+            :required="true"
+            :hasUnsavedChanges="hasUnsavedChanges"
         />
         <input-reactive
-            v-model="form.description"
+            v-model="form.bio"
             :id="'bio'"
             :type="'text'"
             :label="'Bio'"
@@ -45,46 +52,142 @@
             :isTextarea="true"
             :rows="3"
             :placeholder="'e.g. I\'m a UX Designer and Front-end developer.'"
+            :hasUnsavedChanges="hasUnsavedChanges"
         />
+        <div v-show="computedMarkUnsaved" class="flex gap-8 jc-fe sticky pd-t-24 pd-b-24 bottom-0">
+            <button-submit
+                @handle-button-click="doRevertChanges"
+                :classes="'button-outline default fs-09 fw-600'"
+                :content="'Revert'"
+            />
+            <button-submit
+                @handle-button-click="saveChanges"
+                :classes="'button-primary default fs-09 fw-600'"
+                :content="'Save changes'"
+                :type="'submit'"
+                :processing="processing"
+                :disabled="processing"
+            />
+        </div>
     </div>
 </template>
 
 <script>
-import errorHandlerMixin from '@/mixins/errorHandlerMixin';
+import modalMixin from '@/mixins/modalMixin';
+
+import formMixin from '@/mixins/formMixin';
 import uploadMixin from '@/mixins/uploadMixin';
 import ProfileAvatar from '@/components/ProfileAvatar.vue';
 import InputReactive from '@/components/InputReactive.vue';
+import ButtonSubmit from '@/components/ButtonSubmit.vue';
+import api from '@/services/apis';
 
 export default {
-    components: { ProfileAvatar, InputReactive },
+    components: { ProfileAvatar, InputReactive, ButtonSubmit },
     name: 'SettingsProfile',
-    mixins: [errorHandlerMixin, uploadMixin],
+    mixins: [formMixin, uploadMixin, modalMixin],
     props: {
         user: Object
     },
+    computed: {
+        computedMarkUnsaved() {
+            const fieldsToCompare = ['image', 'username', 'displayName', 'bio'];
+            return fieldsToCompare.some(
+                (field) => this.form[field] !== this.user[field]
+            );
+        }
+    },
+    watch: {
+        computedMarkUnsaved(newValue) {
+            this.resetRevertChangeStatus(newValue)
+        }
+    },
     data() {
         return {
+            uploadInputId: 'updateUploadInput',
             uploading: false,
             deleting: false,
+            newUpload: false,
+            hasUnsavedChanges: false,
             form: {
                 username: '',
-                name: '',
+                displayName: '',
                 bio: '',
                 image: null,
-                oldImage: null,
-                color: ''
+                color: '',
+                id: null
             }
         }
     },
     methods: {
         prefillForm() {
-            if(!this.user) return
-            this.form.username = this.user.username
-            this.form.name = this.user.name
-            this.form.bio = this.user.bio
-            this.form.color = this.user.color
-            this.form.image = this.user.picture || null
-            this.form.oldImage = this.user.picture || null
+            if (!this.user) return;
+            const defaultValues = {
+                username: '',
+                displayName: '',
+                bio: '',
+                color: null,
+                image: null,
+                id: null,
+            };
+            Object.keys(defaultValues).forEach((key) => {
+                this.form[key] = this.user[key] ?? defaultValues[key];
+            });
+        },
+        handleImageDelete(image) {
+            !this.newUpload ?
+            (
+                this.form.image = null,
+                this.newUpload = true
+            )
+            : this.deleteImage(image)
+        },
+        async checkUsername(username) {
+            this.errors ? this.errors = [] : ''
+            const res = await api.get(`/user/validate-username/${username}`);
+            return res.data; 
+        },
+        async saveChanges() {
+
+            this.startProcessing()
+            try {
+                const res = await api.put('/user', this.form);
+                await this.$store.commit('setUser', res.data.user)
+
+                if (this.$route.name === 'PublicProfile') {
+                    this.$router.replace({
+                        name: 'PublicProfile',
+                        params: { username: res.data.user.username },
+                    });
+                    await this.$store.commit('updateCurrentProfile', res.data.user)
+                }else {
+                    this.closeModal()
+                }
+
+                await this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: res.data.message })
+
+            } catch (err) {
+                this.handleError(err)
+            } finally {
+                this.stopProcessing()
+            }
+        },
+        async doRevertChanges() {
+            if(this.newUpload && this.form.image) {
+                await this.deleteImage(this.form.image)
+            }
+            this.prefillForm()
+            this.setRevertChangeStatus()
+            this.errors ? this.errors = [] : ''
+            this.newUpload = false
+        },
+        setRevertChangeStatus() {
+            this.hasUnsavedChanges = true
+        },
+        resetRevertChangeStatus(status) {
+            if(status) {
+                this.hasUnsavedChanges = false 
+            }
         }
     },
     mounted() {
@@ -94,5 +197,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.button-outline  {
+    background-color: var(--modal-main-background);
+}
+.sticky {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--modal-main-background) 30%);
+}
 
 </style>

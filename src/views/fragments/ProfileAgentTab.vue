@@ -135,11 +135,12 @@ button {
     z-index: 502;
     background-color: var(--modal-main-background);
     font-size: 0.95rem;
-    a {
-        padding: 5px 12px 5px 16px;
-        &:hover {
-            background-color: var(--modal-main-background-2);
-        }
+}
+a {
+    padding: 5px 12px 5px 16px;
+    &:hover {
+        background-color: var(--modal-close-button-hover);
     }
 }
+
 </style>

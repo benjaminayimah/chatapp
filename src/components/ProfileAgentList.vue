@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'AgentChat', params: { id: agent.chatId }}" @click.prevent="" class="flex gap-16 br-20 bg-transition" :class="{'toggle-in' : dropdownToggle}">
+    <router-link :to="{ name: 'AgentChat', params: { id: agent.chatId }}" @click.prevent="" class="flex flex-shrink-0 gap-16 br-20 bg-transition" :class="{'toggle-in' : dropdownToggle}">
         <profile-avatar
             :image="agent.image"
             :width="width"
@@ -68,7 +68,7 @@ import DropdownDiv from '@/modals/DropdownDiv.vue'
 import ProfileAvatar from './ProfileAvatar.vue'
 import Backdrop from './Backdrop.vue'
 import dropdownMixin from '@/mixins/dropdownMixin';
-import errorHandlerMixin from '@/mixins/errorHandlerMixin';
+import formMixin from '@/mixins/formMixin';
 import api from '@/services/apis';
 import { mapGetters, mapState } from 'vuex';
 const { visibilityIcon } = require('@/utilities/IconsTrait')
@@ -76,7 +76,7 @@ const { visibilityIcon } = require('@/utilities/IconsTrait')
 export default {
     name: 'ProfileAgentList',
     components: { ProfileAvatar, DropdownDiv, Backdrop },
-    mixins: [dropdownMixin, errorHandlerMixin],
+    mixins: [dropdownMixin, formMixin],
     props: {
         agent: Object,
         isOwner: Boolean,
@@ -86,6 +86,10 @@ export default {
         creator: {
             default: null,
             type: String
+        },
+        parent: {
+            type: String,
+            default: null
         },
         actionMenu: {
             default: true,
@@ -99,6 +103,9 @@ export default {
         }),
         isFavourite() {
             return !!this.favourites?.find(agent => agent.agent.id === this.agent.id)
+        },
+        computedMaxWidth() {
+            return this.parent === 'home' ? '261px' : '100%'
         }
     },
     data() {
@@ -157,6 +164,7 @@ export default {
 <style lang="scss" scoped>
 a {
     padding: 12px;
+    width: v-bind(computedMaxWidth);
 }
 a.toggle-in {
     background-color: var(--main-background-2);

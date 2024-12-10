@@ -1,28 +1,27 @@
 <template>
     <div ref="scrollContainer" class="flex flex-1 jc-c">
       <div class="main-wrapper flex-1">
-        <div v-if="!user && fetching" class="centered gap-24">
+        <div v-if="!user && onLoadFetch" class="centered gap-24">
             <profile-page-skeleton />
         </div>
         <div v-else-if="user" class="centered gap-24">
-            <div class="flex ai-c flex-column gap-16 profile-header">
+            <div class="flex ai-c flex-column gap-8 profile-header">
                 <profile-avatar
-                    :image="user.picture"
+                    :image="user.image"
                     :width="100"
                     :height="100"
                     :color="user.color"
-                    :name="user.username"
+                    :name="user.displayName"
                     :fontSize="2"
                     :upload="false"
                 />
-                <p class="fs-105 fw-600 flex ai-c gap-4">
-                    <span>{{ user.username }}</span>
-                     <span v-if="user.verified">
-                        <svg height="15" viewBox="0 0 15 14.999">
-                            <path class="invert-fill-color" d="M-1967.478,2a2.835,2.835,0,0,1-1.142-.239,3.052,3.052,0,0,1-.807-.527A3.417,3.417,0,0,1-1969.9.7a2.391,2.391,0,0,1-.155-.239,3.759,3.759,0,0,1-.56.042h-.052a4.092,4.092,0,0,1-.535-.036,3.273,3.273,0,0,1-.621-.144,2.252,2.252,0,0,1-1.138-.815,3.334,3.334,0,0,1-.48-.939,2.945,2.945,0,0,1-.14-.8,2.727,2.727,0,0,1,.037-.552,1.684,1.684,0,0,1,.049-.206,2.431,2.431,0,0,1-.241-.16,3.469,3.469,0,0,1-.527-.486,2.984,2.984,0,0,1-.518-.817A2.746,2.746,0,0,1-1975-5.6a2.814,2.814,0,0,1,.255-1.123,2.7,2.7,0,0,1,.514-.747,2.914,2.914,0,0,1,.505-.415,2.018,2.018,0,0,1,.229-.129,2.713,2.713,0,0,1-.042-.282,3.587,3.587,0,0,1,0-.7,2.988,2.988,0,0,1,.237-.912,2.632,2.632,0,0,1,.664-.905,3,3,0,0,1,1.035-.607,2.782,2.782,0,0,1,.889-.146,2.66,2.66,0,0,1,.485.044,1.44,1.44,0,0,1,.182.044,2.087,2.087,0,0,1,.15-.233,3.377,3.377,0,0,1,.458-.516,3.019,3.019,0,0,1,.78-.521,2.755,2.755,0,0,1,1.114-.251h.058a2.63,2.63,0,0,1,1.1.238,3.032,3.032,0,0,1,.788.523,3.586,3.586,0,0,1,.474.523,2.437,2.437,0,0,1,.157.238,3.349,3.349,0,0,1,.642-.063h.026a3.618,3.618,0,0,1,.5.035,3.07,3.07,0,0,1,.56.132,2.5,2.5,0,0,1,1.093.73,2.914,2.914,0,0,1,.719,1.78,2.932,2.932,0,0,1-.032.615,1.938,1.938,0,0,1-.05.238,2.4,2.4,0,0,1,.232.144,3.3,3.3,0,0,1,.512.445,2.874,2.874,0,0,1,.518.764,2.7,2.7,0,0,1,.25,1.1,2.651,2.651,0,0,1-.224,1.12,3.063,3.063,0,0,1-.521.806,3.555,3.555,0,0,1-.527.487,2.313,2.313,0,0,1-.24.164,2.067,2.067,0,0,1,.046.244,3.07,3.07,0,0,1,.014.63,2.93,2.93,0,0,1-.2.859,2.989,2.989,0,0,1-.6.934,2.707,2.707,0,0,1-2.022.858,3.09,3.09,0,0,1-.5-.04,1.937,1.937,0,0,1-.192-.04,2,2,0,0,1-.13.236,2.875,2.875,0,0,1-.422.522,2.683,2.683,0,0,1-.76.526,2.792,2.792,0,0,1-1.146.25h-.054Zm-2.888-8.275h0l-.889.877,2.865,2.878,4.644-4.651-.869-.909-3.775,3.775-1.976-1.97Z" transform="translate(1975 13)" fill="#0085ff"/>
-                        </svg>
+                <div class="flex ai-c flex-column">
+                    <span class="fs-105 fw-600 gap-4 flex ai-c">
+                        <span>{{ user.displayName }}</span>
+                        <span v-if="user.verified" v-html="verifiedIcon"></span>
                     </span>
-                </p>
+                    <strong class="fs-08 h-2">@{{ user.username }}</strong>
+                </div>
                 <div class="flex ai-c gap-4">
                     <button class="bg-transparent fs-09 ai-c">0 Followers</button>
                     <span class="fs-105 dot">&#8231;</span> 
@@ -62,7 +61,6 @@
             </section>
             <!-- <button v-if="this.user.Agents.length != this.total" @click="fetchMoreAgents" class="jc-c ai-c pd-8">More</button> -->
         </div>
-        
         <div v-else class="centered gap-24">
             <profile-page-skeleton />
             <empty-state
@@ -81,7 +79,8 @@ import ProfileAgentTab from './fragments/ProfileAgentTab.vue';
 import ProfileSavedTab from './fragments/ProfileSavedTab.vue';
 import ProfileAvatar from '@/components/ProfileAvatar.vue';
 import { mapGetters, mapState } from 'vuex';
-import errorHandlerMixin from '@/mixins/errorHandlerMixin';
+import formMixin from '@/mixins/formMixin';
+import userMixin from '@/mixins/userMixin';
 import EmptyState from '@/components/EmptyState.vue';
 import ProfilePageSkeleton from '@/loaders/ProfilePageSkeleton.vue';
 import ResponseSkeleton from '@/loaders/ResponseSkeleton.vue';
@@ -89,7 +88,7 @@ import ResponseSkeleton from '@/loaders/ResponseSkeleton.vue';
 export default {
     name: 'PublicProfile',
     components: { ProfileAgentTab, ProfileSavedTab, ProfileAvatar, EmptyState, ProfilePageSkeleton, ResponseSkeleton },
-    mixins: [errorHandlerMixin],
+    mixins: [formMixin, userMixin],
     computed: {
         ...mapGetters(['auth']),
         ...mapState({
@@ -156,7 +155,7 @@ export default {
             } catch (err) {
                 this.handleError(err)
             } finally {
-                this.stopFetching()
+                this.stopOnloadFetch()
             }
         },
         async fetchFavourites() {
@@ -167,7 +166,7 @@ export default {
             } catch (err) {
                 this.handleError(err)
             } finally {
-                this.stopFetching()
+                this.stopOnloadFetch()
             }
         },
         // async handleScroll() {

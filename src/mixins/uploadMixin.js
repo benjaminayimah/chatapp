@@ -1,3 +1,4 @@
+
 export default {
     methods: {
         uploadClick(id) {
@@ -18,15 +19,18 @@ export default {
                         const formData = new FormData();
                         formData.append("image", file);
                         try {
-                            const response = await fetch("http://localhost:3000/api/upload-image", {
+                            const response = await fetch("http://localhost:3000/api/file/upload-image", {
                                 method: "POST",
                                 body: formData
                             })
+                            // const response = await api.post('/file/upload-image', formData)
                             const data = await response.json()
                             if (data.imageUrl) {
                                 this.form.image = data.imageUrl
     
                                 this.form.fileType = file.type
+                                this.newUpload = true
+
                                 this.$nextTick(() => {
                                     this.$refs.textArea?.focus();
                                 });
@@ -45,23 +49,27 @@ export default {
         checksize(size) {
             return size > 800000 ? false : true
         },
-        async deleteImage(image) {
+        async deleteImage(payload) {
+            
+            const image = payload.image
+            const uploadInputId = payload.inputId
+
             this.deleting = true
             const filename = image.split('/').pop();
 
             try {
-                const response = await fetch(`http://localhost:3000/api/delete-image/${filename}`, {
+                const response = await fetch(`http://localhost:3000/api/file/delete-image/${filename}`, {
                     method: 'DELETE',
                 });
-
                 const data = await response.json()
                 if (response.status === 200) {
                     this.form.image = null
                     this.deleting = false
-                    this.clrOldfile('imageUploadInput')
+                    this.clrOldfile(uploadInputId)
                 } else {
                     console.log(data.message)
                 }
+
             } catch (error) {
                 this.deleting = false
                 console.error('Error deleting the image:', error);

@@ -15,7 +15,7 @@
                 </button>
             </div>
             <div class="flex jc-c">
-                <agent-page-skeleton v-if="!(agent && user) && fetching" />
+                <agent-page-skeleton v-if="!(agent && user) && onLoadFetch" />
                 <div v-else-if="agent && user " class="flex ai-c flex-column gap-4 text-center">
                     <profile-avatar
                         :image="agent.image"
@@ -78,14 +78,14 @@ import ChatInput from '@/components/ChatInput.vue'
 import ChatAlertBox from '@/components/ChatAlertBox.vue'
 import ScrollBottomButtton from '@/components/ScrollBottomButtton.vue'
 import ProfileAvatar from '@/components/ProfileAvatar.vue'
-import errorHandlerMixin from '@/mixins/errorHandlerMixin';
+import formMixin from '@/mixins/formMixin';
 import api from '@/services/apis'
 import AgentPageSkeleton from '@/loaders/AgentPageSkeleton.vue'
 import EmptyState from '@/components/EmptyState.vue'
 export default {
     components: { ImagePreviewModal, ChatInput, ChatAlertBox, ScrollBottomButtton, ProfileAvatar, AgentPageSkeleton, EmptyState },
     name: 'AgentChat',
-    mixins: [errorHandlerMixin],
+    mixins: [formMixin],
     computed: {
         computedMessage() {
             const message = {
@@ -119,7 +119,7 @@ export default {
             } catch (err) {
                 this.handleError(err)
             } finally {
-                this.stopFetching()
+                this.stopOnloadFetch()
             }
         }
     },

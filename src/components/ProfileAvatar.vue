@@ -46,6 +46,10 @@ export default {
             type: Boolean,
             default: false
         },
+        uploadInputId: {
+            type: String,
+            default: null
+        },
         fontSize: {
             type: Number,
             default: 1
@@ -68,7 +72,6 @@ export default {
         computedHeight() {
             return `${this.height}px`
         }
-        
     },
     data() {
         return {
@@ -79,9 +82,9 @@ export default {
     methods: {
         handleButtonClick() {
             if (!this.image) {
-                this.$emit('upload-click','imageUploadInput')
+                this.$emit('upload-click',this.uploadInputId)
             } else {
-                this.$emit('delete-image', this.image)
+                this.$emit('delete-image', { image: this.image, inputId: this.uploadInputId })
             }
         },
         handleLoad() {

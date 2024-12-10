@@ -13,7 +13,6 @@
                 :type="'email'"
                 :label="'Email'"
                 :autocomplete="'on'"
-                :autofocus="true"
                 :errors="errors"
             />
             <input-reactive
@@ -21,12 +20,16 @@
                 :id="'password'"
                 :type="'password'"
                 :label="'Password'"
+                :autocomplete="'on'"
                 :errors="errors"
             />
-            <button type="submit" class="button-primary fw-600 fs-09 jc-c ai-c gap-8" :disabled="spinner">
-                <spinner v-if="spinner" :size="18" />
-                <span v-else>{{ formType === 'signup' ? 'Sign up' : 'Sign in' }}</span>
-            </button>
+            <button-submit
+                :classes="'button-primary default fs-09 fw-600'"
+                :content="formType === 'signup' ? 'Sign up' : 'Sign in'"
+                :type="'submit'"
+                :processing="processing"
+                :disabled="processing"
+            />
             <button @click.prevent="" v-if="formType === 'signin'" class="transparent-button fw-600 fs-09 jc-c ai-c" data-type="modal">Forgot password?</button>
         </div>
     </form>
@@ -34,14 +37,14 @@
 
 <script>
 import api from '@/services/apis';
-import errorHandlerMixin from '@/mixins/errorHandlerMixin';
-import Spinner from './Spinner.vue';
+import formMixin from '@/mixins/formMixin';
 import InputReactive from './InputReactive.vue';
+import ButtonSubmit from './ButtonSubmit.vue';
 
 export default {
-    components: { Spinner, InputReactive },
+    components: { InputReactive, ButtonSubmit },
     name: 'SignUpForm',
-    mixins: [errorHandlerMixin],
+    mixins: [formMixin],
     props: {
         formType: String
     },
@@ -50,8 +53,7 @@ export default {
             form: {
                 email: 'johndoe@example.com',
                 password: '123456#@!'
-            },
-            spinner: false
+            }
         }
     },
     methods: {
@@ -59,12 +61,12 @@ export default {
             this.formType === 'signup' ? this.SignUp() : this.SignIn()
         },
         async SignIn() {
-            this.showSpiner()
+            this.startProcessing()
             try {
                 const response = await api.post('/auth/signin', this.form)
                 this.signInSuccess(response.data.token)
             } catch (err) {
-                this.hideSpiner()
+                this.stopProcessing()
                 this.handleError(err)
             }
         },
@@ -73,24 +75,18 @@ export default {
             location.reload()
         },
         async SignUp() {
-            this.showSpiner()
+            this.startProcessing()
             try {
                 const response = await api.post('/auth/signup', this.form);
-                this.signUpSuccess(response.data.token)
+                this.signUpSuccess(response.data)
             } catch (err) {
-                this.hideSpiner()
+                this.stopProcessing()
                 this.handleError(err)
             }
         },
         async signUpSuccess(res) {
-            this.hideSpiner()
+            this.stopProcessing()
             console.log(res)
-        },
-        showSpiner() {
-            this.spinner = true
-        },
-        hideSpiner() {
-            this.spinner = false
         }
     }
    

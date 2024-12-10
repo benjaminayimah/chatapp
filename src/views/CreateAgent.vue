@@ -40,12 +40,13 @@
                                         :name="form.agentName"
                                         :fontSize="2"
                                         :upload="true"
+                                        :uploadInputId="uploadInputId"
                                         :deleting="deleting"
                                         :uploading="uploading"
                                         @upload-click="uploadClick"
-                                        @delete-image="deleteImage"
+                                        @delete-image="handleImageDelete"
                                     />
-                                    <input class="hide" @change="uploadImage" name="image" id="imageUploadInput" type="file" ref="img">
+                                    <input class="hide" @change="uploadImage" name="image" :id="uploadInputId" type="file" ref="img">
                                 </div>
                                 <div class="form-row flex flex-column gap-4">
                                     <div class="input-wrapper flex flex-column gap-4">
@@ -109,16 +110,17 @@
                 </div>
             </div>
         </div>
-        <div class="flex jc-c sticky bottom-0 blur-to-bottom bg-transition">
+        <div class="flex jc-c sticky bottom-0 blur-to-bottom">
             <div class="section-wrapper flex-1 pd-t-16 pd-b-24">
                 <div class="flex jc-fe ai-c">
-                    <button
-                        @click.prevent="submit" 
-                        class="button-primary default ai-c fw-600 fs-09"
+                    <button-submit
+                        @handle-button-click="submit"
+                        :classes="'button-primary default fs-09 fw-600'"
+                        :content="isEditMode ? 'Save Changes' : 'Create Agent'"
+                        :type="'submit'"
                         :disabled="!isEditMode && !inputsHaveData"
-                        >
-                        {{ isEditMode ? 'Submit Update' : 'Create Agent' }}
-                    </button>
+                        :processing="processing"
+                    />
                 </div>
             </div>
         </div>
@@ -149,15 +151,16 @@ import Backdrop from '@/components/Backdrop.vue';
 import ProfileAvatar from '@/components/ProfileAvatar.vue';
 const { getRandomColor } = require('@/utilities/ColorTrait');
 import uploadMixin from '@/mixins/uploadMixin';
-import errorHandlerMixin from '@/mixins/errorHandlerMixin';
+import formMixin from '@/mixins/formMixin';
 import api from '@/services/apis';
 import EmptyState from '@/components/EmptyState.vue';
+import ButtonSubmit from '@/components/ButtonSubmit.vue';
 const { visibilityIcon } = require('@/utilities/IconsTrait')
 
 export default {
     name: 'CreateAgent',
-    components: { Backdrop, ProfileAvatar, EmptyState },
-    mixins: [dropdownMixin, uploadMixin, errorHandlerMixin],
+    components: { Backdrop, ProfileAvatar, EmptyState, ButtonSubmit },
+    mixins: [dropdownMixin, uploadMixin, formMixin],
     computed: {
         ...mapState({
             user: (state) => state.auth.user,
@@ -190,6 +193,7 @@ export default {
     },
     data() {
         return {
+            uploadInputId: 'agentImageUploadInput',
             uploading: false,
             deleting: false,
             dropdownToggle: false,
@@ -199,6 +203,7 @@ export default {
                 { name: 'public', description: 'Available for others to discover and chat with.' },
                 { name: 'private', description: 'Only available to you.' }
             ],
+            newUpload: false,
             form: {
                 agentName: '',
                 headline: '',
@@ -207,8 +212,7 @@ export default {
                 instructions: '',
                 visibility: 'public',
                 color: '',
-                image: null,
-                oldImage: null
+                image: null
             }
         }
     },
@@ -248,6 +252,7 @@ export default {
             this.isEditMode ? this.updateForm() : this.submitForm()
         },
         async submitForm() {
+            this.startProcessing()
             try {
                 const res = await api.post('/agent', this.form)
                 await this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: res.data.message })
@@ -255,11 +260,14 @@ export default {
                 this.goBack()
             } catch (err) {
                 this.handleError(err)
+            } finally {
+                this.stopProcessing()
             }
         },
         async updateForm() {
+            this.startProcessing()
             try {
-                const res = await api.put('/agent/'+this.computedAgent.id, this.form)
+                const res = await api.put('/agent/' + this.computedAgent.id, this.form)
                 // await this.$store.commit('updateAgent', res.data.agent)
                 await this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: res.data.message })
                 this.markSaved()
@@ -267,13 +275,14 @@ export default {
 
             } catch (err) {
                 this.handleError(err)
+            } finally {
+                this.stopProcessing()
             }
         },
         getMode() {
             if(!this.computedAgent) return
             this.form.color = this.computedAgent.color
             this.form.image = this.computedAgent.image || null
-            this.form.oldImage = this.computedAgent.image || null
             this.form.agentName = this.computedAgent.agentName
             this.form.headline = this.computedAgent.headline
             this.form.greeting = this.computedAgent.greeting
@@ -283,6 +292,15 @@ export default {
         },
         redirectBack() {
             this.$router.push({ name: 'PublicProfile', params: { username: this.user?.username } })
+        },
+        handleImageDelete(image) {
+            this.computedAgent && !this.newUpload ?
+            (
+                this.form.image = null,
+                this.newUpload = true,
+                this.markUnsaved()
+            )
+            : this.deleteImage(image)
         }
     },
     mounted() {

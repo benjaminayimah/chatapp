@@ -7,8 +7,22 @@
             <div class="modal-body">
                 <div v-html="deleteItem.body" class="body-wrapper delete-modal-body flex flex-column gap-8"></div>
                 <div class="flex gap-8 jc-fe">
-                    <button @click="closeModal" class="button-outline ai-c jc-c">Cancel</button>
-                    <button @click="doDelete" class="button-danger ai-c jc-c">Delete</button>
+                    <button-submit
+                        @handle-button-click="closeModal"
+                        :classes="'button-outline default fs-09 fw-600'"
+                        :content="'Cancel'"
+                        :type="'button'"
+                        :processing="processing"
+                        :disabled="processing"
+                    />
+                    <button-submit
+                        @handle-button-click="doDelete"
+                        :classes="'button-danger default fs-09 fw-600'"
+                        :content="'Delete'"
+                        :type="'submit'"
+                        :processing="processing"
+                        :disabled="processing"
+                    />
                 </div>
             </div>
         </div>
@@ -18,11 +32,13 @@
 <script>
 import api from '@/services/apis';
 import { mapState } from 'vuex';
-import errorHandlerMixin from '@/mixins/errorHandlerMixin';
+import formMixin from '@/mixins/formMixin';
+import ButtonSubmit from '@/components/ButtonSubmit.vue';
 
 export default {
+    components: { ButtonSubmit },
     name: 'DeleteModal',
-    mixins: [errorHandlerMixin],
+    mixins: [formMixin],
     props: {
         zindex: Number,
         opacity: Number,
@@ -85,14 +101,18 @@ export default {
             }
         },
         async deleteAgent() {
+            this.startProcessing()
             try {
                 const res = await api.delete('/agent/'+ this.deleteItem.id)
+                console.log(res.data)
                 await this.$store.commit('removeAgent', this.deleteItem.id)
                 await this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: res.data.message})
-                this.$store.commit('closeDeleteModal')
             } catch (err) {
                 this.$store.commit('closeDeleteModal')
                 this.handleError(err)
+            } finally {
+                this.stopProcessing()
+                this.$store.commit('closeDeleteModal')
             }
         }
     },
@@ -114,7 +134,7 @@ export default {
 .modal-container {
     width: 450px;
     max-height: 90dvh;
-    padding: 28px 32px 32px 32px;
+    padding: 24px 26px 26px 26px;
 }
 
 .modal-header {
@@ -136,19 +156,4 @@ export default {
     padding: 6px 0 16px 0;
     
 }
-
-
-button {
-    height: 40px;
-    padding: 0 15px;
-}
-button.button-outline {
-    font-size: 0.95rem;
-    color: var(--main-font-color-primary);
-    border-color: var(--light-surface-border);
-    &:hover {
-        background-color: var(--light-surface-active);
-    }
-}
-
 </style>

@@ -17,9 +17,11 @@
 </template>
 
 <script>
+import modalMixin from '@/mixins/modalMixin';
 
 export default {
     name: 'ModalView',
+    mixins: [modalMixin],
     props: {
         zindex: Number,
         opacity: Number,
@@ -44,19 +46,7 @@ export default {
             return this.minHeight + 'dvh'
         }
     },
-    methods: {
-        closeModal() {
-            const remainingQuery = { ...this.$route.query };
-            delete remainingQuery.m;
-            delete remainingQuery.page;
-            this.$router.push({ query: remainingQuery });
-        },
-        handleEsc(event) {
-        if (event.key === 'Escape') {
-            this.closeModal();
-        }
-    },
-    },
+    
     mounted() {
         document.addEventListener('keydown', this.handleEsc);
     },

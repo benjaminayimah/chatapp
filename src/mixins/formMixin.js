@@ -2,7 +2,8 @@ export default {
     data() {
         return {
             errors: [],
-            fetching: true,
+            validationSuccess: null,
+            onLoadFetch: true,
             processing: false,
             responseStatusText: '',
             responseErrorMessage: '',
@@ -26,11 +27,16 @@ export default {
                 ? this.$store.dispatch('showAlert', { type: 'error', message: err.response?.data })
                 : ''
         },
-        startFetching() {
-            this.fetching = true
+        startOnloadFetch() {
+            this.onLoadFetch = true
         },
-        stopFetching() {
-            this.fetching = false
+        stopOnloadFetch() {
+            this.onLoadFetch = false
+        },
+        startProcessing() {
+            this.processing = true
+        },
+        stopProcessing() {
             this.processing = false
         }
     }

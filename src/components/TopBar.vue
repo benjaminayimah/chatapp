@@ -8,18 +8,28 @@
                 </svg>
             </router-link>
             <div v-if="!auth" class="flex gap-8">
-                <button @click="signUp" type="submit" class="button-primary default ai-c jc-c fw-600 fs-09">Sign up</button>
-                <button @click="signIn" type="submit" class="button-outline default fw-600 ai-c jc-c fs-09">Log in</button>
+                <button-submit
+                    :classes="'button-primary default fs-09 fw-600'"
+                    :content="'Sign up'"
+                    :type="'button'"
+                    @handle-button-click="signUp"
+                />
+                <button-submit
+                    :classes="'button-outline default fs-09 fw-600'"
+                    :content="'Log in'"
+                    :type="'button'"
+                    @handle-button-click="signIn"
+                />
             </div>
             <div v-else-if="auth && user" class="flex ai-c gap-4">
-                <span class="user-name">{{ user.username }}</span>
+                <span class="user-name">{{ user.displayName }}</span>
                 <button @click="handleDropdown('user_acc_dropdown')" id="user_acc_dropdown" class="gap-8 bg-transparent pd-0 jc-c ai-c">
                     <profile-avatar
-                        :image="user.picture"
+                        :image="user.image"
                         :width="40"
                         :height="40"
                         :color="user.color"
-                        :name="user.username"
+                        :name="user.displayName || user.username"
                         :fontSize="1"
                         :upload="false"
                     />
@@ -74,9 +84,10 @@
 import Backdrop from './Backdrop.vue';
 import dropdownMixin from '@/mixins/dropdownMixin';
 import ProfileAvatar from './ProfileAvatar.vue';
+import ButtonSubmit from './ButtonSubmit.vue';
 export default {
     name: 'TopBar',
-    components: { Backdrop, ProfileAvatar },
+    components: { Backdrop, ProfileAvatar, ButtonSubmit },
     mixins: [dropdownMixin],
     props: {
         auth: Boolean,

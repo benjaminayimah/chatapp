@@ -18,38 +18,10 @@
           </div>
         </div>
       </section>
-      <section class="w-100 flex flex-column gap-12">
-        <h4>For you</h4>
-        <div class="relative">
-          <button v-show="!isAtStart" @click="scrollLeft" data-type="controls" class="button-control absolute centered button-scroll-left">
-            <svg height="20" viewBox="0 0 12.728 12.728">
-              <path class="invert-fill-color" d="M3040.54,700.161a.5.5,0,0,1-.5-.5v-7.5h-7.5a.5.5,0,0,1,0-1h8a.5.5,0,0,1,.5.5v8A.5.5,0,0,1,3040.54,700.161Z" transform="translate(1661.616 2645.428) rotate(-135)" fill="#fff"/>
-            </svg>
-          </button>
-          <button v-show="!isAtEnd && agents.length" @click="scrollRight" data-type="controls" class="button-control absolute centered button-scroll-right">
-            <svg height="20" viewBox="0 0 12.728 12.728">
-              <path class="invert-fill-color" d="M3040.54,700.161a.5.5,0,0,1-.5-.5v-7.5h-7.5a.5.5,0,0,1,0-1h8a.5.5,0,0,1,.5.5v8A.5.5,0,0,1,3040.54,700.161Z" transform="translate(-1648.888 -2632.701) rotate(45)" fill="#fff"/>
-            </svg>
-          </button>
-          <div ref="scrollContent" class="overflow-x-scroll custom-scrollbar scroll-hidden scroll-snap flex gap-8">
-            <div v-if="!agents.length" class="flex gap-8">
-              <div v-for="empty in emptyArr" :key="empty" class="br-20 animate-pulse skeleton-surface" style="height: 119px;width:254px"></div>
-            </div>
-            <profile-agent-list
-                  v-for="agent in agents"
-                  :key="agent.id"
-                  :agent="agent"
-                  :creator="agent.user.username"
-                  :actionMenu="false"
-                  :height="95"
-                  :width="80"
-                  :radius="12"
-              />
-          </div>
-        </div>
-      </section>
+      <home-section-for-you :agents="agents" />
+      <home-section-creators :creators="creators" />
       <section style="height: 600px">
-
+        
       </section>
     </div>
   </div>
@@ -69,17 +41,19 @@
 </template>
 
 <script>
-import ProfileAgentList from '@/components/ProfileAgentList.vue'
 import { mapState } from 'vuex';
 import titleMixin from '@/mixins/titleMixin';
+import HomeSectionForYou from './fragments/HomeSectionForYou.vue';
+import HomeSectionCreators from './fragments/HomeSectionCreators.vue';
 
 export default {
   name: 'HomeView',
-  components: { ProfileAgentList },
+  components: { HomeSectionForYou, HomeSectionCreators },
   mixins: [titleMixin],
   computed: {
     ...mapState({
-      agents: (state) => state.agents
+      agents: (state) => state.agents,
+      creators: (state) => state.creators
     })
   },
   data() {
@@ -91,32 +65,11 @@ export default {
         { id: 3, label: 'Identify anything...', title: 'Get help with your home work.', description: 'You can get help with your homework, from essays and compositions to math questions.', image: require('../assets/banner-image1.webp')}
       ],
       currentIndex: 0,
-      emptyArr: [1,2,3,4],
-      scrollAmount: 200,
-      isAtStart: true,
-      isAtEnd: false ,
-
-
       typedText: '',
       typingSpeed: 50,
     }
   },
   methods: {
-    scrollLeft() {
-      const scrollContent = this.$refs.scrollContent;
-      scrollContent.scrollBy({ left: - this.scrollAmount, behavior: 'smooth' });
-      this.updateButtonState();
-    },
-    scrollRight() {
-      const scrollContent = this.$refs.scrollContent;
-      scrollContent.scrollBy({ left: this.scrollAmount, behavior: 'smooth' });
-      this.updateButtonState();
-    },
-    updateButtonState() {
-      const scrollContent = this.$refs.scrollContent;
-      this.isAtStart = scrollContent.scrollLeft === 0;
-      this.isAtEnd = scrollContent.scrollLeft + scrollContent.offsetWidth >= scrollContent.scrollWidth;
-    },
     nextSlide() {
       this.currentIndex = (this.currentIndex + 1) % this.banners.length; // Loop to the start
       this.typedText = ''
@@ -140,10 +93,7 @@ export default {
     },
   },
   mounted() {
-    // this.updateButtonState();
     this.typeText();
-
-    this.$refs.scrollContent.addEventListener('scroll', this.updateButtonState);
     setInterval(() => {
       this.nextSlide();
     }, 10000);
@@ -155,7 +105,6 @@ export default {
     max-width: 1080px;
     padding: 0 20px;
 }
-
 
 .card-wrapper {
   flex-grow: 1;
@@ -180,30 +129,6 @@ export default {
     inset: 0;
     transition: var(---transition-time) all;
   }
-}
-.button-control {
-  border-radius: unset;
-  width: 50px;
-  height: 100%;
-  z-index: 10;
-  path {
-    fill: var(--main-font-color-2);
-  }
-  &:hover {
-    path {
-      fill: var(--main-font-color-primary)
-    }
-  }
-}
-.button-scroll-left {
-  left: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, var(--main-background-primary) 80%);
-
-}
-.button-scroll-right {
-  right: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, var(--main-background-primary) 80%);
-
 }
 
 .page-wrapper  {

@@ -20,9 +20,10 @@ export default {
 .loader {
 --dimension: v-bind(dimension);
   width: var(--dimension);
+  height: var(--dimension);
   aspect-ratio: 1;
   border-radius: 50%;
-  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0);
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - var(--dimension)/10),#000 0);
   animation: spin 1s infinite linear;
 }
 @keyframes spin{ 
