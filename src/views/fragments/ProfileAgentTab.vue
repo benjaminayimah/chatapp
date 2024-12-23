@@ -1,13 +1,13 @@
 <template>
     <div v-if="computedAgents.length" class="flex-1">
         <div class="flex jc-sb mb-16">
-            <button @click="handleDropdown('agents_sort', 'agents_sort')" id="agents_sort" class="button-outline ai-c pl-8 pr-8 fw-600 fs-09 gap-8">
+            <button @click="handleDropdown('agents_sort', 'agents_sort')" id="agents_sort" class="button-outline ai-c pl-10 pr-10 fw-600 fs-09 gap-8">
                 All agents
                 <svg height="6" viewBox="0 0 10 5.714">
                     <path d="M1.533,10a.714.714,0,0,1-.505-1.219L4.809,5,1.028,1.22A.714.714,0,0,1,2.038.21L6.324,4.5a.714.714,0,0,1,0,1.01L2.038,9.791A.712.712,0,0,1,1.533,10Z" transform="translate(10.001 -0.819) rotate(90)"/>
                 </svg>
             </button>
-            <button v-if="isOwner" @click="goToCreate" class="button-primary pl-8 pr-8 fw-600 fs-09 gap-4 ai-c">
+            <button v-if="isOwner" @click="goToCreate" class="button-primary pl-10 pr-10 fw-600 fs-09 gap-4 ai-c">
                 <svg height="12" viewBox="0 0 14 14">
                     <path d="M21.5,15.5h-6v6h-2v-6h-6v-2h6v-6h2v6h6Z" transform="translate(-7.5 -7.5)"/>
                 </svg>
@@ -68,7 +68,7 @@ export default {
     computed: {
         computedMessage() {
             const message = {
-                heading: 'No agent',
+                heading: 'No Agent',
                 body: this.isOwner ? 'Create an AI Agent and train it to help you with specific tasks.' : 'This user has not created any Agent yet.',
                 buttonText: 'Create Agent',
                 icon: `

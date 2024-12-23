@@ -154,6 +154,7 @@
     --danger-hover: #d71e1e;
     --danger-light: #f221211e;
     --blue: #1151F4;
+    --blue-2: #0085ff;
 
 }
 // @media (prefers-color-scheme: dark) {
@@ -194,4 +195,7 @@ body {
 .skeleton-surface {
     background-color: var(--skeleton-bg);
     transition: var(--transition-time) background-color;
+}
+.color-blue {
+    color: var(--blue-2);
 }

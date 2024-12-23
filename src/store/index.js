@@ -134,6 +134,7 @@ export default createStore({
           'auth.token',
           'auth.user',
           'preferences.currentTheme',
+          // 'preferences.ad',
           'recents',
           'newChat'
         ]

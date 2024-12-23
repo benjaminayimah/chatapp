@@ -5,6 +5,7 @@
     <main class="right-page bg-surface-1 overflow-y-scroll custom-scrollbar">
       <!-- <div class="h-100 flex flex-column"> -->
         <top-bar :auth="auth" :user="user" />
+        <ads-bar v-if="auth && ad" />
         <router-view/>
       <!-- </div> -->
     </main>
@@ -16,7 +17,7 @@
   <transition name="modal-fade">
     <component v-if="isDeleteOpen && auth" :is="deleteContent"></component>
   </transition>
-  <div v-if="toolTip.body" class="tooltip-container fs-08 absolute bg-surface-inverse" :style="{ top: toolTip.top + 50 + 'px', left: toolTip.left + 'px'}">{{ toolTip.body }}</div>
+  <div v-if="toolTip.body" class="tooltip-container fs-08 absolute bg-surface-inverse" :style="{ top: toolTip.top + toolTip.height + 5 + 'px', left: toolTip.left + 'px'}">{{ toolTip.body }}</div>
   <alert-bar />
 </template>
 <script>
@@ -32,6 +33,7 @@ import TokenExpiredModal from './modals/TokenExpiredModal.vue'
 import AlertBar from './components/AlertBar.vue'
 import { mapGetters, mapState } from 'vuex';
 import AboutFloat from './components/AboutFloat.vue'
+import AdsBar from './components/AdsBar.vue'
 export default {
   components: { 
     TopBar,
@@ -42,7 +44,8 @@ export default {
     SignUpModal,
     TokenExpiredModal,
     AboutFloat,
-    AlertBar
+    AlertBar,
+    AdsBar
   },
   name: 'AppView',
   mixins: [formMixin],
@@ -51,7 +54,8 @@ export default {
     ...mapState({
       deleteState: (state) => state.deleteModal,
       toolTip: (state) => state.dropdown.tooltip,
-      user: (state) => state.auth.user
+      user: (state) => state.auth.user,
+      ad: (state) => state.preferences.ad
     }),
     isDeleteOpen() {
       return !!this.deleteState;

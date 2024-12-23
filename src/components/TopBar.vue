@@ -1,5 +1,5 @@
 <template>
-    <header class="flex jc-c ai-c sticky top-0"> <!-- bg-surface-1 -->
+    <header class="flex jc-c ai-c sticky top-0 bg-surface-1"> <!-- bg-surface-1 -->
         <div class="top-bar-wrapper flex flex-1 ai-c jc-sb">
             <router-link id="logo" :to="{ name: 'Home' }">
                 <svg xmlns="http://www.w3.org/2000/svg"  height="16" viewBox="0 0 81.847 14.267">
@@ -58,7 +58,7 @@
                     </a>
                 </li>
                 <li @click="handleDropdown('user_acc_dropdown')">
-                    <a href="#" @click.prevent="openSettings" class="flex ai-c gap-10">
+                    <a href="#" class="flex ai-c gap-10">
                         <svg viewBox="0 0 19.32 21.381">
                             <path d="M-2836.5-704.712l-6.66-3.845a3,3,0,0,1-1.5-2.6v-7.69a3,3,0,0,1,1.5-2.6l6.66-3.845a3,3,0,0,1,3,0l6.66,3.845a3,3,0,0,1,1.5,2.6v7.69a3,3,0,0,1-1.5,2.6l-6.66,3.845a3,3,0,0,1-1.5.4A3,3,0,0,1-2836.5-704.712Zm1-18.845-6.661,3.846a1,1,0,0,0-.5.866v7.69a1,1,0,0,0,.5.866l6.661,3.846a1,1,0,0,0,1,0l6.66-3.846a1,1,0,0,0,.5-.866v-7.69a1,1,0,0,0-.5-.866l-6.66-3.846a1,1,0,0,0-.5-.134A1,1,0,0,0-2835.5-723.557Zm-1.572,14.076-.488-1.464a2.364,2.364,0,0,0-1.5-1.5l-1.464-.489a.338.338,0,0,1,0-.641l1.464-.489a2.363,2.363,0,0,0,1.5-1.5l.488-1.464a.338.338,0,0,1,.642,0l.488,1.464a2.365,2.365,0,0,0,1.5,1.5l1.464.489a.337.337,0,0,1,0,.641l-1.464.489a2.365,2.365,0,0,0-1.5,1.5l-.488,1.464a.332.332,0,0,1-.321.231A.332.332,0,0,1-2837.071-709.481Zm4.871-5.664-.305-.915a1.482,1.482,0,0,0-.935-.935l-.915-.305a.211.211,0,0,1,0-.4l.915-.305a1.478,1.478,0,0,0,.935-.935l.305-.915a.211.211,0,0,1,.4,0l.3.915a1.477,1.477,0,0,0,.935.935l.915.305a.211.211,0,0,1,0,.4l-.915.305a1.481,1.481,0,0,0-.935.935l-.3.915a.207.207,0,0,1-.2.144A.207.207,0,0,1-2832.2-715.145Z" transform="translate(2844.66 725.691)"/>
                         </svg>
@@ -115,11 +115,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-header {
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-    background-color: rgba(var(--main-background-primary), .8);
-}
+// header {
+//     -webkit-backdrop-filter: saturate(180%) blur(20px);
+//     backdrop-filter: saturate(180%) blur(20px);
+//     background-color: rgba(var(--main-background-primary), .8);
+// }
 .top-bar-wrapper {
     max-width: 1080px;
     height: var(--header-height);

@@ -5,7 +5,8 @@ export default {
             { id: 'dark-theme', name: 'Dark', key: 'setTheme'},
             { id: 'light-theme', name: 'Light', key: 'setTheme'},
         ],
-        currentTheme: 'system-theme'
+        currentTheme: 'system-theme',
+        ad: true
     },
     mutations: {
         setTheme(state, theme) {
@@ -46,6 +47,9 @@ export default {
                     this.commit('applyClass', 'light-theme')
                 }
             }
+        },
+        dismissAd(state) {
+            state.ad = null
         }
        
     }

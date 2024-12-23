@@ -104,8 +104,8 @@ export default {
 }
 .text {
     background: linear-gradient(120deg,  #0085ff,#BA62FC,#F2416B, #F55600 );
-  -webkit-background-clip: text;
-  color: transparent;
+    -webkit-background-clip: text;
+    color: transparent;
 }
 .cursor {
     color: var(--main-font-color-primary);

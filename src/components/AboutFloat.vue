@@ -7,24 +7,12 @@
     <teleport to="body">
         <backdrop @click="handleDropdown('about_float', null)" v-if="dropdownToggle" :opacity="0" :zindex="101" />
         <div v-if="dropdownToggle" class="dropdown fixed">
-            <ul>
-                <a @click.prevent="" href="#" class="flex ai-c gap-10">
+            <ul @click="handleDropdown('about_float', null)">
+                <a v-for="(menu, index) in menus" :key="index" target="_blank" :href="menu.url" class="flex ai-c gap-10 fw-500">
                     <svg viewBox="0 0 14.5 14.5">
                         <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)"/>
                     </svg>
-                    About us
-                </a>
-                <a href="#" class="flex ai-c gap-10">
-                    <svg viewBox="0 0 14.5 14.5">
-                        <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)"/>
-                    </svg>
-                    Terms & Conditions
-                </a>
-                <a href="#" class="flex ai-c gap-10" @click.prevent="">
-                    <svg viewBox="0 0 14.5 14.5">
-                        <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)"/>
-                    </svg>
-                    Privacy policy
+                    {{ menu.name }}
                 </a>
             </ul>
         </div>
@@ -41,6 +29,12 @@ export default {
     data() {
         return {
             dropdownToggle: false,
+            menus: [
+                { name: 'About us', url: 'https://example.com' },
+                { name: 'Help & Support', url: 'https://example.com' },
+                { name: 'Terms & Conditions', url: 'https://example.com' },
+                { name: 'Privacy Policy', url: 'https://example.com' }
+            ]
         }
     }
 }
@@ -58,7 +52,7 @@ button {
     }
 }
 .dropdown {
-    width: 210px;
+    width: 215px;
     z-index: 102;
     background-color: var(--modal-main-background);
     bottom: 42px;

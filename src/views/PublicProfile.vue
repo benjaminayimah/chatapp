@@ -81,6 +81,7 @@ import ProfileAvatar from '@/components/ProfileAvatar.vue';
 import { mapGetters, mapState } from 'vuex';
 import formMixin from '@/mixins/formMixin';
 import userMixin from '@/mixins/userMixin';
+import titleMixin from '@/mixins/titleMixin';
 import EmptyState from '@/components/EmptyState.vue';
 import ProfilePageSkeleton from '@/loaders/ProfilePageSkeleton.vue';
 import ResponseSkeleton from '@/loaders/ResponseSkeleton.vue';
@@ -88,7 +89,7 @@ import ResponseSkeleton from '@/loaders/ResponseSkeleton.vue';
 export default {
     name: 'PublicProfile',
     components: { ProfileAgentTab, ProfileSavedTab, ProfileAvatar, EmptyState, ProfilePageSkeleton, ResponseSkeleton },
-    mixins: [formMixin, userMixin],
+    mixins: [formMixin, userMixin, titleMixin],
     computed: {
         ...mapGetters(['auth']),
         ...mapState({
@@ -135,7 +136,7 @@ export default {
             // currentPage: 2,
             // limit: 50,
             // total: 0,
-
+            pageTitle: `@${this.$route.params.username}`,
             agents: [],
             isLoading: false,
             activeSort: 'newest'
@@ -152,6 +153,7 @@ export default {
             try {
                 const res = await api.get('/user/profile/'+ user)
                 this.$store.commit('setUserProfile', res.data)
+                this.pageTitle = `${res.data.displayName} (@${res.data.username}) | artemis-ai`
             } catch (err) {
                 this.handleError(err)
             } finally {

@@ -52,13 +52,16 @@ import ImagePreviewModal from '@/modals/ImagePreviewModal.vue';
 import ResponseRow from '@/components/ResponseRow.vue';
 import ScrollBottomButtton from '@/components/ScrollBottomButtton.vue';
 import ChatAlertBox from '@/components/ChatAlertBox.vue';
+import titleMixin from '@/mixins/titleMixin';
 import { mapState } from 'vuex';
   
 export default {
     components: { ChatInput, ImagePreviewModal, ResponseRow, ScrollBottomButtton, ChatAlertBox },
     name: 'ChatView',
+    mixins: [titleMixin],
     data() {
         return {
+            pageTitle: 'artemis ai - Chat',
             chatHistory: [],
             images: [],
             error: null,

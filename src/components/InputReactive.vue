@@ -38,7 +38,7 @@
             </textarea>
         </div>
         <div v-if="inputErrors.length" class="validation-errors">
-            <li :id="`${id}_error_${index + 1}`" role="alert" v-for="(error, index) in inputErrors" :key="index" class="fs-09">
+            <li :id="`${id}_error_${index + 1}`" role="alert" v-for="(error, index) in inputErrors" :key="index" class="fs-08">
                 {{ error.msg }}
             </li>
         </div>
@@ -50,7 +50,7 @@
             <li v-html="validationResult" :id="`${id}_valsuccess`"></li>
         </div>
         <div v-if="maxLength" class="flex jc-fe"><span class="fs-08 sub-label">{{ charCount }}/{{ maxLength }}</span></div>
-        <label v-if="type === 'password'" for="show_password" class="fs-09 custom-checkbox mt-4 flex ai-c gap-4">
+        <label v-if="type === 'password'" for="show_password" class="fs-09 custom-checkbox mt-4 flex ai-c gap-8">
             <input v-model="showPass" @input="updateValue" id="show_password" type="checkbox">
             <span class="checkmark text-no-select"></span>
             <span class="text-no-select">{{ !showPass ? 'Show' : 'Hide' }} password</span>

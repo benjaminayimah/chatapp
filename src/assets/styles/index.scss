@@ -107,7 +107,9 @@ hr {
 .w-100 {
   width: 100%;
 }
-
+.fw-500{
+  font-weight: 500;
+}
 .fw-600{
   font-weight: 600;
 }
@@ -425,6 +427,11 @@ button:not(:disabled), .a-button, a {
 button.default, .a-button.default {
   height: 40px;
   padding: 0 16px
+}
+
+button.small, .a-button.small {
+  height: 30px;
+  padding: 0 12px
 }
 
 button:not(:disabled, .btn-inverted, [data-type=controls]), .a-button {
@@ -785,6 +792,9 @@ aside {
 .pr-8 {
   padding-right: 8px;
 }
+.pr-10 {
+  padding-right: 10px;
+}
 .pr-16 {
   padding-right: 16px;
 }
@@ -794,6 +804,9 @@ aside {
 
 .pl-8 {
   padding-left: 8px;
+}
+.pl-10 {
+  padding-left: 10px;
 }
 .pl-16 {
   padding-left: 16px;
@@ -1346,8 +1359,10 @@ table {
     ul {
         button, a {
             flex: 1;
-            justify-content: unset;
             padding: 0 10px;
+        }
+        button:not([type="button"]), a {
+          justify-content: unset;
         }
         .new-chat {
             width: 122px;
@@ -1448,8 +1463,10 @@ table {
 
     button, a {
         flex: 1;
-        justify-content: unset;
         padding: 0 10px;
+    }
+    button:not([type="button"]), a {
+      justify-content: unset;
     }
     #recent a {
         span {
