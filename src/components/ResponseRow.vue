@@ -119,7 +119,7 @@ export default {
             .then(() => {
                 if (!this.isCopying) {
                     this.isCopying = true
-                    this.$store.dispatch('showAlert', { type: 'success', autoDismiss: true, message: 'Copied to clipboard' })
+                    this.$store.dispatch('showAlert', { type: 'copied', autoDismiss: true, message: 'Copied to clipboard' })
                     setTimeout(() => {
                         this.isCopying = false
                     }, 4000);

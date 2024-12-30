@@ -1,7 +1,7 @@
 <template>
     <h4 class="settings-tab-title">Public profile</h4>
-    <div class="flex flex-column gap-16">
-        <div class="form-row pd-b-16">
+    <div class="flex flex-column gap-24">
+        <div class="form-row pd-b-8">
             <profile-avatar
                 :image="form.image"
                 :width="100"
@@ -30,7 +30,6 @@
             :checkUsername="checkUsername"
             :hasUnsavedChanges="hasUnsavedChanges"
         />
-
         <input-reactive
             v-model="form.displayName"
             :id="'displayName'"

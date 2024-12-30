@@ -1,6 +1,6 @@
 <template>
     <div class="form-row flex flex-column gap-4">
-        <div :id="`${id}_input_wrapper`" class="input-wrapper relative">
+        <div :id="`${id}_input_wrapper`" class="input-wrapper relative flex">
             <label :for="id" class="input-label">{{ label }}</label>
             <input v-if="!isTextarea"
                 v-model="inputValue"
@@ -36,6 +36,7 @@
                 :placeholder="isFocused ? placeholder : ''"
             >
             </textarea>
+            <span v-if="maxLength" class="fs-07 sub-label absolute input-count">{{ charCount }}/{{ maxLength }}</span>
         </div>
         <div v-if="inputErrors.length" class="validation-errors">
             <li :id="`${id}_error_${index + 1}`" role="alert" v-for="(error, index) in inputErrors" :key="index" class="fs-08">
@@ -49,11 +50,10 @@
         <div v-else-if="validationResult" class="validation-success">
             <li v-html="validationResult" :id="`${id}_valsuccess`"></li>
         </div>
-        <div v-if="maxLength" class="flex jc-fe"><span class="fs-08 sub-label">{{ charCount }}/{{ maxLength }}</span></div>
         <label v-if="type === 'password'" for="show_password" class="fs-09 custom-checkbox mt-4 flex ai-c gap-8">
-            <input v-model="showPass" @input="updateValue" id="show_password" type="checkbox">
+            <input v-model="showPass" @input="updateValue" aria-labelledby="showpass_label" id="show_password" type="checkbox">
             <span class="checkmark text-no-select"></span>
-            <span class="text-no-select">{{ !showPass ? 'Show' : 'Hide' }} password</span>
+            <span id="showpass_label" class="text-no-select">{{ !showPass ? 'Show' : 'Hide' }} password</span>
         </label>
     </div>
 </template>
@@ -211,8 +211,7 @@ textarea {
     padding: 22px 14px 12px 14px;
 }
 
-.has-error {
-
+.input-count {
+    inset: auto 8px 8px auto;
 }
-
 </style>

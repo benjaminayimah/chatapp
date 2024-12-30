@@ -1,8 +1,11 @@
 <template>
     <div v-if="computedAgents.length" class="flex-1">
         <div class="flex jc-sb mb-16">
-            <button @click="handleDropdown('agents_sort', 'agents_sort')" id="agents_sort" class="button-outline ai-c pl-10 pr-10 fw-600 fs-09 gap-8">
-                All agents
+            <button @click="handleDropdown('agents_sort', 'agents_sort')" id="agents_sort" class="button-outline ai-c pl-10 pr-10 fw-600 fs-09 gap-4">
+                <svg height="10" viewBox="0 0 23 18">
+                    <path d="M4.5,27h8V24h-8Zm0-18v3h23V9Zm0,10.5h15v-3H4.5Z" transform="translate(-4.5 -9)"/>
+                </svg>
+                <span>Sort by</span>
                 <svg height="6" viewBox="0 0 10 5.714">
                     <path d="M1.533,10a.714.714,0,0,1-.505-1.219L4.809,5,1.028,1.22A.714.714,0,0,1,2.038.21L6.324,4.5a.714.714,0,0,1,0,1.01L2.038,9.791A.712.712,0,0,1,1.533,10Z" transform="translate(10.001 -0.819) rotate(90)"/>
                 </svg>

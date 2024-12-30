@@ -223,6 +223,18 @@ input:-moz-autofill {
   background-color: #3df115 !important;
 }
 
+button.ad-close-btn {
+  background-color: transparent;
+  &:hover {
+    background-color: rgba(255, 255, 255, .15);
+    path {
+      fill: #fff;
+    }
+  }
+  &:active {
+    outline-color: rgba(255, 255, 255, .5);
+  }
+}
 
 
 .input-wrapper {
@@ -441,7 +453,7 @@ button:not(:disabled, .btn-inverted, [data-type=controls]), .a-button {
   }
 }
 button:not(:disabled, .preview-close, .button-danger), .a-button {
-  &:active {
+  &:where(:active) {
     outline-color: var(--button-press-outline);
   }
 }
@@ -483,6 +495,7 @@ button.button-outline {
   }
 }
 
+
 .button-primary:not(button:disabled) {
   background-color: var(--black);
   color: var(--main-background-primary);
@@ -499,6 +512,17 @@ button.button-outline {
 .button-primary:disabled {
   background-color: var(--black-hover);
   color: var(--main-background-primary);
+}
+
+.button-black {
+  background-color: #0f0f10;
+  color: #ffffff;
+  &:hover {
+    background-color: #2f3032;
+  }
+  &:active {
+    background-color: #0f0f10;
+  }
 }
 .dropdown {
   color: var(--main-font-color-primary);

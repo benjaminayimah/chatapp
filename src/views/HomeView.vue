@@ -4,6 +4,7 @@
       <home-section-banner :agents="agents" />
       <home-section-for-you :agents="agents" />
       <home-section-creators :creators="creators" />
+      <home-section-create />
     </div>
   </div>
   <footer-section />
@@ -16,10 +17,11 @@ import HomeSectionForYou from './fragments/HomeSectionForYou.vue';
 import HomeSectionCreators from './fragments/HomeSectionCreators.vue';
 import FooterSection from '@/components/FooterSection.vue';
 import HomeSectionBanner from './fragments/HomeSectionBanner.vue';
+import HomeSectionCreate from './fragments/HomeSectionCreate.vue';
 
 export default {
   name: 'HomeView',
-  components: { HomeSectionForYou, HomeSectionCreators, FooterSection, HomeSectionBanner},
+  components: { HomeSectionForYou, HomeSectionCreators, FooterSection, HomeSectionBanner, HomeSectionCreate},
   mixins: [titleMixin],
   computed: {
     ...mapState({

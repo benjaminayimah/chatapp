@@ -3,11 +3,9 @@
   <div class="main-page flex-1">
     <side-bar v-if="auth" />
     <main class="right-page bg-surface-1 overflow-y-scroll custom-scrollbar">
-      <!-- <div class="h-100 flex flex-column"> -->
         <top-bar :auth="auth" :user="user" />
         <ads-bar v-if="auth && ad" />
         <router-view/>
-      <!-- </div> -->
     </main>
   </div>
   <about-float />
@@ -98,7 +96,6 @@ export default {
       try {
           const res = await api.get('/user')
           this.$store.commit('setUser', res.data)
-          // console.log(res.data)
       } catch (err) {
           this.handleError(err)
       }

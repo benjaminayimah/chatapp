@@ -56,18 +56,6 @@
                         </ul>
                     </div>
                 </section>
-                <!-- <section v-if="recents && recents.length" id="recent" class="recent pd-b-8 relative">
-                    <div class="fs-09 fw-600 label">Agents</div>
-                    <div class="section-wrapper overflow-y-scroll custom-scrollbar">
-                        <ul>
-                            <recent-chat-list v-for="(recent, index) in recents" 
-                                :key="index"
-                                :recent="recent"
-                                :device="device"
-                            />
-                        </ul>
-                    </div>
-                </section> -->
             </div>
             <section>
                 <div class="section-wrapper">
