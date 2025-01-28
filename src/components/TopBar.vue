@@ -10,36 +10,38 @@
             <div v-if="!auth" class="flex gap-8">
                 <button-submit
                     :classes="'button-primary default fs-09 fw-600'"
-                    :content="'Sign up'"
+                    :label="'Sign up'"
                     :type="'button'"
                     @handle-button-click="signUp"
                 />
                 <button-submit
                     :classes="'button-outline default fs-09 fw-600'"
-                    :content="'Log in'"
+                    :label="'Log in'"
                     :type="'button'"
                     @handle-button-click="signIn"
                 />
             </div>
             <div v-else-if="auth && user" class="flex ai-c gap-4">
-                <span class="user-name">{{ user.displayName }}</span>
-                <button @click="handleDropdown('user_acc_dropdown')" id="user_acc_dropdown" class="gap-8 bg-transparent pd-0 jc-c ai-c">
-                    <profile-avatar
-                        :image="user.image"
-                        :width="40"
-                        :height="40"
-                        :color="user.color"
-                        :name="user.displayName || user.username"
-                        :fontSize="1"
-                        :upload="false"
-                    />
+                <button @click="handleDropdown('user_acc_dropdown')" class="gap-8 bg-transparent ai-c">
+                    <span class="user-name pl-10">{{ user.displayName }}</span>
+                    <span id="user_acc_dropdown">
+                        <profile-avatar
+                            :image="user.image"
+                            :width="40"
+                            :height="40"
+                            :color="user.color"
+                            :name="user.displayName || user.username"
+                            :fontSize="1"
+                            :upload="false"
+                        />
+                    </span>
                 </button>
             </div>
         </div>
     </header>
     <teleport to="body">
         <backdrop @click="handleDropdown('user_acc_dropdown')" v-if="dropdownToggle" :opacity="0" :zindex="101" />
-        <div v-if="dropdownToggle && user" class="dropdown fixed" :style="{ top: dropdown.top + 54 + 'px', left: dropdown.left - 178 + 'px'}">
+        <div v-if="dropdownToggle && user" class="dropdown fixed" :style="{ top: dropdown.top + 50 + 'px', left: dropdown.left - 178 + 'px'}">
             <ul>
                 <li @click="handleDropdown('user_acc_dropdown')">
                     <router-link :to="{ name: 'PublicProfile', params: { username: user.username } }" class="flex ai-c gap-10">
@@ -127,8 +129,7 @@ export default {
 }
 
 button.bg-transparent {
-    height: 46px;
-    width: 46px;
+    padding: 3px;
     &:hover {
         background-color: var(--main-background-2);
     }

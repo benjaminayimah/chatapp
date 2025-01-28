@@ -24,6 +24,14 @@
                             </a>
                         </li>
                         <li>
+                            <a @click.prevent="handleRoute('subscription')" href="#" class="w-100 gap-8 flex ai-c bg-transition" :class="{'active-nav' : $route.query.page === 'subscription' }">
+                                <svg viewBox="0 0 19.32 21.381">
+                                    <path d="M-2836.5-704.712l-6.66-3.845a3,3,0,0,1-1.5-2.6v-7.69a3,3,0,0,1,1.5-2.6l6.66-3.845a3,3,0,0,1,3,0l6.66,3.845a3,3,0,0,1,1.5,2.6v7.69a3,3,0,0,1-1.5,2.6l-6.66,3.845a3,3,0,0,1-1.5.4A3,3,0,0,1-2836.5-704.712Zm1-18.845-6.661,3.846a1,1,0,0,0-.5.866v7.69a1,1,0,0,0,.5.866l6.661,3.846a1,1,0,0,0,1,0l6.66-3.846a1,1,0,0,0,.5-.866v-7.69a1,1,0,0,0-.5-.866l-6.66-3.846a1,1,0,0,0-.5-.134A1,1,0,0,0-2835.5-723.557Zm-1.572,14.076-.488-1.464a2.364,2.364,0,0,0-1.5-1.5l-1.464-.489a.338.338,0,0,1,0-.641l1.464-.489a2.363,2.363,0,0,0,1.5-1.5l.488-1.464a.338.338,0,0,1,.642,0l.488,1.464a2.365,2.365,0,0,0,1.5,1.5l1.464.489a.337.337,0,0,1,0,.641l-1.464.489a2.365,2.365,0,0,0-1.5,1.5l-.488,1.464a.332.332,0,0,1-.321.231A.332.332,0,0,1-2837.071-709.481Zm4.871-5.664-.305-.915a1.482,1.482,0,0,0-.935-.935l-.915-.305a.211.211,0,0,1,0-.4l.915-.305a1.478,1.478,0,0,0,.935-.935l.305-.915a.211.211,0,0,1,.4,0l.3.915a1.477,1.477,0,0,0,.935.935l.915.305a.211.211,0,0,1,0,.4l-.915.305a1.481,1.481,0,0,0-.935.935l-.3.915a.207.207,0,0,1-.2.144A.207.207,0,0,1-2832.2-715.145Z" transform="translate(2844.66 725.691)"/>
+                                </svg>
+                                Subscription
+                            </a>
+                        </li>
+                        <li>
                             <a @click.prevent="handleRoute('preferences')" href="#" class="w-100 gap-8 flex ai-c bg-transition" :class="{'active-nav' : $route.query.page === 'preferences' }">
                                 <svg viewBox="0 0 15.5 15.5">
                                     <path d="M-1990,7.75A7.759,7.759,0,0,1-1982.25,0a7.759,7.759,0,0,1,7.75,7.75,7.759,7.759,0,0,1-7.75,7.75A7.759,7.759,0,0,1-1990,7.75Zm1.5,0A6.257,6.257,0,0,0-1982.25,14,6.257,6.257,0,0,0-1976,7.75a6.257,6.257,0,0,0-6.25-6.25A6.257,6.257,0,0,0-1988.5,7.75Zm6.249,4.75A4.756,4.756,0,0,1-1987,7.75,4.756,4.756,0,0,1-1982.25,3v9.5h0Z" transform="translate(1990)"/>
@@ -57,11 +65,12 @@ import SettingsPreferences from './SettingsPreferences.vue';
 import SettingsSecurity from './SettingsSecurity.vue';
 import SettingsProfile from './SettingsProfile.vue';
 import SettingsAccount from './SettingsAccount.vue';
+import SettingsSubscription from './SettingsSubscription.vue';
 import { mapState } from 'vuex';
 
 export default {
     name: 'SettingsModal',
-    components: { Modal, SettingsPreferences, SettingsSecurity, SettingsProfile, SettingsAccount },
+    components: { Modal, SettingsPreferences, SettingsSecurity, SettingsProfile, SettingsSubscription, SettingsAccount },
     props: {
         auth: Boolean
     },
@@ -83,6 +92,8 @@ export default {
                     return 'SettingsAccount';
                 case 'preferences':
                     return 'SettingsPreferences';
+                case 'subscription':
+                    return 'SettingsSubscription';
                 case 'security':
                     return 'SettingsSecurity';
                 default:

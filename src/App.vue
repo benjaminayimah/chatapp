@@ -15,6 +15,7 @@
   <transition name="modal-fade">
     <component v-if="isDeleteOpen && auth" :is="deleteContent"></component>
   </transition>
+  <change-password-modal v-if="changePassword" :changePassword="changePassword" />
   <div v-if="toolTip.body" class="tooltip-container fs-08 absolute bg-surface-inverse" :style="{ top: toolTip.top + toolTip.height + 5 + 'px', left: toolTip.left + 'px'}">{{ toolTip.body }}</div>
   <alert-bar />
 </template>
@@ -32,6 +33,7 @@ import AlertBar from './components/AlertBar.vue'
 import { mapGetters, mapState } from 'vuex';
 import AboutFloat from './components/AboutFloat.vue'
 import AdsBar from './components/AdsBar.vue'
+import ChangePasswordModal from './modals/ChangePasswordModal.vue'
 export default {
   components: { 
     TopBar,
@@ -43,7 +45,8 @@ export default {
     TokenExpiredModal,
     AboutFloat,
     AlertBar,
-    AdsBar
+    AdsBar,
+    ChangePasswordModal
   },
   name: 'AppView',
   mixins: [formMixin],
@@ -53,7 +56,8 @@ export default {
       deleteState: (state) => state.deleteModal,
       toolTip: (state) => state.dropdown.tooltip,
       user: (state) => state.auth.user,
-      ad: (state) => state.preferences.ad
+      ad: (state) => state.preferences.ad,
+      changePassword: (state) => state.changePasswordModal
     }),
     isDeleteOpen() {
       return !!this.deleteState;

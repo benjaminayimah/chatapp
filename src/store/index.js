@@ -18,6 +18,7 @@ export default createStore({
     creators: [],
     alert: null,
     deleteModal: null,
+    changePasswordModal: null,
     newChat: null
   },
   mutations: {
@@ -70,6 +71,12 @@ export default createStore({
     },
     closeDeleteModal(state) {
       state.deleteModal = null
+    },
+    setChangePasswordModal(state, payload) {
+      state.changePasswordModal = payload
+    },
+    closeChangePasswordModal(state) {
+      state.changePasswordModal = null
     },
     deleteChat(state, payload) {
       let recents = state.recents

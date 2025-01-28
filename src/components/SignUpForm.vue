@@ -25,12 +25,12 @@
             />
             <button-submit
                 :classes="'button-primary default fs-09 fw-600'"
-                :content="formType === 'signup' ? 'Sign up' : 'Sign in'"
+                :label="formType === 'signup' ? 'Sign up' : 'Sign in'"
                 :type="'submit'"
                 :processing="processing"
                 :disabled="processing"
             />
-            <button @click.prevent="" v-if="formType === 'signin'" class="transparent-button fw-600 fs-09 jc-c ai-c" data-type="modal">Forgot password?</button>
+            <button @click.prevent="" v-if="formType === 'signin'" class="transparent-button default fw-500 fs-09 jc-c ai-c" data-type="modal">Forgot password?</button>
         </div>
     </form>
 </template>
@@ -94,9 +94,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button {
-    height: 40px;
-}
 .error-msg-container {
   margin-bottom: 32px;
 }

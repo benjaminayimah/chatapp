@@ -10,7 +10,7 @@
                     <button-submit
                         @handle-button-click="closeModal"
                         :classes="'button-outline default fs-09 fw-600'"
-                        :content="'Cancel'"
+                        :label="'Cancel'"
                         :type="'button'"
                         :processing="processing"
                         :disabled="processing"
@@ -18,7 +18,7 @@
                     <button-submit
                         @handle-button-click="doDelete"
                         :classes="'button-danger default fs-09 fw-600'"
-                        :content="'Delete'"
+                        :label="'Delete'"
                         :type="'submit'"
                         :processing="processing"
                         :disabled="processing"
@@ -39,15 +39,6 @@ export default {
     components: { ButtonSubmit },
     name: 'DeleteModal',
     mixins: [formMixin],
-    props: {
-        zindex: Number,
-        opacity: Number,
-        width: Number,
-        title: {
-            type: String,
-            default: 'Delete'
-        } 
-    },
     computed: {
         ...mapState({
             deleteItem: (state) => state.deleteModal
@@ -121,7 +112,7 @@ export default {
     },
     beforeUnmount() {
         document.removeEventListener('keydown', this.handleEsc);
-    },
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -141,7 +132,6 @@ export default {
     justify-content: space-between;
     align-items: center;
 }
-
 
 .desktop, .tablet {
   .transparent-button {

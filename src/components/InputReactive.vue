@@ -39,7 +39,7 @@
             <span v-if="maxLength" class="fs-07 sub-label absolute input-count">{{ charCount }}/{{ maxLength }}</span>
         </div>
         <div v-if="inputErrors.length" class="validation-errors">
-            <li :id="`${id}_error_${index + 1}`" role="alert" v-for="(error, index) in inputErrors" :key="index" class="fs-08">
+            <li :id="`${id}_error_${index + 1}`" role="alert" v-for="(error, index) in inputErrors" :key="index" class="fs-09">
                 {{ error.msg }}
             </li>
         </div>
@@ -212,6 +212,6 @@ textarea {
 }
 
 .input-count {
-    inset: auto 8px 8px auto;
+    inset: 8px 8px auto auto;
 }
 </style>

@@ -481,9 +481,10 @@ button:disabled {
   }
 }
 
-button.button-outline {
+button:where(.button-outline) {
   background-color: inherit;
-  border: 1px solid var(--main-background-3);
+  border: 1px solid;
+  border-color: var(--main-background-3);
   transition: var(--transition-time) border;
   color: var(--main-font-color-primary);
 

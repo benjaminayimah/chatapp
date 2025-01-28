@@ -20,9 +20,11 @@
             </div>
             <button-submit
                 :classes="'button-primary default fs-09 fw-600 w-100'"
-                :content="'Follow'"
+                :label="label"
                 :type="'button'"
-                @handle-button-click="follow"
+                :prevent="true"
+                :processing="processing"
+                @handle-button-click="handleFollow"
             />
         </div>
     </router-link>
@@ -32,16 +34,26 @@
 import ButtonSubmit from './ButtonSubmit.vue'
 import ProfileAvatar from './ProfileAvatar.vue'
 import userMixin from '@/mixins/userMixin';
+import formMixin from '@/mixins/formMixin';
 export default {
     components: { ProfileAvatar, ButtonSubmit },
-    mixins: [userMixin],
+    mixins: [userMixin, formMixin],
     props: {
         creator: Object,
         default: null
     },
+    data() {
+        return {
+            label: 'Follow'
+        }
+    },
     methods: {
-        follow() {
-            console.log('follow')
+        handleFollow() {
+            this.startProcessing()
+            setTimeout(() => {
+                this.stopProcessing()
+                this.label = this.label === 'Follow' ? 'Following' : 'Follow';
+            }, 1000);
         }
     }
 }

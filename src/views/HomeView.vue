@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      pageTitle: 'artemis ai - Home',
+      pageTitle: 'artemis ai - Explore',
     }
   }
 }

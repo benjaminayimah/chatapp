@@ -10,7 +10,7 @@
                 </div>
                 <button-submit
                     :classes="'button-black small fs-08 fw-600'"
-                    :content="'Upgrade'"
+                    :label="'Upgrade'"
                     :type="'button'"
                 />
             </div>

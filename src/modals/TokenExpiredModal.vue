@@ -14,7 +14,7 @@
                         <button-submit
                             @handle-button-click="reLogin"
                             :classes="'button-primary default fs-09 fw-600'"
-                            :content="'Log in'"
+                            :label="'Log in'"
                             :type="'button'"
                         />
                     </div>

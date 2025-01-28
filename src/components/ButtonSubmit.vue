@@ -1,11 +1,11 @@
 <template>
     <button
-        @click="$emit('handle-button-click')"
+        @click="emitClick"
         :type="type"
         :disabled="disabled"
         :class="`${classes} ai-c jc-c gap-4`">
             <spinner v-if="processing" :size="18" />
-            {{ content }}
+            {{ label }}
         </button>
 </template>
 
@@ -18,7 +18,7 @@ export default {
             type: String,
             default: ''
         },
-        content: String,
+        label: String,
         type: {
             type: String,
             default: 'button'
@@ -30,6 +30,16 @@ export default {
         processing: {
             type: Boolean,
             default: false
+        },
+        prevent: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        emitClick(event) {
+            this.prevent ? event.preventDefault() : ''
+            this.$emit('handle-button-click', event)
         }
     }
 }

@@ -4,7 +4,7 @@
       <div class="error-snack-container bg-surface-inverse-2">
         <div class="flex ai-c gap-10" role="alert">
           <span v-html="statusIcon(this.alert.type, 21)" class="flex"></span>
-          <div class="flex-1 text-left">{{ alert.message }}</div>
+          <div class="flex-1 text-left fw-500">{{ alert.message }}</div>
           <button @mousedown="$store.commit('dismissAlert')" class="bg-transparent btn-inverted jc-c ai-c flex-shrink-0" data-type="modal">
               <svg height="12" viewBox="0 0 13.587 13.587">
                   <path id="close_alert" d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)"/>

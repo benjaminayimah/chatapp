@@ -57,12 +57,12 @@
             <button-submit
                 @handle-button-click="doRevertChanges"
                 :classes="'button-outline default fs-09 fw-600'"
-                :content="'Revert'"
+                :label="'Revert'"
             />
             <button-submit
                 @handle-button-click="saveChanges"
                 :classes="'button-primary default fs-09 fw-600'"
-                :content="'Save changes'"
+                :label="'Save changes'"
                 :type="'submit'"
                 :processing="processing"
                 :disabled="processing"
